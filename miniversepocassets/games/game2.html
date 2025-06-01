@@ -188,6 +188,7 @@
             target.textContent = Math.floor(size / 10);
             
             target.addEventListener('click', () => hitTarget(target, Math.floor(size / 10)));
+            target.addEventListener('touchstart', () => hitTarget(target, Math.floor(size / 10)));
             
             gameArea.appendChild(target);
             
