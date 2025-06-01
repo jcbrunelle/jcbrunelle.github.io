@@ -1,11 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliquez sur la page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<body style="margin:0;overflow:hidden;">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .instruction {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .message {
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .message.show {
+            transform: scale(1);
+            animation: bounce 0.6s ease;
+        }
+
+        .click-count {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            40% {
+                transform: translateY(-10px) scale(1.05);
+            }
+            60% {
+                transform: translateY(-5px) scale(1.02);
+            }
+        }
+
+        /* Responsive pour mobile */
+        @media (max-width: 768px) {
+            .instruction {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+
+            .message {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+
+            body {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .instruction {
+                font-size: 1rem;
+            }
+
+            .message {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+        }
+
+        /* Effet au survol sur desktop */
+        @media (hover: hover) {
+            body:hover {
+                background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instruction">
+            Cliquez n'importe où sur la page !
+        </div>
+        
+        <div id="message" class="message">
+            🎉 Bravo ! Vous avez cliqué !
+        </div>
+        
+        <div id="clickCount" class="click-count">
+            Nombre de clics : <span id="count">0</span>
+        </div>
+    </div>
+
     <script>
-        document.body.style.background = "limegreen";
-        document.body.onclick = () => alert('Game 3 clicked!');
+        let clickCount = 0;
+        const message = document.getElementById('message');
+        const countElement = document.getElementById('count');
+        
+        const messages = [
+            "🎉 Bravo ! Vous avez cliqué !",
+            "✨ Encore un clic !",
+            "🚀 Continuez comme ça !",
+            "🌟 Fantastique !",
+            "🎊 Vous êtes doué(e) !",
+            "💫 Incroyable !",
+            "🎈 Super travail !",
+            "🌈 Magnifique !"
+        ];
+        
+        document.body.addEventListener('click', function() {
+            clickCount++;
+            countElement.textContent = clickCount;
+            
+            // Changer le message de façon aléatoire
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            message.textContent = randomMessage;
+            
+            // Retirer puis ajouter la classe pour relancer l'animation
+            message.classList.remove('show');
+            
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 50);
+        });
     </script>
 </body>
-
 </html>
