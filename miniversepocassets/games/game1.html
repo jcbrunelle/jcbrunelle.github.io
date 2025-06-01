@@ -1,10 +1,24 @@
+
 <!DOCTYPE html>
 <html>
 
 <body style="margin:0;overflow:hidden;">
     <script>
         document.body.style.background = "tomato";
-        document.body.onclick = () => alert('Game 1 clicked!');
+        
+        // Fonction pour gérer l'interaction
+        function handleInteraction() {
+            alert('Game 1 clicked!');
+        }
+        
+        // Événements pour desktop et mobile
+        document.body.addEventListener('click', handleInteraction);
+        document.body.addEventListener('touchstart', handleInteraction);
+        
+        // Empêcher le zoom sur double-tap (optionnel)
+        document.body.addEventListener('touchend', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 
