@@ -178,6 +178,7 @@
             display: flex;
             gap: 10px;
             margin-left: 15px;
+            flex-shrink: 0;
         }
 
         .action-btn {
@@ -189,6 +190,7 @@
             transition: all 0.2s;
             font-size: 0.85rem;
             color: var(--text-color);
+            white-space: nowrap;
         }
 
         .action-btn:hover {
@@ -254,6 +256,10 @@
         .modal-title {
             font-weight: 600;
             font-size: 1.2rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 80%;
         }
 
         .close-modal {
@@ -366,6 +372,7 @@
                 margin-left: 39px;
                 margin-top: 5px;
                 flex-direction: row;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -581,11 +588,19 @@
                 files: []
             };
 
+            // Vérification des doublons
+            const seen = new Set();
+            
             contents.forEach(item => {
+                // Ignorer les entrées en double
+                if (seen.has(item.name)) return;
+                seen.add(item.name);
+                
                 if (item.type === 'dir') {
                     fileTree[path].directories.push({
                         name: item.name,
-                        path: item.path
+                        path: item.path,
+                        isDirectory: true
                     });
                 } else {
                     // Filtre les fichiers pour ne montrer que certains types
@@ -599,7 +614,8 @@
                             url: item.download_url,
                             html_url: `${SITE_URL}/${item.path}`,
                             size: item.size,
-                            type: ext
+                            type: ext,
+                            isDirectory: false
                         });
                     }
                 }
@@ -641,7 +657,7 @@
             }
             
             // Dossiers
-            items.filter(item => item.hasOwnProperty('path')).forEach(dir => {
+            items.filter(item => item.isDirectory).forEach(dir => {
                 const itemEl = document.createElement('li');
                 itemEl.className = 'item';
                 itemEl.innerHTML = `
@@ -653,14 +669,14 @@
             });
             
             // Fichiers
-            items.filter(item => item.hasOwnProperty('url')).forEach(file => {
+            items.filter(item => !item.isDirectory).forEach(file => {
                 const itemEl = document.createElement('li');
                 itemEl.className = 'item';
                 itemEl.innerHTML = `
                     <div class="icon file-icon">📄</div>
                     <div class="item-name">${file.name}</div>
                     <div class="file-actions">
-                        <button class="action-btn preview-btn" data-path="${file.path}" data-url="${file.url}" data-type="${file.type}">Voir le code</button>
+                        <button class="action-btn preview-btn" data-path="${file.path}">Voir le code</button>
                         <button class="action-btn open-btn" data-url="${file.html_url}">Ouvrir</button>
                     </div>
                 `;
@@ -677,6 +693,13 @@
                 openBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     window.open(file.html_url, '_blank');
+                });
+                
+                // Ouvrir le fichier en cliquant sur la ligne (sauf sur les boutons)
+                itemEl.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('action-btn')) {
+                        window.open(file.html_url, '_blank');
+                    }
                 });
                 
                 itemList.appendChild(itemEl);
