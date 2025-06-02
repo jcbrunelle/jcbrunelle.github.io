@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jeu de Guerre des Âges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Styles de base pour le corps de la page */
+        body {
+            margin: 0;
+            overflow: hidden; /* Empêche le défilement */
+            display: flex;
+            flex-direction: column; /* Utilise column pour empiler le canevas et les menus */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Hauteur minimale pour centrer le contenu */
+            background-color: #1a202c; /* Couleur de fond sombre */
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0; /* Couleur de texte claire */
+        }
+
+        /* Styles pour le canevas */
+        canvas {
+            display: block; /* Supprime l'espace sous le canevas */
+            background-color: #2d3748; /* Couleur de fond du canevas pour le champ de bataille */
+            border-radius: 12px; /* Coins arrondis pour le canevas */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Ombre portée pour le canevas */
+            flex-grow: 1; /* Permet au canevas de prendre l'espace disponible */
+            width: 100%; /* S'assure que le canevas prend toute la largeur */
+        }
+
+        /* Styles pour le menu de démarrage */
+        #start-menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            z-index: 10; /* Assure que le menu est au-dessus du canevas */
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #start-menu h1 {
+            font-size: 3rem; /* Grande taille de titre */
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #cbd5e0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #start-menu button {
+            background-color: #4CAF50; /* Couleur verte pour le bouton */
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px; /* Coins arrondis pour le bouton */
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #start-menu button:hover {
+            background-color: #45a049; /* Assombrir au survol */
+            transform: translateY(-2px); /* Léger soulèvement au survol */
+        }
+
+        #start-menu button:active {
+            background-color: #367c39; /* Couleur plus foncée au clic */
+            transform: translateY(0); /* Retour à la position normale au clic */
+        }
+
+        /* Styles pour le menu d'unités et de tours */
+        #game-controls {
+            display: none; /* Caché par défaut, affiché quand le jeu commence */
+            width: 100%;
+            padding: 10px;
+            background-color: #2d3748; /* Couleur de fond sombre */
+            border-top: 2px solid #4a5568; /* Petite bordure supérieure */
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0; /* Empêche le menu de rétrécir */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* Empile les sections du menu */
+            gap: 10px; /* Espace entre les sections */
+        }
+
+        .menu-section {
+            display: flex;
+            justify-content: center; /* Centre les éléments dans la section */
+            align-items: center;
+            flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+            gap: 10px; /* Espace entre les boutons */
+        }
+
+        .menu-section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #cbd5e0;
+            width: 100%; /* Prend toute la largeur */
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .control-button {
+            background-color: #4299e1; /* Bleu pour les boutons de contrôle */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px; /* Largeur minimale pour les boutons */
+        }
+
+        .control-button:hover:not(:disabled) {
+            background-color: #3182ce; /* Assombrir au survol */
+            transform: translateY(-2px);
+        }
+
+        .control-button:active:not(:disabled) {
+            background-color: #2b6cb0; /* Couleur plus foncée au clic */
+            transform: translateY(0);
+        }
+
+        .control-button:disabled {
+            background-color: #718096; /* Gris pour les boutons désactivés */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .control-button .cost {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: #cbd5e0;
+        }
+
+        /* Styles spécifiques pour le bouton de pouvoir spécial */
+        #specialPowerButton {
+            background-color: #ed8936; /* Orange pour le pouvoir spécial */
+        }
+        #specialPowerButton:hover:not(:disabled) {
+            background-color: #dd6b20;
+        }
+        #specialPowerButton:active:not(:disabled) {
+            background-color: #c05621;
+        }
+        #specialPowerButton .cooldown-text {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: #e2e8f0;
+        }
+
+
+        /* Styles pour les messages d'alerte/info */
+        #message-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            display: none; /* Caché par défaut */
+            z-index: 100;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Styles pour l'écran de fin de partie */
+        #game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Caché par défaut */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.9); /* Fond très sombre */
+            z-index: 200; /* Au-dessus de tout */
+            text-align: center;
+        }
+
+        #game-over-screen h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        #game-over-screen button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #game-over-screen button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        #game-over-screen button:active {
+            background-color: #367c39;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="start-menu">
+        <h1>Guerre des Âges</h1>
+        <p>Une épopée à travers le temps</p>
+        <button id="startButton">Commencer la partie</button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="game-controls">
+        <div id="unit-buttons-container" class="menu-section">
+            <div class="menu-section-title">Unités</div>
+            </div>
+        <div id="tower-buttons-container" class="menu-section">
+            <div class="menu-section-title">Tours</div>
+            </div>
+        <div id="special-power-container" class="menu-section">
+            <div class="menu-section-title">Pouvoirs</div>
+            <button class="control-button" id="specialPowerButton">
+                Bombardement <span class="cooldown-text" id="specialPowerCooldownText">Prêt</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="message-box"></div>
+
+    <div id="game-over-screen">
+        <h2 id="gameStatusText"></h2>
+        <button id="restartButton">Rejouer</button>
+    </div>
+
+    <script type="module">
+        // Variables globales pour le canevas et le contexte de dessin
+        let canvas;
+        let ctx;
+        let gameStarted = false; // Indique si le jeu est en cours
+        let animationFrameId; // Pour stocker l'ID de la frame d'animation
+        let lastFrameTime = 0; // Temps de la dernière frame pour le calcul du deltaTime
+
+        // Variables pour les dimensions du champ de bataille (calculées dans resizeCanvas)
+        let laneHeight, laneY, baseWidth, groundZoneHeight, airZoneHeight, rampartWidth, rampartHeight;
+
+        // Références aux éléments de l'interface utilisateur
+        let gameOverScreen;
+        let gameStatusText;
+        let restartButton;
+        let gameControlsDiv; // Référence au div des contrôles du jeu
+        let unitButtonsContainer; // Conteneur pour les boutons d'unités
+        let towerButtonsContainer; // Conteneur pour les boutons de tours
+        let specialPowerButton; // Bouton du pouvoir spécial
+        let specialPowerCooldownText; // Texte du cooldown du pouvoir spécial
+
+        // Propriétés du jeu
+        const MAX_RAMPART_HEALTH = 1000; // PV maximum des remparts
+        let gameData = {
+            credits: 100, // Commence à 100 crédits
+            time: 0, // Temps écoulé en secondes
+            playerRampartHealth: MAX_RAMPART_HEALTH,
+            aiRampartHealth: MAX_RAMPART_HEALTH,
+            era: 1 // Commence à l'ère 1
+        };
+
+        const MAX_GAME_TIME = 300; // 5 minutes en secondes
+        const ERA_DURATION = 45; // Durée de chaque ère en secondes
+        const MAX_ERA = 5; // Nombre maximum d'ères
+
+        const PLAYER_SPAWN_X_OFFSET = 50; // Position de départ des unités du joueur
+        const AI_SPAWN_X_OFFSET = 50; // Position de départ des unités de l'IA (depuis la droite)
+        const UNIT_SPAWN_Y_OFFSET = 20; // Offset vertical pour le spawn des unités (pour qu'elles soient sur le sol)
+        const UNIT_SPAWN_COOLDOWN = 0.5; // Temps en secondes entre deux spawns d'unités du joueur
+        let lastPlayerUnitSpawnTime = 0; // Temps du dernier spawn d'unité du joueur
+
+        const AI_SPAWN_INTERVAL = 5; // L'IA génère une unité toutes les 5 secondes (intervalle de base)
+        let lastAISpawnTime = 0; // Temps du dernier spawn d'unité de l'IA
+
+        const ATTACK_INTERVAL = 1; // Intervalle d'attaque pour toutes les unités (1 attaque/sec)
+
+        // Tableaux pour stocker les unités et les tours
+        let playerUnits = [];
+        let aiUnits = [];
+        let playerTowers = []; // Nouveau tableau pour les tours du joueur
+        let activeCapsules = []; // Nouveau tableau pour les capsules actives
+
+        // Emplacements des tours (coordonnées dynamiques dans resizeCanvas)
+        let playerTowerSlots = [
+            { x: 0, y: 0, occupied: false, tower: null, id: 'slot1' },
+            { x: 0, y: 0, occupied: false, tower: null, id: 'slot2' }
+        ];
+
+        // File d'attente de production du joueur
+        let productionQueue = [];
+        const MAX_PRODUCTION_QUEUE = 5; // Taille maximale de la file d'attente
+
+        // Variables pour la transition visuelle d'ère
+        let eraTransitionActive = false;
+        let eraTransitionAlpha = 0;
+        const ERA_TRANSITION_DURATION_VISUAL = 1.5; // Durée de l'animation de transition en secondes
+        const ERA_TRANSITION_COLOR = 'rgba(255, 255, 255, 0.8)'; // Couleur du flash (blanc semi-transparent)
+
+        // Variables pour la stratégie de l'IA
+        const AI_RAMPART_DEFENSIVE_THRESHOLD = 0.7; // Seuil de PV du rempart pour la stratégie défensive (70%)
+        const AI_MASSIVE_WAVE_UNIT_COUNT_THRESHOLD = 7; // Nombre d'unités IA sur le terrain pour déclencher une vague massive
+        const AI_MASSIVE_WAVE_COOLDOWN = 20; // Temps en secondes entre deux vagues massives
+        const AI_MASSIVE_WAVE_SIZE = 5; // Nombre d'unités spawnées lors d'une vague massive
+        let aiLastMassiveWaveTime = 0; // Temps de la dernière vague massive de l'IA
+
+        const PLAYER_GROUND_UNIT_COUNTER_THRESHOLD = 3; // Nombre d'unités sol du joueur pour déclencher le contre aérien de l'IA
+
+        // Pouvoir spécial
+        let specialPower = {
+            name: 'Bombardement',
+            damage: 100,
+            radius: 150, // Rayon de l'explosion
+            cooldown: 20, // secondes
+            lastUseTime: -Infinity, // Initialiser pour permettre une utilisation immédiate
+            extraMissiles: 0 // Nouveau: nombre de missiles supplémentaires
+        };
+
+        // Capsules bonus
+        const CAPSULE_SPAWN_INTERVAL = 20; // Apparition d'une capsule toutes les 20 secondes
+        let lastCapsuleSpawnTime = 0;
+        const CAPSULE_WIDTH = 30;
+        const CAPSULE_HEIGHT = 30;
+        const CAPSULE_CREDITS_BONUS = 50;
+        const CAPSULE_SPEED_BOOST_PERCENTAGE = 0.25; // +25% de vitesse
+        const CAPSULE_EFFECT_DURATION = 10; // Durée de l'effet de vitesse en secondes
+
+
+        /**
+         * @constant eraColors
+         * @description Définit les couleurs de fond et de bases pour chaque ère.
+         */
+        const eraColors = {
+            1: { background: '#4a5568', lane: '#2d3748', playerBase: '#63b3ed', aiBase: '#fc8181', rampartPlayer: '#2c5282', rampartAI: '#9b2c2c' }, // Néolithique
+            2: { background: '#5a6270', lane: '#3d4758', playerBase: '#4CAF50', aiBase: '#e53e3e', rampartPlayer: '#38a169', rampartAI: '#c53030' }, // Antiquité
+            3: { background: '#6a6e7c', lane: '#4d5768', playerBase: '#00bfff', aiBase: '#ff4500', rampartPlayer: '#008080', rampartAI: '#b8860b' }, // Moyen Âge
+            4: { background: '#7a7b8a', lane: '#5d6778', playerBase: '#8a2be2', aiBase: '#8b0000', rampartPlayer: '#6a0dad', rampartAI: '#a52a2a' }, // Révolution Industrielle
+            5: { background: '#8a8b98', lane: '#6d7788', playerBase: '#ff1493', aiBase: '#000000', rampartPlayer: '#c71585', rampartAI: '#4a4a4a' } // Futuriste
+        };
+
+
+        /**
+         * @constant unitDefinitions
+         * @description Définit les propriétés des unités pour chaque ère.
+         * Chaque ère contient des unités pour le joueur et pour l'IA.
+         * Ajout du 'movementType' (sol/air) pour chaque unité.
+         */
+        const unitDefinitions = {
+            1: { // Ère 1 : Néolithique
+                player: [
+                    { name: 'Lanceur de pierre', type: 'era1_unit1', cost: 20, width: 30, height: 30, speed: 100, health: 100, damage: 10, color: '#f6e05e', movementType: 'sol' }, // Jaune
+                    { name: 'Guerrier hache', type: 'era1_unit2', cost: 40, width: 40, height: 40, speed: 80, health: 150, damage: 20, color: '#ecc94b', movementType: 'sol' },  // Orange
+                    { name: 'Chaman', type: 'era1_unit3', cost: 60, width: 35, height: 35, speed: 150, health: 80, damage: 15, color: '#d69e2e', movementType: 'sol' } // Marron
+                ],
+                ai: [
+                    { name: 'Barbare', type: 'ai_era1_unit1', width: 30, height: 30, speed: -100, health: 100, damage: 10, color: '#ff0000', movementType: 'sol' }, // Rouge
+                    { name: 'Chasseur', type: 'ai_era1_unit2', width: 25, height: 25, speed: -120, health: 80, damage: 8, color: '#cc0000', movementType: 'sol' } // Rouge plus foncé
+                ]
+            },
+            2: { // Ère 2 : Antiquité
+                player: [
+                    { name: 'Légionnaire', type: 'era2_unit1', cost: 30, width: 35, height: 35, speed: 110, health: 120, damage: 15, color: '#90ee90', movementType: 'sol' }, // Vert clair
+                    { name: 'Archer romain', type: 'era2_unit2', cost: 50, width: 45, height: 45, speed: 90, health: 180, damage: 25, color: '#3cb371', movementType: 'sol' }  // Vert moyen
+                ],
+                ai: [
+                    { name: 'Horde Goth', type: 'ai_era2_unit1', width: 35, height: 35, speed: -110, health: 120, damage: 15, color: '#dc143c', movementType: 'sol' }, // Cramoisi
+                    { name: 'Catapulte', type: 'ai_era2_unit2', width: 50, height: 50, speed: -70, health: 200, damage: 30, color: '#8b0000', movementType: 'sol' } // Rouge foncé
+                ]
+            },
+            3: { // Ère 3 : Moyen Âge
+                player: [
+                    { name: 'Chevalier', type: 'era3_unit1', cost: 40, width: 40, height: 40, speed: 120, health: 140, damage: 20, color: '#add8e6', movementType: 'sol' }, // Bleu clair
+                    { name: 'Arbalétrier', type: 'era3_unit2', cost: 70, width: 50, height: 50, speed: 100, health: 200, damage: 30, color: '#4682b4', movementType: 'sol' }  // Bleu acier
+                ],
+                ai: [
+                    { name: 'Orque', type: 'ai_era3_unit1', width: 40, height: 40, speed: -120, health: 140, damage: 20, color: '#8b0000', movementType: 'sol' }, // Rouge foncé
+                    { name: 'Griffon', type: 'ai_era3_unit2', width: 50, height: 50, speed: -150, health: 100, damage: 25, color: '#8a2be2', movementType: 'air' } // Bleu violet, unité aérienne
+                ]
+            },
+            4: { // Ère 4 : Révolution Industrielle
+                player: [
+                    { name: 'Fusilier', type: 'era4_unit1', cost: 50, width: 45, height: 45, speed: 130, health: 160, damage: 25, color: '#dda0dd', movementType: 'sol' }, // Prune
+                    { name: 'Tank à vapeur', type: 'era4_unit2', cost: 80, width: 55, height: 55, speed: 110, health: 220, damage: 35, color: '#800080', movementType: 'sol' }  // Violet
+                ],
+                ai: [
+                    { name: 'Mech à charbon', type: 'ai_era4_unit1', width: 45, height: 45, speed: -130, health: 160, damage: 25, color: '#b22222', movementType: 'sol' }, // Brique
+                    { name: 'Dirigeable', type: 'ai_era4_unit2', width: 70, height: 70, speed: -80, health: 280, damage: 45, color: '#a9a9a9', movementType: 'air' } // Gris foncé, unité aérienne
+                ]
+            },
+            5: { // Ère 5 : Futuriste
+                player: [
+                    { name: 'Soldat laser', type: 'era5_unit1', cost: 60, width: 50, height: 50, speed: 140, health: 180, damage: 30, color: '#ffb6c1', movementType: 'sol' }, // Rose clair
+                    { name: 'Robot de combat', type: 'era5_unit2', cost: 90, width: 60, height: 60, speed: 120, health: 250, damage: 40, color: '#ff69b4', movementType: 'sol' }  // Rose vif
+                ],
+                ai: [
+                    { name: 'Drone de guerre', type: 'ai_era5_unit1', width: 50, height: 50, speed: -140, health: 180, damage: 30, color: '#8b0000', movementType: 'sol' }, // Rouge foncé
+                    { name: 'Goliath', type: 'ai_era5_unit2', width: 80, height: 80, speed: -100, health: 350, damage: 50, color: '#000000', movementType: 'air' } // Noir, unité aérienne
+                ]
+            }
+        };
+
+        /**
+         * @constant towerDefinitions
+         * @description Définit les propriétés des tours.
+         */
+        const towerDefinitions = {
+            2: { // Tours disponibles à partir de l'Ère 2
+                'basic_tower': {
+                    name: 'Tour de base',
+                    cost: 150,
+                    width: 40,
+                    height: 60,
+                    health: 300,
+                    damage: 20, // Dégâts par attaque
+                    range: 200, // Portée en pixels
+                    attackInterval: 1.5, // Attaque toutes les 1.5 secondes
+                    type: 'sol', // Attaque les unités au sol
+                    color: '#808080' // Gris
+                },
+                'anti_air_tower': {
+                    name: 'Tour anti-aérienne',
+                    cost: 200,
+                    width: 40,
+                    height: 60,
+                    health: 250,
+                    damage: 30,
+                    range: 250,
+                    attackInterval: 1.0,
+                    type: 'air', // Attaque les unités aériennes
+                    color: '#6a5acd' // Bleu ardoise
+                }
+            }
+        };
+
+
+        /**
+         * @class Unit
+         * @description Représente une unité dans le jeu.
+         * @param {number} x - Position X initiale.
+         * @param {number} y - Position Y initiale.
+         * @param {number} width - Largeur de l'unité.
+         * @param {number} height - Hauteur de l'unité.
+         * @param {number} speed - Vitesse de déplacement de l'unité.
+         * @param {number} health - Points de vie de l'unité.
+         * @param {number} damage - Dégâts de l'unité.
+         * @param {string} type - Type de l'unité (ex: 'unite1', 'aiUnit1').
+         * @param {string} color - Couleur de l'unité pour le dessin.
+         * @param {boolean} isPlayerUnit - Vrai si c'est une unité du joueur, faux si c'est une unité de l'IA.
+         * @param {string} movementType - Type de mouvement de l'unité ('sol' ou 'air').
+         */
+        class Unit {
+            constructor(x, y, width, height, speed, health, damage, type, color, isPlayerUnit, movementType) {
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                this.initialSpeed = speed; // Vitesse initiale pour restaurer après un arrêt
+                this.speed = speed; // Vitesse actuelle
+                this.health = health;
+                this.maxHealth = health; // Pour la barre de vie
+                this.damage = damage;
+                this.type = type;
+                this.color = color;
+                this.isPlayerUnit = isPlayerUnit;
+                this.movementType = movementType; // 'sol' ou 'air'
+                this.lastAttackTime = 0; // Temps de la dernière attaque
+                this.attackInterval = ATTACK_INTERVAL; // Intervalle entre les attaques
+                this.speedBoostEndTime = 0; // Temps auquel le boost de vitesse se termine
+            }
+
+            /**
+             * @method update
+             * @description Met à jour la position de l'unité.
+             * @param {number} deltaTime - Temps écoulé depuis la dernière mise à jour.
+             */
+            update(deltaTime) {
+                this.x += this.speed * deltaTime;
+            }
+
+            /**
+             * @method draw
+             * @description Dessine l'unité sur le canevas, y compris sa barre de vie, avec des formes stylisées et animations.
+             * @param {CanvasRenderingContext2D} ctx - Contexte de dessin du canevas.
+             * @param {number} currentTime - Le temps actuel du jeu pour les animations.
+             */
+            draw(ctx, currentTime) {
+                ctx.save(); // Sauvegarde l'état actuel du contexte
+
+                // Animation de flottement/bobbing pour les unités aériennes
+                if (this.movementType === 'air') {
+                    const floatOffset = Math.sin(currentTime * 8 + this.x / 50) * 3; // Flottement vertical
+                    ctx.translate(0, floatOffset);
+                }
+
+                // Dessine le corps de l'unité avec une forme stylisée
+                ctx.fillStyle = this.color;
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 1;
+
+                if (this.movementType === 'sol') {
+                    // Forme de base: rectangle avec des coins arrondis
+                    ctx.beginPath();
+                    ctx.roundRect(this.x, this.y, this.width, this.height, 5);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Petite animation de "pas" ou "vibration" pour les unités au sol
+                    const stepOffset = Math.sin(currentTime * 15 + this.x / 20) * 1;
+                    ctx.translate(stepOffset, 0);
+
+                } else if (this.movementType === 'air') {
+                    // Forme de triangle (avion/drone)
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y + this.height);
+                    ctx.lineTo(this.x + this.width / 2, this.y);
+                    ctx.lineTo(this.x + this.width, this.y + this.height);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                }
+
+                // Dessine la barre de vie
+                const healthBarWidth = this.width;
+                const healthBarHeight = 5;
+                const healthBarY = this.y - healthBarHeight - 5; // Au-dessus de l'unité
+
+                // Fond de la barre de vie
+                ctx.fillStyle = '#555';
+                ctx.fillRect(this.x, healthBarY, healthBarWidth, healthBarHeight);
+
+                // Vie actuelle
+                const currentHealthWidth = (this.health / this.maxHealth) * healthBarWidth;
+                ctx.fillStyle = this.health > this.maxHealth * 0.6 ? '#48bb78' : (this.health > this.maxHealth * 0.3 ? '#ecc94b' : '#e53e3e'); // Vert, Jaune, Rouge
+                ctx.fillRect(this.x, healthBarY, currentHealthWidth, healthBarHeight);
+
+                // Bordure de la barre de vie
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(this.x, healthBarY, healthBarWidth, healthBarHeight);
+
+                ctx.restore(); // Restaure l'état précédent du contexte (annule les translations)
+            }
+        }
+
+        /**
+         * @class Tower
+         * @description Représente une tour de défense dans le jeu.
+         * @param {number} x - Position X de la tour.
+         * @param {number} y - Position Y de la tour.
+         * @param {object} props - Propriétés de la tour (width, height, health, damage, range, type, color).
+         */
+        class Tower {
+            constructor(x, y, props) {
+                this.x = x;
+                this.y = y;
+                this.width = props.width;
+                this.height = props.height;
+                this.health = props.health;
+                this.maxHealth = props.health;
+                this.damage = props.damage;
+                this.range = props.range;
+                this.attackInterval = props.attackInterval;
+                this.type = props.type; // 'sol' ou 'air'
+                this.color = props.color;
+                this.lastAttackTime = 0;
+            }
+
+            /**
+             * @method update
+             * @description Met à jour la logique de la tour (ciblage et attaque).
+             * @param {number} currentTime - Le temps actuel du jeu.
+             * @param {Array<Unit>} enemyUnits - Tableau des unités ennemies.
+             */
+            update(currentTime, enemyUnits) {
+                if (currentTime - this.lastAttackTime < this.attackInterval) {
+                    return; // Pas encore le moment d'attaquer
+                }
+
+                let target = null;
+                // Trouver la première unité ennemie à portée et du bon type
+                for (const unit of enemyUnits) {
+                    const distance = Math.sqrt(Math.pow(this.x - unit.x, 2) + Math.pow(this.y - unit.y, 2));
+                    // Vérifie si l'unité est à portée et correspond au type de la tour
+                    if (distance <= this.range && (this.type === 'all' || this.type === unit.movementType)) {
+                        target = unit;
+                        break;
+                    }
+                }
+
+                if (target) {
+                    target.health -= this.damage;
+                    this.lastAttackTime = currentTime;
+                    playSound('tower_attack'); // Son d'attaque de tour
+                }
+            }
+
+            /**
+             * @method draw
+             * @description Dessine la tour sur le canevas, y compris sa barre de vie et sa portée.
+             * @param {CanvasRenderingContext2D} ctx - Contexte de dessin du canevas.
+             */
+            draw(ctx) {
+                ctx.save();
+                ctx.fillStyle = this.color;
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 2;
+
+                // Dessine la base de la tour
+                ctx.beginPath();
+                ctx.roundRect(this.x, this.y + this.height * 0.2, this.width, this.height * 0.8, 5);
+                ctx.fill();
+                ctx.stroke();
+
+                // Dessine le haut de la tour (canon ou vigie)
+                ctx.beginPath();
+                ctx.arc(this.x + this.width / 2, this.y + this.height * 0.2, this.width / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Dessine la barre de vie
+                const healthBarWidth = this.width;
+                const healthBarHeight = 5;
+                const healthBarY = this.y - healthBarHeight - 5; // Au-dessus de la tour
+
+                ctx.fillStyle = '#555';
+                ctx.fillRect(this.x, healthBarY, healthBarWidth, healthBarHeight);
+
+                const currentHealthWidth = (this.health / this.maxHealth) * healthBarWidth;
+                ctx.fillStyle = this.health > this.maxHealth * 0.6 ? '#48bb78' : (this.health > this.maxHealth * 0.3 ? '#ecc94b' : '#e53e3e');
+                ctx.fillRect(this.x, healthBarY, currentHealthWidth, healthBarHeight);
+
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(this.x, healthBarY, healthBarWidth, healthBarHeight);
+
+                ctx.restore();
+            }
+        }
+
+        /**
+         * @class Capsule
+         * @description Représente une capsule bonus dans le jeu.
+         * @param {number} x - Position X de la capsule.
+         * @param {number} y - Position Y de la capsule.
+         * @param {number} width - Largeur de la capsule.
+         * @param {number} height - Hauteur de la capsule.
+         * @param {number} spawnTime - Temps de spawn de la capsule pour l'animation.
+         */
+        class Capsule {
+            constructor(x, y, width, height, spawnTime) {
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                this.spawnTime = spawnTime;
+                this.color = '#ffd700'; // Or pour les capsules
+            }
+
+            /**
+             * @method draw
+             * @description Dessine la capsule avec une animation de clignotement/flottement.
+             * @param {CanvasRenderingContext2D} ctx - Contexte de dessin du canevas.
+             * @param {number} currentTime - Le temps actuel du jeu pour l'animation.
+             */
+            draw(ctx, currentTime) {
+                const animationSpeed = 5; // Vitesse de l'animation
+                const floatOffset = Math.sin(currentTime * animationSpeed + this.spawnTime) * 5; // Flottement vertical
+                const blinkAlpha = 0.7 + Math.sin(currentTime * animationSpeed * 2 + this.spawnTime) * 0.3; // Clignotement
+
+                ctx.save();
+                ctx.globalAlpha = blinkAlpha;
+                ctx.fillStyle = this.color;
+
+                // Dessine une forme de capsule (ovale)
+                ctx.beginPath();
+                ctx.ellipse(this.x + this.width / 2, this.y + this.height / 2 + floatOffset, this.width / 2, this.height / 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Dessiner un symbole simple au centre
+                ctx.fillStyle = '#1a202c';
+                ctx.font = `${this.width * 0.7}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('?', this.x + this.width / 2, this.y + this.height / 2 + floatOffset);
+
+                ctx.restore();
+            }
+        }
+
+
+        /**
+         * @function initGame
+         * @description Initialise le jeu : récupère le canevas, le contexte, configure les écouteurs d'événements.
+         */
+        function initGame() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+
+            // Références aux éléments de l'interface utilisateur
+            gameOverScreen = document.getElementById('game-over-screen');
+            gameStatusText = document.getElementById('gameStatusText');
+            restartButton = document.getElementById('restartButton');
+            gameControlsDiv = document.getElementById('game-controls'); // Nouveau conteneur principal
+            unitButtonsContainer = document.getElementById('unit-buttons-container');
+            towerButtonsContainer = document.getElementById('tower-buttons-container');
+            specialPowerButton = document.getElementById('specialPowerButton');
+            specialPowerCooldownText = document.getElementById('specialPowerCooldownText');
+
+
+            window.addEventListener('resize', resizeCanvas);
+            document.getElementById('startButton').addEventListener('click', () => { playSound('click'); startGame(); });
+            restartButton.addEventListener('click', () => { playSound('click'); startGame(); }); // Bouton rejouer
+            specialPowerButton.addEventListener('click', () => { playSound('click'); activateSpecialPower(); }); // Bouton pouvoir spécial
+
+            // Les écouteurs d'événements pour les boutons d'unités et de tours seront ajoutés dynamiquement
+
+            resizeCanvas();
+            drawStartMenu();
+
+            console.log("Jeu initialisé. En attente de démarrage.");
+        }
+
+        /**
+         * @function resizeCanvas
+         * @description Redimensionne le canevas pour qu'il occupe tout l'écran.
+         * S'assure que le jeu est en mode paysage pour une expérience optimale.
+         * Met à jour les variables de dimension du champ de bataille et les positions des slots de tours.
+         */
+        function resizeCanvas() {
+            if (window.innerWidth < window.innerHeight) {
+                console.warn("L'appareil est en mode portrait. Le jeu est optimisé pour le mode paysage.");
+            }
+
+            // Ajuste la hauteur du canevas pour laisser de la place au menu de contrôles
+            const gameControlsHeight = gameControlsDiv.offsetHeight;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - gameControlsHeight;
+
+            // Recalcule les dimensions du champ de bataille
+            laneHeight = canvas.height * 0.6;
+            laneY = (canvas.height - laneHeight) / 2;
+            baseWidth = canvas.width * 0.15;
+            groundZoneHeight = laneHeight * 0.6;
+            airZoneHeight = laneHeight * 0.4;
+            rampartWidth = 20;
+            rampartHeight = laneHeight * 0.8;
+
+            // Met à jour les positions des slots de tours
+            const towerSlotY = laneY + (laneHeight - rampartHeight) / 2 + rampartHeight / 2; // Centre verticalement sur la zone du rempart
+            playerTowerSlots[0].x = baseWidth + 50; // Premier slot un peu après la base
+            playerTowerSlots[0].y = towerSlotY;
+            playerTowerSlots[1].x = baseWidth + 150; // Deuxième slot plus loin
+            playerTowerSlots[1].y = towerSlotY;
+
+
+            if (gameStarted) {
+                draw();
+            }
+        }
+
+        /**
+         * @function drawStartMenu
+         * @description Affiche le menu de démarrage et masque le canevas du jeu et les contrôles.
+         */
+        function drawStartMenu() {
+            document.getElementById('start-menu').style.display = 'flex';
+            canvas.style.display = 'none';
+            gameControlsDiv.style.display = 'none';
+            gameOverScreen.style.display = 'none'; // S'assurer que l'écran de fin de partie est caché
+        }
+
+        /**
+         * @function hideStartMenu
+         * @description Masque le menu de démarrage et affiche le canevas du jeu et les contrôles.
+         */
+        function hideStartMenu() {
+            document.getElementById('start-menu').style.display = 'none';
+            canvas.style.display = 'block';
+            gameControlsDiv.style.display = 'flex'; // Affiche le conteneur principal des contrôles
+            gameOverScreen.style.display = 'none'; // S'assurer que l'écran de fin de partie est caché
+            resizeCanvas(); // Redimensionne le canevas après avoir affiché le menu
+        }
+
+        /**
+         * @function startGame
+         * @description Lance la partie : masque le menu, définit l'état du jeu et démarre la boucle de jeu.
+         * Réinitialise l'état du jeu.
+         */
+        function startGame() {
+            // Réinitialiser les données du jeu
+            gameData.credits = 100;
+            gameData.time = 0;
+            gameData.playerRampartHealth = MAX_RAMPART_HEALTH;
+            gameData.aiRampartHealth = MAX_RAMPART_HEALTH;
+            gameData.era = 1;
+
+            // Vider les tableaux d'unités et la file de production
+            playerUnits = [];
+            aiUnits = [];
+            playerTowers = []; // Vider les tours
+            activeCapsules = []; // Vider les capsules
+            productionQueue = [];
+
+            // Réinitialiser les temps de spawn et de pouvoir
+            lastPlayerUnitSpawnTime = 0;
+            lastAISpawnTime = 0;
+            aiLastMassiveWaveTime = 0;
+            specialPower.lastUseTime = -Infinity; // Réinitialiser le pouvoir spécial
+            specialPower.extraMissiles = 0; // Réinitialiser les missiles supplémentaires
+            lastCapsuleSpawnTime = 0; // Réinitialiser le temps de spawn des capsules
+
+            // Réinitialiser les slots de tours
+            playerTowerSlots.forEach(slot => {
+                slot.occupied = false;
+                slot.tower = null;
+            });
+
+            // Réinitialiser la transition d'ère
+            eraTransitionActive = false;
+            eraTransitionAlpha = 0;
+
+            if (!gameStarted) {
+                gameStarted = true;
+                hideStartMenu(); // Masque le menu de démarrage et l'écran de fin de partie
+                lastFrameTime = performance.now(); // Initialise le temps de la dernière frame
+                createGameControlButtons(); // Crée les boutons pour la première fois
+                gameLoop(lastFrameTime); // Démarre la boucle de jeu avec le temps initial
+                console.log("Partie lancée !");
+            } else {
+                // Si le jeu est déjà en cours et qu'on clique sur "Rejouer", on arrête la boucle actuelle
+                cancelAnimationFrame(animationFrameId);
+                gameStarted = true;
+                hideStartMenu();
+                createGameControlButtons(); // Recrée les boutons pour la nouvelle partie
+                gameLoop(lastFrameTime);
+                console.log("Partie relancée !");
+            }
+        }
+
+        /**
+         * @function gameLoop
+         * @description La boucle principale du jeu. Appelle update() et draw() en continu.
+         * @param {DOMHighResTimeStamp} currentTime - Le temps actuel passé par requestAnimationFrame.
+         */
+        function gameLoop(currentTime) {
+            if (!gameStarted) return; // Arrête la boucle si le jeu n'est pas en cours
+
+            const deltaTime = (currentTime - lastFrameTime) / 1000;
+            lastFrameTime = currentTime;
+
+            update(deltaTime);
+            draw();
+
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        /**
+         * @function isColliding
+         * @description Vérifie la collision entre deux objets (unités ou unité/rempart) en utilisant AABB.
+         * @param {object} rect1 - Premier objet avec x, y, width, height.
+         * @param {object} rect2 - Deuxième objet avec x, y, width, height.
+         * @returns {boolean} Vrai si les objets se chevauchent, faux sinon.
+         */
+        function isColliding(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+
+        /**
+         * @function update
+         * @description Met à jour l'état du jeu (logique, mouvements, combats, etc.).
+         * @param {number} deltaTime - Le temps écoulé depuis la dernière mise à jour en secondes.
+         */
+        function update(deltaTime) {
+            gameData.time = Math.min(gameData.time + deltaTime, MAX_GAME_TIME);
+            updateEconomy(deltaTime);
+
+            // Gérer la transition visuelle d'ère
+            if (eraTransitionActive) {
+                eraTransitionAlpha -= deltaTime / ERA_TRANSITION_DURATION_VISUAL;
+                if (eraTransitionAlpha <= 0) {
+                    eraTransitionAlpha = 0;
+                    eraTransitionActive = false;
+                }
+            }
+
+            // Gérer le spawn des capsules
+            if (gameData.time - lastCapsuleSpawnTime >= CAPSULE_SPAWN_INTERVAL) {
+                // Position X aléatoire sur la lane (hors bases)
+                const minX = baseWidth + CAPSULE_WIDTH;
+                const maxX = canvas.width - baseWidth - CAPSULE_WIDTH;
+                const randomX = minX + Math.random() * (maxX - minX);
+
+                // Position Y au centre de la zone sol de la lane
+                const capsuleY = laneY + airZoneHeight + (groundZoneHeight / 2) - (CAPSULE_HEIGHT / 2);
+
+                activeCapsules.push(new Capsule(randomX, capsuleY, CAPSULE_WIDTH, CAPSULE_HEIGHT, gameData.time));
+                lastCapsuleSpawnTime = gameData.time;
+                console.log("Capsule bonus apparue !");
+            }
+
+            // Gérer la file de production du joueur et le spawn des unités
+            if (productionQueue.length > 0 && (gameData.time - lastPlayerUnitSpawnTime) >= UNIT_SPAWN_COOLDOWN) {
+                const unitToSpawnProps = productionQueue[0]; // Regarde la première unité sans la retirer
+                const spawnX = PLAYER_SPAWN_X_OFFSET;
+                // Détermine la position Y en fonction du type de mouvement (sol/air)
+                const spawnY = (unitToSpawnProps.movementType === 'sol') ?
+                               laneY + airZoneHeight + UNIT_SPAWN_Y_OFFSET :
+                               laneY + (airZoneHeight / 2) - (unitToSpawnProps.height / 2); // Centre l'unité aérienne dans la zone air
+
+                let canSpawn = true;
+                // Vérifier si la zone de spawn n'est pas trop encombrée par d'autres unités du joueur
+                for (const unit of playerUnits) {
+                    if (unit.x < spawnX + unitToSpawnProps.width * 1.5 && unit.x > spawnX - unitToSpawnProps.width * 0.5) {
+                        canSpawn = false;
+                        break;
+                    }
+                }
+
+                if (canSpawn) {
+                    const spawnedUnitProps = productionQueue.shift(); // Retire la première unité de la file
+                    const newUnit = new Unit(
+                        spawnX,
+                        spawnY,
+                        spawnedUnitProps.width,
+                        spawnedUnitProps.height,
+                        spawnedUnitProps.speed,
+                        spawnedUnitProps.health,
+                        spawnedUnitProps.damage,
+                        spawnedUnitProps.type,
+                        spawnedUnitProps.color,
+                        true, // C'est une unité du joueur
+                        spawnedUnitProps.movementType // Passe le type de mouvement
+                    );
+                    playerUnits.push(newUnit);
+                    lastPlayerUnitSpawnTime = gameData.time;
+                    // console.log(`Unité joueur ${spawnedUnitProps.name || spawnedUnitProps.type} spawnée.`);
+                }
+            }
+
+            // Gérer le spawn des unités de l'IA via la nouvelle fonction de stratégie
+            handleAISpawn(deltaTime);
+
+
+            // Définir les zones des remparts pour les collisions
+            const playerRampart = {
+                x: baseWidth - rampartWidth,
+                y: laneY + (laneHeight - rampartHeight) / 2,
+                width: rampartWidth,
+                height: rampartHeight
+            };
+            const aiRampart = {
+                x: canvas.width - baseWidth,
+                y: laneY + (laneHeight - rampartHeight) / 2,
+                width: rampartWidth,
+                height: rampartHeight
+            };
+
+            // --- Logique de mise à jour et de combat pour les unités du joueur ---
+            for (let i = playerUnits.length - 1; i >= 0; i--) {
+                const playerUnit = playerUnits[i];
+                let targetFound = false;
+
+                // Vérifier les collisions avec les capsules
+                for (let k = activeCapsules.length - 1; k >= 0; k--) {
+                    const capsule = activeCapsules[k];
+                    if (isColliding(playerUnit, capsule)) {
+                        // Appliquer les effets de la capsule
+                        gameData.credits += CAPSULE_CREDITS_BONUS;
+                        playerUnit.speed = playerUnit.initialSpeed * (1 + CAPSULE_SPEED_BOOST_PERCENTAGE);
+                        playerUnit.speedBoostEndTime = gameData.time + CAPSULE_EFFECT_DURATION;
+                        specialPower.extraMissiles++;
+                        showMessage(`Capsule collectée ! +${CAPSULE_CREDITS_BONUS} crédits, +25% vitesse, +1 missile.`, 2000);
+                        activeCapsules.splice(k, 1); // Supprimer la capsule
+                        playSound('capsule_collect'); // Son de collecte de capsule
+                        break; // Une unité ne peut collecter qu'une capsule à la fois
+                    }
+                }
+
+                // Vérifier l'expiration du boost de vitesse
+                if (playerUnit.speedBoostEndTime > 0 && gameData.time >= playerUnit.speedBoostEndTime) {
+                    playerUnit.speed = playerUnit.initialSpeed;
+                    playerUnit.speedBoostEndTime = 0;
+                }
+
+
+                // Vérifier les collisions avec les unités de l'IA
+                for (let j = aiUnits.length - 1; j >= 0; j--) {
+                    const aiUnit = aiUnits[j];
+                    // Les unités sol n'attaquent que les unités sol, les unités air attaquent toutes les unités
+                    const canAttack = (playerUnit.movementType === 'sol' && aiUnit.movementType === 'sol') ||
+                                      (playerUnit.movementType === 'air'); // Air units can attack both types (simplifié)
+
+                    if (canAttack && isColliding(playerUnit, aiUnit)) {
+                        playerUnit.speed = 0; // Arrêter l'unité du joueur
+                        targetFound = true;
+                        if (gameData.time - playerUnit.lastAttackTime >= playerUnit.attackInterval) {
+                            aiUnit.health -= playerUnit.damage;
+                            playerUnit.lastAttackTime = gameData.time;
+                            playSound('unit_attack'); // Son d'attaque d'unité
+                        }
+                        break; // L'unité joueur a trouvé une cible, passe à la suivante
+                    }
+                }
+
+                // Si aucune unité IA n'est trouvée, vérifier le rempart de l'IA
+                if (!targetFound && isColliding(playerUnit, aiRampart)) {
+                    playerUnit.speed = 0; // Arrêter l'unité du joueur
+                    targetFound = true;
+                    if (gameData.time - playerUnit.lastAttackTime >= playerUnit.attackInterval) {
+                        gameData.aiRampartHealth -= playerUnit.damage;
+                        playerUnit.lastAttackTime = gameData.time;
+                        playSound('unit_attack'); // Son d'attaque d'unité
+                    }
+                }
+
+                if (!targetFound) {
+                    playerUnit.speed = playerUnit.initialSpeed; // Reprendre le mouvement si pas de cible
+                }
+
+                playerUnit.update(deltaTime); // Mettre à jour la position de l'unité
+
+                // Supprimer les unités du joueur mortes ou hors écran
+                if (playerUnit.health <= 0) {
+                    playerUnits.splice(i, 1);
+                    playSound('unit_death'); // Son de mort d'unité
+                } else if (playerUnit.x > canvas.width + playerUnit.width) {
+                    playerUnits.splice(i, 1);
+                }
+            }
+
+            // --- Logique de mise à jour et de combat pour les unités de l'IA ---
+            for (let i = aiUnits.length - 1; i >= 0; i--) {
+                const aiUnit = aiUnits[i];
+                let targetFound = false;
+
+                // Vérifier les collisions avec les capsules (l'IA peut aussi les collecter)
+                for (let k = activeCapsules.length - 1; k >= 0; k--) {
+                    const capsule = activeCapsules[k];
+                    if (isColliding(aiUnit, capsule)) {
+                        // L'IA ne gagne pas de crédits ou de missiles, juste un boost de vitesse pour l'exemple
+                        aiUnit.speed = aiUnit.initialSpeed * (1 + CAPSULE_SPEED_BOOST_PERCENTAGE);
+                        aiUnit.speedBoostEndTime = gameData.time + CAPSULE_EFFECT_DURATION;
+                        showMessage(`L'IA a collecté une capsule !`, 1500); // Message pour le joueur
+                        activeCapsules.splice(k, 1); // Supprimer la capsule
+                        break;
+                    }
+                }
+
+                // Vérifier l'expiration du boost de vitesse pour l'IA
+                if (aiUnit.speedBoostEndTime > 0 && gameData.time >= aiUnit.speedBoostEndTime) {
+                    aiUnit.speed = aiUnit.initialSpeed;
+                    aiUnit.speedBoostEndTime = 0;
+                }
+
+                // Vérifier les collisions avec les unités du joueur
+                for (let j = playerUnits.length - 1; j >= 0; j--) {
+                    const playerUnit = playerUnits[j];
+                    // Les unités sol n'attaquent que les unités sol, les unités air attaquent toutes les unités
+                    const canAttack = (aiUnit.movementType === 'sol' && playerUnit.movementType === 'sol') ||
+                                      (aiUnit.movementType === 'air'); // Air units can attack both types (simplifié)
+
+                    if (canAttack && isColliding(aiUnit, playerUnit)) {
+                        aiUnit.speed = 0; // Arrêter l'unité de l'IA
+                        targetFound = true;
+                        if (gameData.time - aiUnit.lastAttackTime >= aiUnit.attackInterval) {
+                            playerUnit.health -= aiUnit.damage;
+                            aiUnit.lastAttackTime = gameData.time;
+                            playSound('unit_attack'); // Son d'attaque d'unité
+                        }
+                        break; // L'unité IA a trouvé une cible
+                    }
+                }
+
+                // Si aucune unité joueur n'est trouvée, vérifier le rempart du joueur
+                if (!targetFound && isColliding(aiUnit, playerRampart)) {
+                    aiUnit.speed = 0; // Arrêter l'unité de l'IA
+                    targetFound = true;
+                    if (gameData.time - aiUnit.lastAttackTime >= aiUnit.attackInterval) {
+                        gameData.playerRampartHealth -= aiUnit.damage;
+                        aiUnit.lastAttackTime = gameData.time;
+                        playSound('unit_attack'); // Son d'attaque d'unité
+                    }
+                }
+
+                if (!targetFound) {
+                    aiUnit.speed = aiUnit.initialSpeed; // Reprendre le mouvement si pas de cible
+                }
+
+                aiUnit.update(deltaTime); // Mettre à jour la position de l'unité
+
+                // Supprimer les unités de l'IA mortes ou hors écran
+                if (aiUnit.health <= 0) {
+                    aiUnits.splice(i, 1);
+                    playSound('unit_death'); // Son de mort d'unité
+                } else if (aiUnit.x < -aiUnit.width) {
+                    aiUnits.splice(i, 1);
+                }
+            }
+
+            // --- Logique de mise à jour et de combat pour les tours du joueur ---
+            for (let i = playerTowers.length - 1; i >= 0; i--) {
+                const tower = playerTowers[i];
+                tower.update(gameData.time, aiUnits); // Les tours attaquent les unités IA
+
+                // Supprimer les tours détruites
+                if (tower.health <= 0) {
+                    // Trouver le slot occupé par cette tour et le libérer
+                    const occupiedSlot = playerTowerSlots.find(slot => slot.tower && slot.tower === tower);
+                    if (occupiedSlot) {
+                        occupiedSlot.occupied = false;
+                        occupiedSlot.tower = null;
+                        console.log(`Tour dans le slot ${occupiedSlot.id} détruite.`);
+                    }
+                    playerTowers.splice(i, 1);
+                    playSound('tower_destroy'); // Son de destruction de tour
+                }
+            }
+
+            // --- Vérification des conditions de fin de partie ---
+            if (gameData.playerRampartHealth <= 0) {
+                endGame('defeat');
+            } else if (gameData.aiRampartHealth <= 0) {
+                endGame('victory');
+            } else if (gameData.time >= MAX_GAME_TIME) {
+                endGame('time_limit');
+            }
+        }
+
+        /**
+         * @function updateEconomy
+         * @description Gère la génération de crédits et la progression des ères.
+         * @param {number} deltaTime - Le temps écoulé depuis la dernière mise à jour en secondes.
+         */
+        function updateEconomy(deltaTime) {
+            gameData.credits += (10 * deltaTime);
+
+            const potentialEra = Math.floor(gameData.time / ERA_DURATION) + 1;
+            if (potentialEra > gameData.era && gameData.era < MAX_ERA) {
+                gameData.era = potentialEra;
+                eraTransitionActive = true; // Activer la transition visuelle
+                eraTransitionAlpha = 1.0; // Commencer opaque
+                console.log(`Nouvelle ère : Ère ${gameData.era}`);
+                createGameControlButtons(); // Recréer les boutons pour la nouvelle ère
+                playSound('era_change'); // Son de changement d'ère
+            }
+        }
+
+        /**
+         * @function handleAISpawn
+         * @description Gère la logique de spawn des unités de l'IA en fonction de sa stratégie.
+         * @param {number} deltaTime - Le temps écoulé depuis la dernière mise à jour en secondes.
+         */
+        function handleAISpawn(deltaTime) {
+            if (gameData.time - lastAISpawnTime < AI_SPAWN_INTERVAL) {
+                return; // Pas encore le moment de spawner une unité de base
+            }
+
+            const aiUnitsForEra = unitDefinitions[gameData.era]?.ai;
+            if (!aiUnitsForEra || aiUnitsForEra.length === 0) return;
+
+            let unitToSpawnProps = null;
+            let spawnCount = 1; // Par défaut, on spawne une seule unité
+
+            // Stratégie 1: Défensive si le rempart est bas
+            if (gameData.aiRampartHealth / MAX_RAMPART_HEALTH < AI_RAMPART_DEFENSIVE_THRESHOLD) {
+                // Trouver l'unité avec le plus de PV (unité défensive)
+                const defensiveUnit = aiUnitsForEra.reduce((prev, current) => (prev.health > current.health) ? prev : current);
+                unitToSpawnProps = defensiveUnit;
+                // console.log("IA: Priorise l'unité défensive:", defensiveUnit.name);
+            }
+            // Stratégie 2: Vague massive
+            else if (aiUnits.length >= AI_MASSIVE_WAVE_UNIT_COUNT_THRESHOLD && (gameData.time - aiLastMassiveWaveTime >= AI_MASSIVE_WAVE_COOLDOWN)) {
+                // Choisir une unité équilibrée ou la première disponible pour la vague
+                unitToSpawnProps = aiUnitsForEra[Math.floor(Math.random() * aiUnitsForEra.length)];
+                spawnCount = AI_MASSIVE_WAVE_SIZE; // Spawner plusieurs unités
+                aiLastMassiveWaveTime = gameData.time; // Réinitialiser le cooldown de la vague
+                // console.log("IA: Lance une vague massive avec l'unité:", unitToSpawnProps.name);
+            }
+            // Stratégie 3: Contrer les unités sol du joueur avec des unités aériennes
+            else {
+                const playerGroundUnitsCount = playerUnits.filter(unit => unit.movementType === 'sol').length;
+                const aiAirUnits = aiUnitsForEra.filter(unit => unit.movementType === 'air');
+
+                if (playerGroundUnitsCount >= PLAYER_GROUND_UNIT_COUNTER_THRESHOLD && aiAirUnits.length > 0) {
+                    // Choisir une unité aérienne aléatoire
+                    unitToSpawnProps = aiAirUnits[Math.floor(Math.random() * aiAirUnits.length)];
+                    // console.log("IA: Contre les unités sol du joueur avec l'unité aérienne:", unitToSpawnProps.name);
+                }
+            }
+
+            // Stratégie par défaut: Unité aléatoire si aucune stratégie spécifique n'est déclenchée
+            if (!unitToSpawnProps) {
+                unitToSpawnProps = aiUnitsForEra[Math.floor(Math.random() * aiUnitsForEra.length)];
+                // console.log("IA: Spawne une unité aléatoire:", unitToSpawnProps.name);
+            }
+
+            // Tenter de spawner les unités
+            for (let i = 0; i < spawnCount; i++) {
+                const spawnX = canvas.width - AI_SPAWN_X_OFFSET - unitToSpawnProps.width;
+                // Détermine la position Y en fonction du type de mouvement (sol/air)
+                const spawnY = (unitToSpawnProps.movementType === 'sol') ?
+                               laneY + airZoneHeight + UNIT_SPAWN_Y_OFFSET :
+                               laneY + (airZoneHeight / 2) - (unitToSpawnProps.height / 2); // Centre l'unité aérienne dans la zone air
+
+                let canAISpawn = true;
+                // Vérifier si la zone de spawn n'est pas trop encombrée par d'autres unités de l'IA
+                for (const unit of aiUnits) {
+                    if (unit.x > spawnX - unitToSpawnProps.width * 1.5 && unit.x < spawnX + unitToSpawnProps.width * 0.5) {
+                        canAISpawn = false;
+                        break;
+                    }
+                }
+
+                if (canAISpawn) {
+                    const newAIUnit = new Unit(
+                        spawnX,
+                        spawnY,
+                        unitToSpawnProps.width,
+                        unitToSpawnProps.height,
+                        unitToSpawnProps.speed,
+                        unitToSpawnProps.health,
+                        unitToSpawnProps.damage,
+                        unitToSpawnProps.type,
+                        unitToSpawnProps.color,
+                        false, // C'est une unité de l'IA
+                        unitToSpawnProps.movementType // Passe le type de mouvement
+                    );
+                    aiUnits.push(newAIUnit);
+                    lastAISpawnTime = gameData.time; // Réinitialise le temps de spawn après chaque unité spawnée
+                } else {
+                    // Si la zone est encombrée, on arrête de spawner pour cette vague/intervalle
+                    break;
+                }
+            }
+        }
+
+
+        /**
+         * @function buyUnit
+         * @description Gère l'achat et l'ajout d'une unité à la file de production.
+         * @param {string} unitType - Le type d'unité à acheter (ex: 'era1_unit1').
+         */
+        function buyUnit(unitType) {
+            // Trouver les propriétés de l'unité dans les définitions de l'ère actuelle
+            const unitProps = unitDefinitions[gameData.era]?.player.find(unit => unit.type === unitType);
+
+            if (!unitProps) {
+                console.error("Type d'unité ou ère inconnu:", unitType, gameData.era);
+                return;
+            }
+
+            if (gameData.credits >= unitProps.cost) {
+                if (productionQueue.length < MAX_PRODUCTION_QUEUE) {
+                    gameData.credits -= unitProps.cost;
+                    productionQueue.push(unitProps); // Ajoute les propriétés de l'unité à la file
+                    showMessage(`Unité ${unitProps.name || unitProps.type} ajoutée à la file !`, 1500);
+                    playSound('unit_buy'); // Son d'achat d'unité
+                } else {
+                    showMessage("File de production pleine !", 2000);
+                    playSound('error'); // Son d'erreur
+                }
+            } else {
+                showMessage("Crédits insuffisants !", 1500);
+                playSound('error'); // Son d'erreur
+            }
+        }
+
+        /**
+         * @function buildTower
+         * @description Gère la construction d'une tour.
+         * @param {string} towerType - Le type de tour à construire (ex: 'basic_tower').
+         */
+        function buildTower(towerType) {
+            const towerProps = towerDefinitions[gameData.era]?.[towerType];
+
+            if (!towerProps) {
+                console.error("Type de tour ou ère inconnu:", towerType, gameData.era);
+                return;
+            }
+
+            // Trouver un slot de tour libre
+            const availableSlot = playerTowerSlots.find(slot => !slot.occupied);
+
+            if (!availableSlot) {
+                showMessage("Pas d'emplacement de tour disponible !", 2000);
+                console.warn("Pas d'emplacement de tour disponible.");
+                playSound('error'); // Son d'erreur
+                return;
+            }
+
+            if (gameData.credits >= towerProps.cost) {
+                gameData.credits -= towerProps.cost;
+                // Ajuster la position Y de la tour pour qu'elle soit sur le sol
+                const towerY = laneY + airZoneHeight + UNIT_SPAWN_Y_OFFSET;
+                const newTower = new Tower(
+                    availableSlot.x - towerProps.width / 2, // Centrer la tour sur le slot X
+                    towerY,
+                    towerProps
+                );
+                playerTowers.push(newTower);
+                availableSlot.occupied = true;
+                availableSlot.tower = newTower; // Lier la tour au slot
+                showMessage(`Tour ${towerProps.name} construite !`, 1500);
+                console.log(`Tour ${towerProps.name} construite dans le slot ${availableSlot.id}.`);
+                playSound('tower_build'); // Son de construction de tour
+            } else {
+                showMessage("Crédits insuffisants pour construire cette tour !", 1500);
+                playSound('error'); // Son d'erreur
+            }
+        }
+
+        /**
+         * @function activateSpecialPower
+         * @description Active le pouvoir spécial "Bombardement".
+         */
+        function activateSpecialPower() {
+            if (gameData.time - specialPower.lastUseTime >= specialPower.cooldown) {
+                // Appliquer les dégâts aux unités ennemies dans la zone cible (ex: milieu de la lane)
+                const targetX = canvas.width / 2; // Centre de la lane
+                const targetY = laneY + laneHeight / 2; // Centre vertical de la lane
+
+                let totalDamage = specialPower.damage;
+                if (specialPower.extraMissiles > 0) {
+                    totalDamage += (specialPower.damage * specialPower.extraMissiles); // Chaque missile supplémentaire ajoute les dégâts de base
+                    specialPower.extraMissiles = 0; // Consommer les missiles supplémentaires
+                }
+
+                let unitsHit = 0;
+                for (let i = aiUnits.length - 1; i >= 0; i--) {
+                    const unit = aiUnits[i];
+                    const distance = Math.sqrt(Math.pow(targetX - (unit.x + unit.width / 2), 2) + Math.pow(targetY - (unit.y + unit.height / 2), 2));
+                    if (distance <= specialPower.radius) {
+                        unit.health -= totalDamage; // Appliquer les dégâts avec bonus
+                        unitsHit++;
+                    }
+                }
+                showMessage(`Bombardement activé ! ${unitsHit} unités ennemies touchées. Dégâts totaux: ${totalDamage}.`, 2500);
+                specialPower.lastUseTime = gameData.time; // Réinitialiser le cooldown
+                playSound('bombardment'); // Son de bombardement
+            } else {
+                const remainingCooldown = Math.ceil(specialPower.cooldown - (gameData.time - specialPower.lastUseTime));
+                showMessage(`Bombardement en cooldown (${remainingCooldown}s) !`, 1500);
+                playSound('error'); // Son d'erreur
+            }
+        }
+
+        /**
+         * @function createGameControlButtons
+         * @description Crée tous les boutons de contrôle (unités, tours) pour l'ère actuelle.
+         * Cette fonction ne doit être appelée qu'une seule fois au démarrage du jeu et lors d'un changement d'ère.
+         */
+        function createGameControlButtons() {
+            // Création des boutons d'unités
+            unitButtonsContainer.innerHTML = '<div class="menu-section-title">Unités</div>'; // Vide et ajoute le titre
+            const currentEraUnits = unitDefinitions[gameData.era]?.player;
+            if (currentEraUnits) {
+                currentEraUnits.forEach(unit => {
+                    const button = document.createElement('button');
+                    button.className = 'control-button';
+                    button.dataset.unitType = unit.type;
+                    button.dataset.cost = unit.cost;
+                    button.innerHTML = `${unit.name} <span class="cost">(${unit.cost} crédits)</span>`;
+                    button.addEventListener('click', () => buyUnit(unit.type));
+                    unitButtonsContainer.appendChild(button);
+                });
+            }
+
+            // Création des boutons de tours (disponibles à partir de l'ère 2)
+            towerButtonsContainer.innerHTML = '<div class="menu-section-title">Tours</div>'; // Vide et ajoute le titre
+            if (gameData.era >= 2) {
+                const currentEraTowers = towerDefinitions[gameData.era];
+                if (currentEraTowers) {
+                    Object.keys(currentEraTowers).forEach(towerType => {
+                        const tower = currentEraTowers[towerType];
+                        const button = document.createElement('button');
+                        button.className = 'control-button';
+                        button.dataset.towerType = tower.type;
+                        button.dataset.cost = tower.cost;
+                        button.innerHTML = `${tower.name} <span class="cost">(${tower.cost} crédits)</span>`;
+                        button.addEventListener('click', () => buildTower(towerType));
+                        towerButtonsContainer.appendChild(button);
+                    });
+                }
+            }
+            // La mise à jour de l'état des boutons (désactivé/activé) sera gérée par updateGameControls
+        }
+
+
+        /**
+         * @function updateGameControls
+         * @description Met à jour l'état (activé/désactivé, texte du cooldown) de tous les boutons de contrôle.
+         * Cette fonction est appelée à chaque frame.
+         */
+        function updateGameControls() {
+            // Mise à jour de l'état des boutons d'unités
+            const unitButtons = unitButtonsContainer.querySelectorAll('.control-button');
+            unitButtons.forEach(button => {
+                const cost = parseInt(button.dataset.cost);
+                if (gameData.credits < cost || productionQueue.length >= MAX_PRODUCTION_QUEUE) {
+                    button.disabled = true;
+                } else {
+                    button.disabled = false;
+                }
+            });
+
+            // Mise à jour de l'état des boutons de tours
+            const towerButtons = towerButtonsContainer.querySelectorAll('.control-button');
+            towerButtons.forEach(button => {
+                const cost = parseInt(button.dataset.cost);
+                const isSlotAvailable = playerTowerSlots.some(slot => !slot.occupied);
+                if (gameData.credits < cost || !isSlotAvailable) {
+                    button.disabled = true;
+                } else {
+                    button.disabled = false;
+                }
+            });
+
+            // Mise à jour du bouton de pouvoir spécial (cooldown visuel)
+            const remainingCooldown = specialPower.cooldown - (gameData.time - specialPower.lastUseTime);
+            if (remainingCooldown > 0) {
+                specialPowerButton.disabled = true;
+                specialPowerCooldownText.textContent = `(${Math.ceil(remainingCooldown)}s)`;
+            } else {
+                specialPowerButton.disabled = false;
+                specialPowerCooldownText.textContent = `Prêt${specialPower.extraMissiles > 0 ? ` (+${specialPower.extraMissiles} missile${specialPower.extraMissiles > 1 ? 's' : ''})` : ''}`;
+            }
+        }
+
+
+        /**
+         * @function showMessage
+         * @description Affiche un message temporaire à l'écran.
+         * @param {string} message - Le texte du message.
+         * @param {number} duration - La durée d'affichage du message en millisecondes.
+         */
+        function showMessage(message, duration) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.textContent = message;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, duration);
+        }
+
+        /**
+         * @function endGame
+         * @description Gère la fin de partie (victoire, défaite, égalité).
+         * @param {string} outcome - Le résultat de la partie ('victory', 'defeat', 'time_limit').
+         */
+        function endGame(outcome) {
+            if (!gameStarted) return; // Empêche d'appeler endGame plusieurs fois
+
+            gameStarted = false;
+            cancelAnimationFrame(animationFrameId); // Arrête la boucle de jeu
+
+            let statusMessage = "";
+            if (outcome === 'victory') {
+                statusMessage = "VICTOIRE !";
+                playSound('victory'); // Son de victoire
+            } else if (outcome === 'defeat') {
+                statusMessage = "DÉFAITE !";
+                playSound('defeat'); // Son de défaite
+            } else if (outcome === 'time_limit') {
+                if (gameData.playerRampartHealth > gameData.aiRampartHealth) {
+                    statusMessage = "VICTOIRE (Temps écoulé) !";
+                    playSound('victory');
+                } else if (gameData.playerRampartHealth < gameData.aiRampartHealth) {
+                    statusMessage = "DÉFAITE (Temps écoulé) !";
+                    playSound('defeat');
+                } else {
+                    statusMessage = "ÉGALITÉ (Temps écoulé) !";
+                    playSound('draw'); // Son d'égalité
+                }
+            }
+
+            gameStatusText.textContent = statusMessage;
+            gameOverScreen.style.display = 'flex'; // Affiche l'écran de fin de partie
+            console.log(`Fin de partie: ${statusMessage}`);
+        }
+
+        /**
+         * @function playSound
+         * @description Joue un son simple. Pour l'instant, log dans la console.
+         * Dans une implémentation réelle, utiliserait l'API Audio ou Tone.js.
+         * @param {string} soundName - Le nom du son à jouer (ex: 'click', 'explosion').
+         */
+        function playSound(soundName) {
+            console.log(`Jouer le son: ${soundName}`);
+            // Exemple d'implémentation si les fichiers audio étaient autorisés:
+            // const audio = new Audio(`path/to/sounds/${soundName}.mp3`);
+            // audio.play().catch(e => console.error("Erreur de lecture audio:", e));
+        }
+
+        /**
+         * @function draw
+         * @description Dessine tous les éléments du jeu sur le canevas.
+         * Inclut le champ de bataille, les bases, les zones sol/air, les remparts, l'interface utilisateur et les unités.
+         */
+        function draw() {
+            // Efface le canevas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Récupère les couleurs de l'ère actuelle
+            const currentColors = eraColors[gameData.era];
+
+            // Dessine le fond général du champ de bataille
+            ctx.fillStyle = currentColors.background;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // --- Dessin de la "lane" horizontale au centre ---
+            ctx.fillStyle = currentColors.lane;
+            ctx.fillRect(0, laneY, canvas.width, laneHeight);
+
+            // --- Zones de base (joueur à gauche, IA à droite) ---
+            // Base du joueur (gauche)
+            ctx.fillStyle = currentColors.playerBase;
+            ctx.fillRect(0, laneY, baseWidth, laneHeight);
+            ctx.strokeStyle = '#a0aec0'; // Bordure pour la base
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, laneY, baseWidth, laneHeight);
+
+            // Base de l'IA (droite)
+            ctx.fillStyle = currentColors.aiBase;
+            ctx.fillRect(canvas.width - baseWidth, laneY, baseWidth, laneHeight);
+            ctx.strokeStyle = '#a0aec0'; // Bordure pour la base
+            ctx.strokeRect(canvas.width - baseWidth, laneY, baseWidth, laneHeight);
+
+            // --- Zones sol et aérienne + ligne séparatrice ---
+            // Zone sol (dans la lane)
+            ctx.fillStyle = '#718096'; // Gris foncé pour la zone sol
+            ctx.fillRect(baseWidth, laneY + airZoneHeight, canvas.width - (2 * baseWidth), groundZoneHeight);
+
+            // Zone aérienne (dans la lane)
+            ctx.fillStyle = '#a0aec0'; // Gris plus clair pour la zone aérienne
+            ctx.fillRect(baseWidth, laneY, canvas.width - (2 * baseWidth), airZoneHeight);
+
+            // Ligne séparatrice entre sol et air
+            ctx.strokeStyle = '#e2e8f0'; // Ligne blanche
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(baseWidth, laneY + airZoneHeight);
+            ctx.lineTo(canvas.width - baseWidth, laneY + airZoneHeight);
+            ctx.stroke();
+
+            // --- Remparts du joueur et de l'IA ---
+            // Rempart du joueur
+            ctx.fillStyle = currentColors.rampartPlayer; // Couleur du rempart joueur selon l'ère
+            ctx.fillRect(baseWidth - rampartWidth, laneY + (laneHeight - rampartHeight) / 2, rampartWidth, rampartHeight);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(baseWidth - rampartWidth, laneY + (laneHeight - rampartHeight) / 2, rampartWidth, rampartHeight);
+
+            // Rempart de l'IA
+            ctx.fillStyle = currentColors.rampartAI; // Couleur du rempart IA selon l'ère
+            ctx.fillRect(canvas.width - baseWidth, laneY + (laneHeight - rampartHeight) / 2, rampartWidth, rampartHeight);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.strokeRect(canvas.width - baseWidth, laneY + (laneHeight - rampartHeight) / 2, rampartWidth, rampartHeight);
+
+            // --- Dessin des tours du joueur ---
+            for (const tower of playerTowers) {
+                tower.draw(ctx);
+            }
+
+            // --- Dessin des emplacements de tours (visuel) ---
+            playerTowerSlots.forEach(slot => {
+                if (!slot.occupied && gameData.era >= 2) { // Afficher les slots vides à partir de l'ère 2
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]); // Ligne pointillée
+                    ctx.strokeRect(slot.x - 20, slot.y - 30, 40, 60); // Dessine un rectangle pour l'emplacement
+                    ctx.setLineDash([]); // Réinitialise le style de ligne
+                }
+            });
+
+
+            // --- Dessin des unités du joueur ---
+            for (const unit of playerUnits) {
+                unit.draw(ctx, gameData.time); // Passe le temps pour l'animation
+            }
+
+            // --- Dessin des unités de l'IA ---
+            for (const unit of aiUnits) {
+                unit.draw(ctx, gameData.time); // Passe le temps pour l'animation
+            }
+
+            // --- Dessin des capsules ---
+            for (const capsule of activeCapsules) {
+                capsule.draw(ctx, gameData.time);
+            }
+
+            // --- Dessin de l'interface utilisateur (UI) simplifiée ---
+            drawUI();
+
+            // --- Dessin de la transition visuelle d'ère ---
+            if (eraTransitionActive) {
+                ctx.save(); // Sauvegarde l'état actuel du contexte
+                ctx.globalAlpha = eraTransitionAlpha; // Applique la transparence
+                ctx.fillStyle = ERA_TRANSITION_COLOR;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore(); // Restaure l'état précédent du contexte (important pour réinitialiser globalAlpha)
+            }
+        }
+
+        /**
+         * @function drawUI
+         * @description Dessine l'interface utilisateur simplifiée, incluant les crédits, le temps, l'intégrité des remparts, l'ère actuelle et la file de production.
+         */
+        function drawUI() {
+            ctx.fillStyle = '#e2e8f0'; // Couleur de texte claire
+            ctx.font = '24px Inter';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+
+            const padding = 20;
+
+            // Affichage des crédits (arrondis à l'entier)
+            ctx.fillText(`Crédits: ${Math.floor(gameData.credits)}`, padding, padding);
+
+            // Affichage du temps (formaté en MM:SS et limité à MAX_GAME_TIME)
+            const displayTime = Math.min(gameData.time, MAX_GAME_TIME);
+            const minutes = Math.floor(displayTime / 60);
+            const seconds = Math.floor(displayTime % 60);
+            ctx.textAlign = 'center';
+            ctx.fillText(`Temps: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`, canvas.width / 2, padding);
+
+            // Affichage de l'ère actuelle
+            ctx.textAlign = 'left';
+            ctx.fillText(`Ère: ${gameData.era} / ${MAX_ERA}`, padding, padding + 30);
+
+
+            // Affichage de l'intégrité des remparts (minimap/UI simplifiée)
+            ctx.textAlign = 'right';
+            ctx.fillText(`Joueur: ${Math.max(0, gameData.playerRampartHealth)} / ${MAX_RAMPART_HEALTH} PV`, canvas.width - padding, padding);
+            ctx.fillText(`IA: ${Math.max(0, gameData.aiRampartHealth)} / ${MAX_RAMPART_HEALTH} PV`, canvas.width - padding, padding + 30);
+
+            // Mini-barres de vie pour les remparts (visuel simplifié)
+            const healthBarWidth = 100;
+            const healthBarHeight = 10;
+            const healthBarY = padding + 65;
+
+            // Barre de vie du rempart joueur
+            ctx.fillStyle = '#48bb78'; // Vert pour la vie
+            ctx.fillRect(canvas.width - padding - healthBarWidth, healthBarY, healthBarWidth * (Math.max(0, gameData.playerRampartHealth) / MAX_RAMPART_HEALTH), healthBarHeight);
+            ctx.strokeStyle = '#a0aec0';
+            ctx.strokeRect(canvas.width - padding - healthBarWidth, healthBarY, healthBarWidth, healthBarHeight);
+
+            // Barre de vie du rempart IA
+            ctx.fillStyle = '#e53e3e'; // Rouge pour la vie de l'IA
+            ctx.fillRect(canvas.width - padding - healthBarWidth, healthBarY + 15, healthBarWidth * (Math.max(0, gameData.aiRampartHealth) / MAX_RAMPART_HEALTH), healthBarHeight);
+            ctx.strokeStyle = '#a0aec0';
+            ctx.strokeRect(canvas.width - padding - healthBarWidth, healthBarY + 15, healthBarWidth, healthBarHeight);
+
+            // Affichage de la file de production
+            ctx.textAlign = 'left';
+            ctx.font = '18px Inter';
+            ctx.fillText(`File de production: ${productionQueue.length} / ${MAX_PRODUCTION_QUEUE}`, padding, canvas.height - 40);
+
+            // Mettre à jour l'état des boutons de contrôle (unités, tours, pouvoir spécial)
+            updateGameControls();
+        }
+
+        // Lance l'initialisation du jeu lorsque la fenêtre est entièrement chargée
+        window.onload = initGame;
+    </script>
+</body>
+</html>
