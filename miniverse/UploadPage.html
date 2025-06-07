@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uploader un jeu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="w-full max-w-xl bg-white rounded-lg shadow-lg p-6 space-y-4">
+
+    <h1 class="text-2xl font-bold text-center">Upload ton jeu HTML5</h1>
+
+    <div id="auth-section" class="space-y-2">
+      <input id="email" type="email" placeholder="Email" class="w-full p-2 border rounded" />
+      <input id="password" type="password" placeholder="Mot de passe" class="w-full p-2 border rounded" />
+      <button id="login-btn" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Se connecter</button>
+      <button id="logout-btn" class="w-full bg-gray-300 text-black p-2 rounded hidden">Se déconnecter</button>
+    </div>
+
+    <form id="uploadForm" class="space-y-4 hidden">
+      <input id="title" type="text" placeholder="Titre du jeu" required class="w-full border p-2 rounded" />
+      <textarea id="description" placeholder="Description" class="w-full border p-2 rounded"></textarea>
+      <input id="zipFile" type="file" accept=".zip" required class="w-full border p-2 rounded" />
+      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Uploader & publier</button>
+    </form>
+
+    <div id="status" class="text-center text-sm text-gray-700"></div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    const supabase = createClient('https://TON_PROJET.supabase.co', 'TON_ANON_KEY')
+
+    const email = document.getElementById('email')
+    const password = document.getElementById('password')
+    const loginBtn = document.getElementById('login-btn')
+    const logoutBtn = document.getElementById('logout-btn')
+    const uploadForm = document.getElementById('uploadForm')
+    const authSection = document.getElementById('auth-section')
+    const status = document.getElementById('status')
+
+    let currentUser = null
+
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getUser()
+      currentUser = data?.user
+      if (currentUser) {
+        authSection.classList.add('hidden')
+        uploadForm.classList.remove('hidden')
+        logoutBtn.classList.remove('hidden')
+      } else {
+        authSection.classList.remove('hidden')
+        uploadForm.classList.add('hidden')
+      }
+    }
+
+    loginBtn.onclick = async () => {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value
+      })
+      if (error) {
+        status.textContent = "Erreur de connexion : " + error.message
+      } else {
+        status.textContent = "Connecté ✅"
+        checkSession()
+      }
+    }
+
+    logoutBtn.onclick = async () => {
+      await supabase.auth.signOut()
+      status.textContent = "Déconnecté"
+      checkSession()
+    }
+
+    uploadForm.onsubmit = async (e) => {
+      e.preventDefault()
+      const title = document.getElementById('title').value
+      const description = document.getElementById('description').value
+      const file = document.getElementById('zipFile').files[0]
+
+      if (!file || !title) {
+        status.textContent = "Titre et fichier requis."
+        return
+      }
+
+      status.textContent = "Insertion dans la base..."
+      const { data: gameData, error: insertError } = await supabase
+        .from('games')
+        .insert({
+          title,
+          description,
+          profile_id: currentUser.id,
+          is_public: true,
+          game_path: `games/`
+        })
+        .select()
+        .single()
+
+      if (insertError) {
+        status.textContent = "Erreur DB : " + insertError.message
+        return
+      }
+
+      const gameId = gameData.id
+      status.textContent = "Dézippage du jeu..."
+
+      const zipBuffer = await file.arrayBuffer()
+      const zip = fflate.unzipSync(new Uint8Array(zipBuffer))
+
+      status.textContent = "Upload sur GitHub..."
+
+      // Config GitHub
+      const GITHUB_TOKEN = 'ghp_XXX' // ⚠️ Remplacer par un token PAT avec `repo` et `contents:write`
+      const REPO = 'jcbrunelle.github.io'
+      const BRANCH = 'main'
+
+      for (const [name, content] of Object.entries(zip)) {
+        const path = `miniverse/stgames/${gameId}/${name}`
+        const body = {
+          message: `Ajout du fichier ${name} pour jeu ${gameId}`,
+          content: btoa(String.fromCharCode(...content)),
+          branch: BRANCH
+        }
+
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+
+        if (!res.ok) {
+          status.textContent = `Erreur lors de l'envoi du fichier : ${name}`
+          return
+        }
+      }
+
+      status.textContent = `✅ Jeu publié sur GitHub Pages : https://jcbrunelle.github.io/miniverse/stgames/${gameId}/`
+    }
+
+    checkSession()
+  </script>
+</body>
+</html>
