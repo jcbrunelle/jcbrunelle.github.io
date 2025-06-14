@@ -25,5 +25,7 @@ func _on_score_button_pressed():
 
 func send_to_native(action: String, payload: Dictionary):
 	var msg = {"action": action, "payload": payload}
-	var js_code = "window.ReactNativeWebView.postMessage(" + JSON.stringify(msg) + ");"
+	var json_str = JSON.stringify(msg)
+	var js_code = "window.ReactNativeWebView.postMessage(" + json_str + ");"
+	print("JS envoyé à React Native :", js_code)
 	JavaScriptBridge.eval(js_code)
