@@ -27,6 +27,6 @@ func send_to_native(action: String, payload: Dictionary):
 #	var msg = {"action": action, "payload": payload}
 #	var json_str = JSON.stringify(msg).replace('"', '\\"')  # Échappe les guillemets
 #	var js_code = 'window.ReactNativeWebView.postMessage("' + json_str + '");'
-	var js_code = 'window.ReactNativeWebView.postMessage({"action": SEND_SCORE, "payload":{"score":12345}})';
+	var js_code = 'window.ReactNativeWebView.postMessage({\\"action\\": SEND_SCORE, \\"payload\\":{\\"score\\":12345}})';
 	print("JS final envoyé :", js_code)
 	JavaScriptBridge.eval(js_code)
