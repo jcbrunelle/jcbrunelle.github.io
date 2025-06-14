@@ -24,8 +24,9 @@ func _on_score_button_pressed():
 	send_to_native("SEND_SCORE", {"score": 12345})
 
 func send_to_native(action: String, payload: Dictionary):
-	var msg = {"action": action, "payload": payload}
-	var json_str = JSON.stringify(msg)
-	var js_code = "parent.postMessage(" + json_str + ", '*');"
+#	var msg = {"action": action, "payload": payload}
+#	var json_str = JSON.stringify(msg)
+#	var js_code = "parent.postMessage('" + json_str + "');"
+	var js_code = 'window.ReactNativeWebView.postMessage("HelloFromGodot");'
 	print("JS final envoyé :", js_code)
 	JavaScriptBridge.eval(js_code)
