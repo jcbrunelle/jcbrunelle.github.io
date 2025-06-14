@@ -15,7 +15,7 @@ func _ready():
 	window.onMessageFromRN = cb
 	
 func _on_button_pressed() -> void:
-	var message = "Bonjour depuis Godot !"
+	var message = JSON.stringify({"action":"GAME_OVER", "payload": {"score":23}})	
 	window.test(message);
 
 func _on_message_from_react_native(args):
