@@ -20,6 +20,6 @@ offset_top = 173.0
 offset_right = 652.0
 offset_bottom = 449.0
 theme_override_font_sizes/font_size = 52
-text = "Envoyer"
+text = "Envoyer Hello"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
