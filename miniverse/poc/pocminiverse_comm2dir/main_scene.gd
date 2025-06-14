@@ -10,6 +10,6 @@ func _ready():
 	add_child(button)
 
 func _send_message_to_rn():
-	if OS.get_name() == "Web":
-		var window = JavaScriptBridge.get_interface("console")
+	var window = JavaScriptBridge.get_interface("console")
+	if window:
 		window.log("Hello from Godot")
