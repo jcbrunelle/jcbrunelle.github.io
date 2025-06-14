@@ -25,4 +25,4 @@ func _on_message_from_react_native(args):
 		match result["action"]:
 			"SET_USERNAME":
 				var username = result["payload"].get("username", "Anonyme")
-				username_label.text = username
+				username_label.text = "Bonjour, " + username
