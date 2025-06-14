@@ -6,11 +6,17 @@ var _js_bridge_refs = []
 
 func _ready():
 	if OS.has_feature("web"):
+		send_simple_message()
 		var window = JavaScriptBridge.get_interface("window")
 		var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
 		_js_bridge_refs.append(cb)
 		window.onMessageFromRN = cb
 
+func send_simple_message():
+	var js_code = 'window.ReactNativeWebView.postMessage("HelloFromGodot");'
+	print("JS simple envoyé :", js_code)
+	JavaScriptBridge.eval(js_code)
+	
 func _on_message_from_react_native(args):
 	var json_str = args[0]
 	var result = JSON.parse_string(json_str)
