@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpjbwyce3oeti"]
+
+[ext_resource type="Script" uid="uid://lna0l51id8y0" path="res://test_scene.gd" id="1_uhqqe"]
+
+[node name="TestScene" type="Node2D"]
+script = ExtResource("1_uhqqe")
+
+[node name="UsernameLabel" type="Label" parent="."]
+offset_left = 178.0
+offset_top = 22.0
+offset_right = 521.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 48
+text = "Username?"
+horizontal_alignment = 1
+
+[node name="UserButton" type="Button" parent="."]
+offset_left = 216.0
+offset_top = 94.0
+offset_right = 482.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 44
+text = "Send score"
+
+[connection signal="pressed" from="UserButton" to="." method="_on_user_button_pressed"]
