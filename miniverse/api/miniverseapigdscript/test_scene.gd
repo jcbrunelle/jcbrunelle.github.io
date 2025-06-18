@@ -11,4 +11,4 @@ func _ready():
 
 
 func _on_user_button_pressed() -> void:
-	username_label.text = miniverse_api_instance.initial_data['username']
+	miniverse_api_instance.send_score(123)

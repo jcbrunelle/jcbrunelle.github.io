@@ -20,6 +20,6 @@ offset_top = 94.0
 offset_right = 482.0
 offset_bottom = 174.0
 theme_override_font_sizes/font_size = 44
-text = "Send score1"
+text = "Send score2"
 
 [connection signal="pressed" from="UserButton" to="." method="_on_user_button_pressed"]

@@ -54,7 +54,7 @@ func send_achievement(achievement_name) -> void:
 # Send score function.
 # The score must be a number.
 func send_score(score) -> void:
-	_send_message_to_react_native("SCORE",score)
+	_send_message_to_react_native("SCORE",{"score":score})
 
 # Send saved data function.
 # The saved data format is up to the game developer. 
