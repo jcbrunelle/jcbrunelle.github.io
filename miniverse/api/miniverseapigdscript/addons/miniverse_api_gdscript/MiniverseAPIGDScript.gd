@@ -12,6 +12,7 @@ var initial_data = "" # { username:[username],
 # Ready function
 # Initializating the callback and send a READY message to RN App
 func _ready():
+	console.log("DEBUUUT")
 	if OS.has_feature("web"):
 		console = JavaScriptBridge.get_interface("console")
 		window = JavaScriptBridge.get_interface("window")
