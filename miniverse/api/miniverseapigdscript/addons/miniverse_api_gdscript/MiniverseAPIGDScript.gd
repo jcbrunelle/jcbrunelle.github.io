@@ -12,15 +12,13 @@ var initial_data = "" # { username:[username],
 # Ready function
 # Initializating the callback and send a READY message to RN App
 func _ready():
-	console.log("DEBUUUT")
-	if OS.has_feature("web"):
-		console = JavaScriptBridge.get_interface("console")
-		window = JavaScriptBridge.get_interface("window")
-		
-		var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
-		_js_bridge_refs.append(cb)
-		window.onMessageFromRN = cb
-		_send_message_to_react_native("READY",{})
+	console = JavaScriptBridge.get_interface("console")
+	window = JavaScriptBridge.get_interface("window")
+	
+	var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
+	_js_bridge_refs.append(cb)
+	window.onMessageFromRN = cb
+	_send_message_to_react_native("READY",{})
 
 # Received messages function.
 # Received messages are formatted as followed :
