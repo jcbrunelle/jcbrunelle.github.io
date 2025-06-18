@@ -1,6 +1,6 @@
 # MiniverseAPIGDScript.gd
 @tool
-extends Node
+extends EditorPlugin
 
 var window
 var console
@@ -8,6 +8,15 @@ var _js_bridge_refs = []
 var initial_data = "" # { username:[username],
 				 #  previous_score:[previous_score],
 				 #  saved_data:[saved_data] }
+func _enter_tree() -> void:
+	console = JavaScriptBridge.get_interface("console")
+	window = JavaScriptBridge.get_interface("window")
+	
+	var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
+	if _js_bridge_refs.size()<=0:
+		_js_bridge_refs.append(cb)
+	window.onMessageFromRN = cb
+	_send_message_to_react_native("READY",{})
 
 # Ready function
 # Initializating the callback and send a READY message to RN App
@@ -16,7 +25,8 @@ func _ready():
 	window = JavaScriptBridge.get_interface("window")
 	
 	var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
-	_js_bridge_refs.append(cb)
+	if _js_bridge_refs.size()<=0:
+		_js_bridge_refs.append(cb)
 	window.onMessageFromRN = cb
 	_send_message_to_react_native("READY",{})
 
@@ -37,7 +47,6 @@ func _on_message_from_react_native(args):
 			"SET_INITDATA":
 				initial_data=result["payload"]
 
-
 # Send messages function.
 # Sent messages must be formatted as followed :
 # { "action" : [action_name], "payload" : [payload_data] }
@@ -49,7 +58,7 @@ func _send_message_to_react_native(action, payload) -> void:
 # The name must match with the achievements given in the initial import.
 func send_achievement(achievement_name) -> void:
 	_send_message_to_react_native("ACHIEVEMENT",achievement_name)
-	
+
 # Send score function.
 # The score must be a number.
 func send_score(score) -> void:

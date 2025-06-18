@@ -20,6 +20,14 @@ offset_top = 94.0
 offset_right = 482.0
 offset_bottom = 174.0
 theme_override_font_sizes/font_size = 44
-text = "Send score3"
+text = "Send score4"
+
+[node name="ConnexionLabel" type="Label" parent="."]
+offset_left = 130.0
+offset_top = 94.0
+offset_right = 170.0
+offset_bottom = 155.0
+theme_override_font_sizes/font_size = 44
+text = "?"
 
 [connection signal="pressed" from="UserButton" to="." method="_on_user_button_pressed"]
