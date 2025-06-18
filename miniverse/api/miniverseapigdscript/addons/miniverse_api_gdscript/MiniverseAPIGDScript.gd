@@ -1,23 +1,12 @@
 # MiniverseAPIGDScript.gd
-@tool
-extends EditorPlugin
+extends Node
 
 var window
 var console
 var _js_bridge_refs = []
-var initial_data = "" # { username:[username],
-				 #  previous_score:[previous_score],
-				 #  saved_data:[saved_data] }
-func _enter_tree() -> void:
-	console = JavaScriptBridge.get_interface("console")
-	window = JavaScriptBridge.get_interface("window")
-	
-	var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
-	if _js_bridge_refs.size()<=0:
-		_js_bridge_refs.append(cb)
-	window.onMessageFromRN = cb
-	_send_message_to_react_native("READY",{})
-
+var initial_data : Dictionary = {} 	# { username:[username],
+									#  previous_score:[previous_score],
+				 					#  saved_data:[saved_data] }
 # Ready function
 # Initializating the callback and send a READY message to RN App
 func _ready():

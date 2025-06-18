@@ -20,7 +20,7 @@ offset_top = 94.0
 offset_right = 482.0
 offset_bottom = 174.0
 theme_override_font_sizes/font_size = 44
-text = "Send score4"
+text = "Send score5"
 
 [node name="ConnexionLabel" type="Label" parent="."]
 offset_left = 130.0
