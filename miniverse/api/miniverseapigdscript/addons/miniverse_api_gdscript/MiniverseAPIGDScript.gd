@@ -7,6 +7,8 @@ var _js_bridge_refs = []
 var initial_data : Dictionary = {} 	# { username:[username],
 									#  previous_score:[previous_score],
 				 					#  saved_data:[saved_data] }
+signal init_data_received(data)
+
 # Ready function
 # Initializating the callback and send a READY message to RN App
 func _ready():
@@ -35,6 +37,7 @@ func _on_message_from_react_native(args):
 		match result["action"]:
 			"SET_INITDATA":
 				initial_data=result["payload"]
+				emit_signal("init_data_received", initial_data)  # Signal emission
 
 # Send messages function.
 # Sent messages must be formatted as followed :
