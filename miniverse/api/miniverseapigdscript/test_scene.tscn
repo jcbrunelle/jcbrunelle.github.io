@@ -11,7 +11,7 @@ offset_top = 22.0
 offset_right = 521.0
 offset_bottom = 89.0
 theme_override_font_sizes/font_size = 48
-text = "Username?"
+text = "Username"
 horizontal_alignment = 1
 
 [node name="UserButton" type="Button" parent="."]
@@ -20,29 +20,30 @@ offset_top = 94.0
 offset_right = 482.0
 offset_bottom = 174.0
 theme_override_font_sizes/font_size = 44
-text = "Send score13"
+text = "Send score"
 
 [node name="LevelLabel" type="Label" parent="."]
-offset_left = 342.0
+offset_left = 293.0
 offset_top = 186.0
-offset_right = 382.0
+offset_right = 403.0
 offset_bottom = 247.0
 theme_override_font_sizes/font_size = 44
-text = "?"
+text = "Level"
 
 [node name="XPLabel" type="Label" parent="."]
-offset_left = 348.0
+offset_left = 326.0
 offset_top = 246.0
-offset_right = 388.0
+offset_right = 380.0
 offset_bottom = 307.0
 theme_override_font_sizes/font_size = 44
-text = "!"
+text = "XP"
 
 [node name="PreviousScoreLabel" type="Label" parent="."]
-offset_left = 14.0
-offset_top = 8.0
-offset_right = 132.0
-offset_bottom = 31.0
-text = "PreviousScore: "
+offset_left = 193.0
+offset_top = 299.0
+offset_right = 517.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 44
+text = "PreviousScore "
 
 [connection signal="pressed" from="UserButton" to="." method="_on_user_button_pressed"]

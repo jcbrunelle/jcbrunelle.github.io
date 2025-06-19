@@ -92,8 +92,12 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="Test_MiniverseAPIGDSCript.icon.png" />
 <link rel="apple-touch-icon" href="Test_MiniverseAPIGDSCript.apple-touch-icon.png"/>
-<script src="JSMiniverseAPIGDScript_Bridge.js">
+<script>
+	function send_message(message) {
+		window.ReactNativeWebView.postMessage(message);
+	}
 </script>
+
 
 	</head>
 	<body>
