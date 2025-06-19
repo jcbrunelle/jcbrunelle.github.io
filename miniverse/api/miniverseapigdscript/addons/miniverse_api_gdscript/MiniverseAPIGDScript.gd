@@ -28,7 +28,7 @@ func _ready():
 #											}
 # }
 func _on_message_from_react_native(args):
-	_send_message_to_react_native("MSGRECU",{})
+	_send_message_to_react_native("MSGRECU",args[0])
 	var json_str = args[0]
 	var result = JSON.parse_string(json_str)
 	if result:
