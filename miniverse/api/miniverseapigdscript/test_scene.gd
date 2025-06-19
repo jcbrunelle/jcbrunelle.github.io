@@ -4,9 +4,9 @@ extends Node2D
 var miniverseAPIScript = preload("res://addons/miniverse_api_gdscript/MiniverseAPIGDScript.gd")
 @onready var miniverse_api_instance
 @onready var username_label := $UsernameLabel
-@onready var label1 := $LevelLabel
-@onready var label2 := $XPLabel
-@onready var label3 := $PreviousScoreLabel
+@onready var level_label := $LevelLabel
+@onready var xp_label := $XPLabel
+@onready var ps_label := $PreviousScoreLabel
 
 func _ready():
 	miniverse_api_instance = miniverseAPIScript.new()
@@ -17,8 +17,8 @@ func _on_user_button_pressed() -> void:
 	miniverse_api_instance.send_score(123)
 
 func _update_ui(data):
-	username_label.text = miniverse_api_instance.initial_data['username']
-	label1.text="Level: " + miniverse_api_instance.initial_data['saved_data']['level']
-	label2.text="XP: " + miniverse_api_instance.initial_data['saved_data']['xp']
-	label3.text="Previous Score: " + miniverse_api_instance.initial_data['previous_score']
+	username_label.text ="Salut " + miniverse_api_instance.initial_data['username']
+	ps_label.text="Previous Score: " + str(miniverse_api_instance.initial_data['previous_score'])
+	level_label.text="Level: " + str(miniverse_api_instance.initial_data['saved_data']['level'])
+	xp_label.text="XP: " + str(miniverse_api_instance.initial_data['saved_data']['xp'])
 	
