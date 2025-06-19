@@ -14,8 +14,7 @@ func _ready():
 	window = JavaScriptBridge.get_interface("window")
 	
 	var cb = JavaScriptBridge.create_callback(_on_message_from_react_native)
-	if _js_bridge_refs.size()<=0:
-		_js_bridge_refs.append(cb)
+	_js_bridge_refs.append(cb)
 	window.onMessageFromRN = cb
 	_send_message_to_react_native("READY",{})
 
@@ -29,6 +28,7 @@ func _ready():
 #											}
 # }
 func _on_message_from_react_native(args):
+	_send_message_to_react_native("MSGRECU",{})
 	var json_str = args[0]
 	var result = JSON.parse_string(json_str)
 	if result:
