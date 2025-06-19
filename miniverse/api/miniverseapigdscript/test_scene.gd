@@ -11,7 +11,7 @@ var miniverseAPIScript = preload("res://addons/miniverse_api_gdscript/MiniverseA
 func _ready():
 	miniverse_api_instance = miniverseAPIScript.new()
 	add_child(miniverse_api_instance)
-	miniverse_api_instance.init_data_received.connect(_update_ui)  # Connexion signal
+	miniverse_api_instance.init_data_received.connect(_update_ui)
 
 func _on_user_button_pressed() -> void:
 	miniverse_api_instance.send_score(123)
