@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Coaching poker JCBrunul — No Limit Hold'em Cash Game & MTT avec un professionnel à Tahiti. Séances, packs Nexus Holdem inclus.">
+  <title>Coaching poker JCBrunul — No Limit Hold'em</title>
+  <style>
+    *,
+    *::before,
+    *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: clamp(4.25rem, 11vw, 5.75rem);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+    :root {
+      --black: #0a0c0b;
+      --anthracite: #141a17;
+      --anthracite-2: #1c2420;
+      --green-deep: #0d2818;
+      --green-mid: #1a4028;
+      --burgundy: #5c1f2e;
+      --burgundy-bright: #7a2940;
+      --gold: #c9a227;
+      --gold-dim: #9a7b1f;
+      --text: #e8eae9;
+      --text-muted: #a8b0ac;
+      --border: rgba(201, 162, 39, 0.22);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--black);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% -20%, rgba(26, 64, 40, 0.35), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 50%, rgba(92, 31, 46, 0.12), transparent 50%);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #e6c547; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    .container {
+      width: min(1120px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    /* Header navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(175deg, rgba(12, 15, 14, 0.98), rgba(10, 12, 11, 0.92));
+      backdrop-filter: blur(14px) saturate(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+      border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+      box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.35),
+        0 8px 28px rgba(0, 0, 0, 0.22);
+    }
+    .site-header::before {
+      content: "";
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201, 162, 39, 0.45) 20%, rgba(201, 162, 39, 0.85) 50%, rgba(201, 162, 39, 0.45) 80%, transparent 100%);
+      opacity: 0.9;
+    }
+    .site-header-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.55rem 0 0.65rem;
+      flex-wrap: nowrap;
+      min-height: 3rem;
+    }
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.045em;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      line-height: 1.2;
+      flex-shrink: 0;
+      padding: 0.35rem 0;
+      transition: color 0.15s ease, filter 0.15s ease;
+    }
+    .brand:hover {
+      color: var(--text);
+      filter: brightness(1.08);
+    }
+    .brand span {
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 2.65rem;
+      height: 2.65rem;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: rgba(26, 32, 28, 0.65);
+      color: var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+    .nav-toggle:hover {
+      border-color: rgba(201, 162, 39, 0.45);
+      background: rgba(201, 162, 39, 0.08);
+    }
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .nav-toggle-burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 1.125rem;
+    }
+    .nav-toggle-burger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #e8cf5f, var(--gold));
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .site-header.is-nav-open .nav-toggle-burger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .site-header.is-nav-open .nav-toggle-burger span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .site-header.is-nav-open .nav-toggle-burger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .nav-main a {
+      font-size: 0.8175rem;
+      font-weight: 600;
+      color: rgba(232, 234, 233, 0.78);
+      text-decoration: none;
+      letter-spacing: 0.025em;
+      padding: 0.45rem 0.82rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+      white-space: nowrap;
+    }
+    .nav-main a:hover {
+      color: var(--text);
+      background: rgba(201, 162, 39, 0.08);
+      border-color: rgba(201, 162, 39, 0.2);
+    }
+    .nav-main a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 769px) {
+      .nav-toggle {
+        display: inline-flex;
+      }
+      .nav-main {
+        position: absolute;
+        top: calc(100% + 0.55rem);
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        min-width: min(17.5rem, calc(100vw - 3rem));
+        padding: 0.4rem;
+        gap: 0.15rem;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        background: rgba(18, 24, 20, 0.97);
+        border: 1px solid rgba(201, 162, 39, 0.22);
+        border-radius: var(--radius);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      }
+      .site-header.is-nav-open .nav-main {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .nav-main a {
+        border-radius: var(--radius-sm);
+        padding: 0.68rem 0.92rem;
+        white-space: normal;
+      }
+    }
+    section { padding-block: clamp(3rem, 6vw, 5rem); }
+    section:nth-of-type(even) {
+      background: linear-gradient(180deg, transparent, rgba(20, 26, 23, 0.55));
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.85rem;
+      line-height: 1.15;
+    }
+    .section-lede {
+      color: var(--text-muted);
+      max-width: 62ch;
+      margin: 0 0 1.75rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding-block: clamp(2.75rem, 6vw, 4.75rem) 3rem;
+    }
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1.75rem, 4vw, 2.75rem);
+      align-items: stretch;
+    }
+    .hero-launch { order: -1; }
+    @media (min-width: 900px) {
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+        gap: clamp(2rem, 5vw, 3.25rem);
+        align-items: center;
+      }
+      .hero-launch { order: 0; }
+    }
+    .hero-launch {
+      position: relative;
+      padding: clamp(1.5rem, 4vw, 2.35rem);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(120% 140% at 10% -20%, rgba(201, 162, 39, 0.22), transparent 45%),
+        linear-gradient(160deg, var(--burgundy) 0%, var(--anthracite-2) 35%, rgba(92, 31, 46, 0.55) 100%);
+      border: 2px solid rgba(201, 162, 39, 0.65);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 8px 40px rgba(0, 0, 0, 0.55),
+        0 0 48px rgba(201, 162, 39, 0.12);
+    }
+    .hero-launch-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 250, 240, 0.95);
+      background: rgba(201, 162, 39, 0.25);
+      border: 1px solid rgba(201, 162, 39, 0.5);
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .hero-launch-head {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.25rem, 3.4vw, 1.75rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #fffaf0;
+      letter-spacing: -0.025em;
+    }
+    .hero-launch-head .hero-launch-accent {
+      color: #fde68a;
+      text-shadow: 0 0 40px rgba(201, 162, 39, 0.35);
+    }
+    .hero-launch-intro {
+      margin: 0 0 1.15rem;
+      font-size: 0.895rem;
+      line-height: 1.55;
+      color: rgba(255, 248, 240, 0.88);
+    }
+    .hero-launch-intro strong {
+      color: #fde68a;
+      font-weight: 700;
+    }
+    .hero-launch-intro a {
+      font-weight: 650;
+      text-decoration-thickness: 1px;
+    }
+    .hero-launch-intro a:not(:hover):not(:focus-visible) {
+      text-decoration-style: dashed;
+      text-underline-offset: 3px;
+    }
+
+    .hero-launch-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin: 0 0 0.95rem;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 540px) {
+      .hero-launch-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.875rem 1.15rem;
+      }
+    }
+    .hero-launch-grid > li {
+      margin: 0;
+      padding: 0.78rem 0.92rem;
+      background: rgba(8, 10, 9, 0.38);
+      border: 1px solid rgba(201, 162, 39, 0.22);
+      border-radius: var(--radius-sm);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .hero-launch-k {
+      margin: 0;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(253, 230, 138, 0.95);
+      line-height: 1.2;
+    }
+    .hero-launch-v {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.42;
+      color: rgba(255, 251, 245, 0.92);
+    }
+
+    /* Intro hero (titres sous / à côté de l’offre) */
+    .hero-intro h1 {
+      font-size: clamp(1.85rem, 5vw, 2.85rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin: 0 0 1rem;
+      max-width: 18ch;
+    }
+    @media (min-width: 540px) { .hero-intro h1 { max-width: 24ch; } }
+    .hero-sub {
+      font-size: 1.075rem;
+      color: var(--text-muted);
+      margin: 0 0 1.75rem;
+      max-width: 40rem;
+    }
+
+    /* Pastilles réservées (intégrées au bloc offre) */
+    .places-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.25rem;
+      padding-top: 1.1rem;
+      margin-top: 0.55rem;
+      border-top: 1px dashed rgba(201, 162, 39, 0.35);
+    }
+    .places-dots {
+      display: flex;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .places-dots .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 2px rgba(10,12,11,0.6), 0 0 12px rgba(201, 162, 39, 0.45);
+    }
+    .places-row.hero-places-inline { margin-bottom: 0; }
+    .places-label {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.92rem;
+    }
+    .hero-launch .places-label {
+      color: rgba(255, 250, 240, 0.95);
+      font-weight: 700;
+    }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.82rem 1.35rem;
+      font-family: inherit;
+      font-weight: 650;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: transform 0.15s ease, border-color 0.15s, background 0.15s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .btn-primary {
+      background: linear-gradient(180deg, #d4ae32, var(--gold) 55%, var(--gold-dim));
+      color: #1a1410;
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 4px 22px rgba(201, 162, 39, 0.25);
+    }
+    .btn-primary:hover { filter: brightness(1.06); color: #1a1410; text-decoration: none; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* Cards & panels */
+    .card {
+      background: var(--anthracite);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.25rem, 4vw, 1.85rem);
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.25);
+    }
+    .card-gold-accent {
+      border-color: rgba(201, 162, 39, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(201, 162, 39, 0.12),
+        0 8px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .highlights-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .highlights-list li {
+      padding: 0.35rem 0 0.35rem 1.35rem;
+      position: relative;
+      color: var(--text-muted);
+    }
+    .highlights-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.82em;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+
+    /* Carousel horizontal */
+    .carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 1rem;
+      padding-bottom: 0.75rem;
+      margin-inline: -0.35rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel::-webkit-scrollbar { height: 6px; }
+    .carousel::-webkit-scrollbar-thumb {
+      background: rgba(201, 162, 39, 0.35);
+      border-radius: 6px;
+    }
+    .carousel-track {
+      display: flex;
+      gap: clamp(1rem, 4vw, 1.35rem);
+      padding: 0.35rem calc(1rem + 0.35rem) 0.35rem;
+    }
+    .carousel-item {
+      flex: 0 0 min(340px, 88vw);
+      scroll-snap-align: start;
+    }
+    @media (min-width: 900px) {
+      .carousel.results-carousel .carousel-item {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+      .carousel.results-carousel {
+        overflow-x: visible;
+      }
+      .carousel.results-carousel .carousel-track {
+        padding-inline: 0;
+        margin-inline: 0;
+      }
+    }
+
+    figure.result-fig {
+      margin: 0;
+      background: linear-gradient(180deg, #f4f6f5, #e2e8e6);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+    figure.result-fig img { width: 100%; vertical-align: middle; }
+    figure.result-fig figcaption {
+      font-size: 0.85rem;
+      padding: 0.65rem 0.85rem;
+      background: rgba(10, 12, 11, 0.06);
+      color: #25302a;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .nexus-card img {
+      border-radius: calc(var(--radius-sm) - 2px);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 0.75rem;
+      background: var(--anthracite-2);
+    }
+    .nexus-card h3 {
+      font-size: 1.05rem;
+      margin: 0 0 0.4rem;
+    }
+
+    /* Offer tabs */
+    .tabs-root { margin-top: 0.25rem; }
+    .tabs-list {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+    }
+    .tab-btn {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.65rem 1rem 0.85rem;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn[aria-selected="true"] {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: rgba(201, 162, 39, 0.06);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem -0.05rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    table.coach-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      min-width: 640px;
+    }
+    table.coach-table caption { text-align: left; padding: 0.75rem 1rem 0; }
+    table.coach-table th,
+    table.coach-table td {
+      padding: 0.75rem 0.95rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+    }
+    table.coach-table th:first-child,
+    table.coach-table td:first-child {
+      padding-inline-end: clamp(1.25rem, 3.8vw, 2.75rem);
+    }
+    table.coach-table thead th {
+      background: var(--anthracite-2);
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.74rem;
+    }
+    table.coach-table tbody tr:hover {
+      background: rgba(26, 64, 40, 0.12);
+    }
+    table.coach-table td.offer-name-cell {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.45;
+      vertical-align: top;
+    }
+    table.coach-table td.offer-name-cell .offer-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.65rem;
+      margin-bottom: 0.42rem;
+    }
+    table.coach-table td.offer-name-cell span.offer-tag {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin-bottom: 0.42rem;
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fde68a;
+      line-height: 1.2;
+    }
+    table.coach-table td.offer-name-cell .offer-tag-row .offer-tag {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+    table.coach-table td.offer-name-cell span.offer-desc {
+      display: block;
+      font-weight: 550;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      letter-spacing: 0.015em;
+    }
+    table.coach-table th.col-value,
+    table.coach-table td.col-value {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    table.coach-table thead th.th-launch-col {
+      color: #ffd85c;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+      background: rgba(92, 31, 46, 0.35);
+      text-transform: none;
+      letter-spacing: 0.03em;
+      font-size: 0.82rem;
+      vertical-align: bottom;
+      font-weight: 800;
+    }
+    table.coach-table thead th.th-launch-col .th-sub {
+      display: block;
+      font-weight: 600;
+      color: rgba(255, 220, 150, 0.85);
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.65rem;
+      margin-top: 0.25rem;
+    }
+    table.coach-table td.cell-launch {
+      position: relative;
+      vertical-align: middle;
+      padding: 0 !important;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    table.coach-table td.cell-launch::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(201, 162, 39, 0.18), rgba(201, 162, 39, 0.06));
+      border-inline: 1px solid rgba(201, 162, 39, 0.35);
+      box-sizing: border-box;
+    }
+    table.coach-table tr.featured td.cell-launch::before {
+      background: linear-gradient(90deg, rgba(201, 162, 39, 0.28), rgba(201, 162, 39, 0.12));
+    }
+    table.coach-table .launch-fill {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 0.95rem;
+      box-sizing: border-box;
+    }
+    table.coach-table .launch-fill .launch-price {
+      display: inline;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      font-size: 1.06rem;
+      color: #f5e7a8;
+      line-height: 1.25;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    table.coach-table .launch-fill .launch-savings {
+      display: inline;
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      color: rgba(142, 200, 160, 0.78);
+      line-height: 1.25;
+      white-space: nowrap;
+      vertical-align: baseline;
+    }
+    table.coach-table tr.featured .launch-fill .launch-savings {
+      color: rgba(168, 223, 184, 0.88);
+    }
+    table.coach-table thead th.head-stacked {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-weight: 800;
+      font-size: 0.78rem;
+      vertical-align: bottom;
+      line-height: 1.25;
+    }
+    table.coach-table thead th.head-stacked .th-head-main {
+      display: block;
+    }
+    table.coach-table thead th.head-stacked.col-value .th-head-main {
+      color: var(--gold);
+    }
+    table.coach-table thead th.head-stacked .th-head-sub {
+      display: block;
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.62rem;
+      color: rgba(232, 234, 233, 0.72);
+      margin-top: 0.38rem;
+      line-height: 1.35;
+      white-space: normal;
+      max-width: 11rem;
+    }
+    table.coach-table td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    table.coach-table tr:last-child td { border-bottom: none; }
+
+    tr.featured td {
+      background: linear-gradient(90deg, rgba(201, 162, 39, 0.12), rgba(92, 31, 46, 0.15));
+      border-block: 1px solid rgba(201, 162, 39, 0.45);
+    }
+    .badge-choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--black);
+      background: linear-gradient(90deg, var(--gold), #e8cf5f);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .offer-footnote {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* Nexus logo block */
+    .nexus-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .nexus-logo-wrap img {
+      width: min(220px, 70vw);
+      height: auto;
+      margin-inline: auto;
+    }
+
+    /* Contact form */
+    .form-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 620px) {
+      .form-grid.two { grid-template-columns: 1fr 1fr; }
+    }
+    label.field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    input, textarea {
+      font: inherit;
+      padding: 0.75rem 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--anthracite-2);
+      color: var(--text);
+    }
+    input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      border-color: var(--gold);
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    .form-actions { margin-top: 1rem; }
+
+    .contact-alt {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    footer.site-footer {
+      padding: 2.75rem 0 2rem;
+      border-top: 1px solid var(--border);
+      background: rgba(10,12,11,0.95);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    #mentions-legales {
+      scroll-margin-top: 5.5rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#section-hero">Aller au contenu principal</a>
+
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="#section-hero">Coaching Poker <span>JCBrunul</span></a>
+      <nav class="nav-main" aria-label="Navigation principale">
+        <a href="#qui-suis-je">Présentation</a>
+        <a href="#seance-decouverte">Séance découverte</a>
+        <a href="#offres">Offres</a>
+        <a href="#nexus-holdem">Nexus Holdem</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1 HERO -->
+    <section id="section-hero" class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-intro">
+            <h1 id="hero-title">Progressez au poker avec un professionnel basé à Tahiti</h1>
+            <p class="hero-sub">- Coaching No Limit Hold'em Cash Game &amp; MTT</p>
+            <p class="hero-sub">- Niveaux débutant à intermédiaire</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="#offres">Voir les offres</a>
+              <a class="btn btn-secondary" href="#contact">Me contacter</a>
+            </div>
+          </div>
+
+          <div class="hero-launch" role="region" aria-labelledby="hero-launch-title">
+            <span class="hero-launch-eyebrow">Offre limitée</span>
+            <p id="hero-launch-title" class="hero-launch-head">
+              <span class="hero-launch-accent">Logiciel inclus</span> en prix de lancement
+            </p>
+            <ul class="hero-launch-grid">
+              <li>
+                <p class="hero-launch-k">Nombre de places limitées</p>
+                <p class="hero-launch-v"><strong>5 places</strong> max</p>
+              </li>
+              <li>
+                <p class="hero-launch-k">Date limite</p>
+                <p class="hero-launch-v">Avant le <strong>31&nbsp;mai&nbsp;2026</strong></p>
+              </li>
+            </ul>
+            <div class="places-row hero-places-inline" aria-label="Places restantes">
+              <div class="places-dots" title="5 places">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="dot" aria-hidden="true"></span>
+                <span class="dot" aria-hidden="true"></span>
+                <span class="dot" aria-hidden="true"></span>
+                <span class="dot" aria-hidden="true"></span>
+              </div>
+              <span class="places-label">5 places restantes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 QUI SUIS-JE -->
+    <section id="qui-suis-je" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title" class="section-title">Qui suis-je&nbsp;?</h2>
+        <ul class="highlights-list">
+          <li>Joueur professionnel de poker depuis 2024</li>
+          <li>Plus de 150 000€ de gains en Cash Game &amp; MTT No Limit Hold'em</li>
+          <li>Spécialité : <strong style="color: var(--text)">Cash Game &amp; MTT No Limit Hold'em</strong></li>
+          <li>Basé à <strong style="color: var(--text)">Punaauia, Tahiti</strong></li>
+          <li>Approche claire et pédagogique pour passer du débutant à avancé, avec des bases stratégiques solides</li>
+        </ul>
+
+        <h3 class="section-title" style="font-size: clamp(1.15rem, 3vw, 1.5rem); margin-top: 2.25rem;">Mes résultats</h3>
+        <div class="carousel results-carousel">
+          <div class="carousel-track">
+            <div class="carousel-item">
+              <figure class="result-fig">
+                <img src="assets/CourbeMTT.png" loading="lazy" alt="Courbe cumulative de résultats en tournois multi-tables MTT sur un grand nombre de parties, tendance générale à la hausse.">
+                <figcaption>Résultats MTT</figcaption>
+              </figure>
+            </div>
+            <div class="carousel-item">
+              <figure class="result-fig">
+                <img src="assets/ResultatsCG1.png" loading="lazy" alt="Graphique de profit total en cash game montrant une progression positive sur plusieurs mois.">
+                <figcaption>Résultats Cash Game (1)</figcaption>
+              </figure>
+            </div>
+            <div class="carousel-item">
+              <figure class="result-fig">
+                <img src="assets/ResultatsCG2.png" loading="lazy" alt="Courbe des résultats globaux en euros sur une période récente, avec tendance ascendante régulière.">
+                <figcaption>Résultats Cash Game (2)</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 SÉANCE DÉCOUVERTE -->
+    <section id="seance-decouverte" aria-labelledby="discover-title">
+      <div class="container">
+        <div class="card card-gold-accent">
+          <h2 id="discover-title" class="section-title" style="margin-bottom: 0.5rem;">Commencez sans risque</h2>
+          <p style="margin: 0 0 1rem; color: var(--text-muted);">Séance Découverte — <strong style="color: var(--gold)">6 000 XPF</strong> — Non renouvelable — 1 séance par personne</p>
+          <ul class="highlights-list" style="margin-bottom: 1.25rem;">
+            <li>1&nbsp;h de coaching individuel + 14 jours d'accès à Nexus Holdem offerts</li>
+            <li>✔ Idéal pour découvrir ma méthode avant de vous engager</li>
+          </ul>
+          <a class="btn btn-primary" id="cta-decouverte" href="#">Réserver ma séance découverte</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 OFFRES -->
+    <section id="offres" aria-labelledby="offers-title">
+      <div class="container">
+        <h2 id="offers-title" class="section-title">Offres de coaching</h2>
+        <p class="section-lede">Tarifs en francs Pacifique (XPF). Les bundles présentent le <strong>prix de lancement</strong> (Nexus offert) ; sur la même ligne apparaît en discret l’écart par rapport à la <strong>valeur indicative du pack</strong> (valeur − prix affiché, ex.&nbsp;: «&nbsp;−6&nbsp;000&nbsp;XPF&nbsp;»).</p>
+
+        <div class="tabs-root">
+          <div class="tabs-list" role="tablist" aria-label="Type d'offre">
+            <button type="button" class="tab-btn" role="tab" id="tab-solo" aria-controls="panel-solo" aria-selected="true" tabindex="0">Coaching seul</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-bundle" aria-controls="panel-bundle" aria-selected="false" tabindex="-1">Coaching + Nexus Holdem</button>
+          </div>
+
+          <div id="panel-solo" class="tab-panel active" role="tabpanel" aria-labelledby="tab-solo">
+            <div class="table-wrap">
+              <table class="coach-table">
+                <caption class="sr-only">Tarifs coaching seul à l&apos;heure et en packs</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Offre</th>
+                    <th scope="col">Prix</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Unitaire</span><span class="offer-desc">1h de coaching</span></td>
+                    <td class="num">10 000 XPF</td>
+                  </tr>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Pack 3&nbsp;h</span><span class="offer-desc">3h de coaching</span></td>
+                    <td class="num">28 500 XPF</td>
+                  </tr>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Pack 5&nbsp;h</span><span class="offer-desc">5h de coaching</span></td>
+                    <td class="num">45 000 XPF</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="panel-bundle" class="tab-panel" role="tabpanel" aria-labelledby="tab-bundle" hidden>
+            <div class="table-wrap">
+              <table class="coach-table">
+                <caption class="sr-only">Bundles coaching plus accès Nexus Holdem, prix plein et lancement</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Offre</th>
+                    <th scope="col">Prix normal</th>
+                    <th scope="col" class="th-launch-col"><span aria-hidden="true">🚀</span>&nbsp;Prix lancement<span class="th-sub">avec écart discret vs la valeur du pack</span></th>
+                    <th scope="col" class="col-value head-stacked">
+                      <span class="th-head-main">Valeur du pack</span>
+                      <span class="th-head-sub">valeur indicative à prix public</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Starter</span><span class="offer-desc">1h de coaching + Nexus 1&nbsp;mois</span></td>
+                    <td class="num">13 000 XPF</td>
+                    <td class="cell-launch">
+                      <div class="launch-fill">
+                        <span class="launch-price">10 000 XPF</span>
+                        <span class="launch-savings" title="Valeur pack 16 000 XPF − prix lancement">−6 000 XPF</span>
+                      </div>
+                    </td>
+                    <td class="num col-value">16 000 XPF</td>
+                  </tr>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Progression</span><span class="offer-desc">3h de coaching + Nexus 3&nbsp;mois</span></td>
+                    <td class="num">40 000 XPF</td>
+                    <td class="cell-launch">
+                      <div class="launch-fill">
+                        <span class="launch-price">28 500 XPF</span>
+                        <span class="launch-savings" title="Valeur pack 46 500 XPF − prix lancement">−18 000 XPF</span>
+                      </div>
+                    </td>
+                    <td class="num col-value">46 500 XPF</td>
+                  </tr>
+                  <tr>
+                    <td class="offer-name-cell"><span class="offer-tag">Performance</span><span class="offer-desc">5h de coaching + Nexus 3&nbsp;mois</span></td>
+                    <td class="num">55 000 XPF</td>
+                    <td class="cell-launch">
+                      <div class="launch-fill">
+                        <span class="launch-price">45 000 XPF</span>
+                        <span class="launch-savings" title="Valeur pack 63 000 XPF − prix lancement">−18 000 XPF</span>
+                      </div>
+                    </td>
+                    <td class="num col-value">63 000 XPF</td>
+                  </tr>
+                  <tr class="featured">
+                    <td class="offer-name-cell">
+                      <span class="offer-tag-row">
+                        <span class="offer-tag">Full Access</span>
+                        <span class="badge-choice" aria-label="Meilleur choix — coup de cœur" title="Meilleur choix — coup de cœur">Meilleur choix</span>
+                      </span>
+                      <span class="offer-desc">5h de coaching + Nexus à vie</span>
+                    </td>
+                    <td class="num">70 000 XPF</td>
+                    <td class="cell-launch">
+                      <div class="launch-fill">
+                        <span class="launch-price">60 000 XPF</span>
+                        <span class="launch-savings" title="Valeur pack 80 000 XPF − prix lancement">−20 000 XPF</span>
+                      </div>
+                    </td>
+                    <td class="num col-value">80 000 XPF</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="offer-footnote">⏳ Offre de lancement valable jusqu'au 31/05/2026 — 5 places max — Les prix lancement s'entendent Nexus Holdem offert.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.15rem;">Tarif groupe</h3>
+          <p style="margin: 0 0 1rem; color: var(--text-muted);">Vous êtes un groupe de joueurs ? Un tarif spécial est disponible. Contactez-moi par mail pour en discuter.</p>
+          <a class="btn btn-secondary" id="cta-groupe" href="#">Me contacter pour un tarif groupe</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 NEXUS HOLDEM -->
+    <section id="nexus-holdem" aria-labelledby="nexus-title">
+      <div class="container">
+        <div class="nexus-logo-wrap">
+          <img src="assets/logo-nexus-holdem.png" width="440" loading="lazy" alt="Logo Nexus Holdem : pique stylisée en dégradé néon cyan et violet">
+        </div>
+        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère votre progression</h2>
+        <p class="section-lede" style="margin-inline: auto; text-align: center;">
+          Nexus Holdem est un outil pédagogique que j'ai développé pour visualiser et s'entraîner sur les stratégies préflop et flop en No Limit Hold'em. Idéal en complément du coaching.
+        </p>
+
+        <div class="carousel" aria-label="Fonctionnalités Nexus Holdem">
+          <div class="carousel-track">
+            <article class="carousel-item card nexus-card">
+              <img src="assets/visuelVisualisationRangesPreflop.png" loading="lazy" alt="Interface Nexus Holdem : visualisation d'une grille de ranges préflop en 6-max avec tableau de mise en pot et matrices colorées Fold, Call et Raise">
+              <h3>Visualisation des ranges préflop</h3>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Analyse et mémorisation des mains de départ dans chaque ligne d'action.</p>
+            </article>
+            <article class="carousel-item card nexus-card">
+              <img src="assets/visuelVisualisationStratsFlop.png" loading="lazy" alt="Vue Nexus avec stratégies flop : tableau, range 13×13 et statistiques par catégories de mains">
+              <h3>Visualisation des stratégies flop</h3>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Découpez les situations flop avec précision pour des décisions mieux fondées.</p>
+            </article>
+            <article class="carousel-item card nexus-card">
+              <img src="assets/VisuelTrainingFlop.png" loading="lazy" alt="Mode Training Flop de Nexus avec table verte, RNG et boutons Bet ou Check selon la situation">
+              <h3>Mode Training Flop</h3>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraînement répété sur des flops types pour automatiser les bons réflexes.</p>
+            </article>
+          </div>
+        </div>
+
+        <h3 style="margin: 2.25rem 0 0.75rem; font-size: 1.15rem;">Tarifs Nexus seul</h3>
+        <div class="table-wrap">
+          <table class="coach-table">
+            <caption class="sr-only">Abonnement Nexus Holdem seul hors coaching</caption>
+            <thead>
+              <tr>
+                <th scope="col">Formule</th>
+                <th scope="col">Prix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 mois</td>
+                <td class="num">6 000 XPF</td>
+              </tr>
+              <tr>
+                <td>À vie</td>
+                <td class="num">35 000 XPF</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="btn-row" style="margin-top: 1.25rem;">
+          <a class="btn btn-primary" id="cta-nexus" href="#">Louer ou acheter Nexus Holdem</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 CONTACT -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title" class="section-title">Prêt à progresser ?</h2>
+        <p class="section-lede">5 places disponibles pour juin 2026. Ne tardez pas.</p>
+
+        <div class="card">
+          <form id="contact-form" class="form-grid" novalidate>
+            <div class="form-grid two" style="gap: 1rem;">
+              <label class="field">
+                Nom
+                <input type="text" name="nom" id="f-nom" autocomplete="family-name" required>
+              </label>
+              <label class="field">
+                Prénom
+                <input type="text" name="prenom" id="f-prenom" autocomplete="given-name" required>
+              </label>
+            </div>
+            <label class="field">
+              Email
+              <input type="email" name="email" id="f-email" autocomplete="email" required>
+            </label>
+            <label class="field">
+              Téléphone <span style="font-weight: 400; color: var(--text-muted)">(optionnel)</span>
+              <input type="tel" name="tel" id="f-tel" autocomplete="tel">
+            </label>
+            <label class="field" style="grid-column: 1 / -1;">
+              Message
+              <textarea name="message" id="f-message" required></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Envoyer</button>
+            </div>
+          </form>
+
+          <div class="contact-alt">
+            <p style="margin: 0 0 0.75rem;">Sinon, écrivez-moi directement ou sur WhatsApp :</p>
+            <p style="margin: 0;">
+              <a id="link-email-direct" href="#">[EMAIL DU COACH]</a>
+              &nbsp;·&nbsp;
+              <a id="link-whatsapp" href="#" rel="noopener noreferrer">WhatsApp [NUMERO WHATSAPP]</a>
+            </p>
+          </div>
+        </div>
+
+        <p class="offer-footnote" style="margin-top: 1.75rem; text-align: center;">
+          <strong>🚀 Offre de lancement</strong> : Nexus Holdem offert sur toutes les formules — 5 places — avant le 31 mai 2026 — démarrage 1<sup>er</sup> juin 2026.
+        </p>
+      </div>
+    </section>
+
+    <!-- Mentions légales (placeholder)
+    <section id="mentions-legales" aria-labelledby="legal-title">
+      <div class="container">
+        <h2 id="legal-title" class="section-title" style="font-size: 1.35rem;">Mentions légales</h2>
+        <div class="card">
+          <p style="margin: 0; color: var(--text-muted);">[À COMPLÉTER — Informations légales : raison sociale, SIREN/SIRET si applicable, hébergeur, politique de confidentialité, etc.]</p>
+        </div>
+      </div>
+    </section>
+  </main> -->
+
+  <footer class="site-footer">
+    <div class="container">
+      <p style="margin: 0;">Coaching poker professionnel — Tahiti, Polynésie française</p>
+      <div class="footer-links">
+        <a href="#mentions-legales">Mentions légales</a>
+        <a href="#contact">Contact</a>
+        <a href="#nexus-holdem">Nexus Holdem</a>
+      </div>
+      <p style="margin: 0; font-size: 0.82rem;">Site vitrine — Pas de collecte automatisée des messages via serveur ; utilisation du client mail de l&apos;utilisateur.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* Remplacer par vos coordonnées réelles (sans crochets) */
+      var COACH_EMAIL = 'jeancharles.brunelle@gmail.com';
+      var WHATSAPP_NUMBER = '+33698225524';
+
+      function isValidEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function buildMailto(opts) {
+        var to = (COACH_EMAIL || '').trim();
+        var subject = opts.subject || 'Contact coaching poker';
+        var body = opts.body || '';
+        if (!to || to.indexOf('[') !== -1) {
+          window.alert('Configurez l\'adresse email du coach dans index.html (constante COACH_EMAIL).');
+          return null;
+        }
+        return 'mailto:' + to +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+      }
+
+      function openMailto(opts) {
+        var href = buildMailto(opts);
+        if (href) window.location.href = href;
+      }
+
+      /* CTA mailto links */
+      var ctaDecouverte = document.getElementById('cta-decouverte');
+      if (ctaDecouverte) {
+        ctaDecouverte.addEventListener('click', function (e) {
+          e.preventDefault();
+          openMailto({
+            subject: 'Réservation — Séance Découverte',
+            body: 'Bonjour,\n\nJe souhaite réserver une Séance Découverte (6 000 XPF).\n\nCordialement,'
+          });
+        });
+      }
+
+      var ctaGroupe = document.getElementById('cta-groupe');
+      if (ctaGroupe) {
+        ctaGroupe.addEventListener('click', function (e) {
+          e.preventDefault();
+          openMailto({
+            subject: 'Demande tarif groupe (5 joueurs)',
+            body: 'Bonjour,\n\nNous sommes un groupe de 5 joueurs et souhaiterions échanger sur un tarif de groupe.\n\nCordialement,'
+          });
+        });
+      }
+
+      var ctaNexus = document.getElementById('cta-nexus');
+      if (ctaNexus) {
+        ctaNexus.addEventListener('click', function (e) {
+          e.preventDefault();
+          openMailto({
+            subject: 'Nexus Holdem — location ou achat',
+            body: 'Bonjour,\n\nJe souhaite des informations pour louer ou acheter Nexus Holdem.\n\nCordialement,'
+          });
+        });
+      }
+
+      /* Contact form */
+      var form = document.getElementById('contact-form');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var nom = (document.getElementById('f-nom').value || '').trim();
+          var prenom = (document.getElementById('f-prenom').value || '').trim();
+          var email = (document.getElementById('f-email').value || '').trim();
+          var tel = (document.getElementById('f-tel').value || '').trim();
+          var message = (document.getElementById('f-message').value || '').trim();
+          if (!nom || !prenom || !email || !message) {
+            window.alert('Merci de remplir les champs obligatoires.');
+            return;
+          }
+          if (!isValidEmail(email)) {
+            window.alert('Adresse email invalide.');
+            return;
+          }
+          var body = 'Bonjour,\n\n' +
+            message + '\n\n---\n' +
+            'Nom : ' + nom + '\n' +
+            'Prénom : ' + prenom + '\n' +
+            'Email : ' + email + '\n' +
+            (tel ? ('Téléphone : ' + tel + '\n') : '');
+          openMailto({ subject: 'Contact site — Coaching poker JCBrunul', body: body });
+        });
+      }
+
+      /* Direct links */
+      var linkEmail = document.getElementById('link-email-direct');
+      if (linkEmail && COACH_EMAIL.indexOf('[') === -1) {
+        linkEmail.href = 'mailto:' + COACH_EMAIL;
+        linkEmail.textContent = COACH_EMAIL;
+      }
+
+      var linkWa = document.getElementById('link-whatsapp');
+      if (linkWa) {
+        if (WHATSAPP_NUMBER.indexOf('[') === -1) {
+          var digits = String(WHATSAPP_NUMBER).replace(/\D/g, '');
+          linkWa.href = 'https://wa.me/' + digits;
+          linkWa.textContent = 'WhatsApp';
+        } else {
+          linkWa.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.alert('Configurez le numéro WhatsApp dans index.html (constante WHATSAPP_NUMBER, chiffres avec indicatif sans +).');
+          });
+        }
+      }
+
+      /* Menu mobile navigation */
+      var hdr = document.querySelector('.site-header');
+      var navToggleBtn = document.getElementById('nav-toggle');
+      var navMainEl = document.getElementById('nav-main');
+
+      function setNavOpen(open) {
+        if (!hdr || !navToggleBtn || !navMainEl) return;
+        hdr.classList.toggle('is-nav-open', open);
+        navToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggleBtn.setAttribute('aria-label', open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
+      }
+
+      if (hdr && navToggleBtn && navMainEl) {
+        navToggleBtn.setAttribute('aria-label', 'Ouvrir le menu de navigation');
+        navToggleBtn.addEventListener('click', function () {
+          setNavOpen(!hdr.classList.contains('is-nav-open'));
+        });
+        navMainEl.querySelectorAll('a[href^="#"]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            setNavOpen(false);
+          });
+        });
+        document.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape' && hdr.classList.contains('is-nav-open')) {
+            setNavOpen(false);
+          }
+        });
+        window.addEventListener('resize', function () {
+          try {
+            if (window.matchMedia('(min-width: 770px)').matches) {
+              setNavOpen(false);
+            }
+          } catch (e) {}
+        });
+      }
+
+      /* Tabs */
+      var tabSolo = document.getElementById('tab-solo');
+      var tabBundle = document.getElementById('tab-bundle');
+      var panelSolo = document.getElementById('panel-solo');
+      var panelBundle = document.getElementById('panel-bundle');
+
+      function activateTab(which) {
+        var isSolo = which === 'solo';
+        tabSolo.setAttribute('aria-selected', isSolo ? 'true' : 'false');
+        tabBundle.setAttribute('aria-selected', isSolo ? 'false' : 'true');
+        tabSolo.tabIndex = isSolo ? 0 : -1;
+        tabBundle.tabIndex = isSolo ? -1 : 0;
+        panelSolo.classList.toggle('active', isSolo);
+        panelBundle.classList.toggle('active', !isSolo);
+        panelSolo.hidden = !isSolo;
+        panelBundle.hidden = isSolo;
+      }
+
+      if (tabSolo && tabBundle && panelSolo && panelBundle) {
+        tabSolo.addEventListener('click', function () { activateTab('solo'); });
+        tabBundle.addEventListener('click', function () { activateTab('bundle'); });
+        tabSolo.addEventListener('keydown', function (ev) {
+          if (ev.key === 'ArrowRight') { ev.preventDefault(); tabBundle.focus(); activateTab('bundle'); }
+        });
+        tabBundle.addEventListener('keydown', function (ev) {
+          if (ev.key === 'ArrowLeft') { ev.preventDefault(); tabSolo.focus(); activateTab('solo'); }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
