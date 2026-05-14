@@ -546,6 +546,34 @@
         flex: 0 0 min(680px, 92vw);
       }
     }
+    /* Carrousel « Mes résultats » : mêmes largeurs et mêmes hauteurs par carte */
+    .carousel.results-carousel .carousel-track {
+      align-items: stretch;
+    }
+    .carousel.results-carousel .carousel-item {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 min(300px, calc(100vw - 2.5rem));
+      min-width: 0;
+      scroll-snap-align: start;
+    }
+    .carousel.results-carousel .carousel-item figure.result-fig {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: clamp(240px, 42vw, 320px);
+      margin: 0;
+    }
+    .carousel.results-carousel .result-fig img {
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 180px;
+      object-fit: contain;
+      object-position: center center;
+    }
+    .carousel.results-carousel .result-fig figcaption {
+      flex-shrink: 0;
+    }
     @media (min-width: 900px) {
       .carousel.results-carousel .carousel-item {
         flex: 1 1 0;
@@ -1287,18 +1315,18 @@
           </div>
 
           <div class="hero-launch" role="region" aria-labelledby="hero-launch-title">
-            <span class="hero-launch-eyebrow">Offre limitée</span>
+            <span class="hero-launch-eyebrow">Offre de lancement limitée</span>
             <p id="hero-launch-title" class="hero-launch-head">
-              <span class="hero-launch-accent">Réduction de lancement</span> sur les packs coaching&nbsp;+&nbsp;Nexus
+              <span class="hero-launch-accent">Réduction</span> sur les coachings
             </p>
             <ul class="hero-launch-grid">
               <li>
-                <p class="hero-launch-k">Nombre de places limitées</p>
-                <p class="hero-launch-v"><strong>6 places</strong> max</p>
+                <p class="hero-launch-k"># places limitées</p>
+                <p class="hero-launch-v"><strong>6 places</strong> max pour garantir des coachings efficaces</p>
               </li>
               <li>
                 <p class="hero-launch-k">Date limite</p>
-                <p class="hero-launch-v">Avant le <strong>31&nbsp;mai&nbsp;2026</strong> <span style="font-weight:600;opacity:0.92">(heure de Tahiti)</span></p>
+                <p class="hero-launch-v">Jusqu'au <strong>31&nbsp;mai&nbsp;2026</strong> <span style="font-weight:600;opacity:0.92"></span></p>
               </li>
             </ul>
             <div class="hero-countdown" id="hero-countdown" role="timer" aria-live="off">
@@ -1389,8 +1417,6 @@
     <section id="offres" aria-labelledby="offers-title">
       <div class="container">
         <h2 id="offers-title" class="section-title">Offres de coaching</h2>
-        <p class="offers-countdown-line" id="countdown-offers-line" aria-live="off">⏳ Temps restant avant fin du lancement : <strong id="countdown-offers-strong">—</strong></p>
-
         <div id="seance-decouverte" class="card card-gold-accent" role="region" aria-labelledby="discover-title" style="margin-bottom: 2rem;">
           <h3 id="discover-title" class="section-title" style="margin-bottom: 0.5rem;">Séance Découverte</h3>
           <p style="margin: 0 0 1rem; color: var(--text-muted);"><strong style="color: var(--gold)">6 000 XPF</strong> (Non renouvelable — 1 séance par personne)</p>
@@ -1527,7 +1553,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="offer-footnote">⏳ Offre de lancement jusqu’au 31/05/2026 (fin de journée à Tahiti) — places limitées — les prix «&nbsp;lancement&nbsp;» intègrent une <strong>réduction promotionnelle</strong> sur le pack.</p>
+            <p class="offer-footnote">⏳ Offre de lancement jusqu’au 31/05/2026 — places limitées — les prix «&nbsp;lancement&nbsp;» intègrent une <strong>réduction promotionnelle</strong> sur le pack.</p>
           </div>
 
           <p class="offers-foot-cta-wrap">
@@ -1549,7 +1575,7 @@
         <div class="nexus-logo-wrap">
           <img src="assets/logo-nexus-holdem.png" width="440" loading="lazy" alt="Logo Nexus Holdem : pique stylisée en dégradé néon cyan et violet">
         </div>
-        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère votre progression</h2>
+        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère ta progression</h2>
         <p class="section-lede" style="margin-inline: auto; text-align: center;">
           Nexus Holdem est un outil pédagogique que j'ai développé pour visualiser et s'entraîner sur les stratégies préflop et flop en No Limit Hold'em. Idéal en complément du coaching.
         </p>
@@ -1560,6 +1586,11 @@
               <img src="assets/visuelVisualisationRangesPreflop.png" loading="lazy" alt="Interface Nexus Holdem : visualisation d'une grille de ranges préflop en 6-max avec tableau de mise en pot et matrices colorées Fold, Call et Raise">
               <h3>Visualisation des ranges préflop</h3>
               <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Analyse et mémorisation des mains de départ dans chaque ligne d'action.</p>
+            </article>
+            <article class="carousel-item card nexus-card">
+              <img src="assets/VisuelTrainingPreflop.png" loading="lazy" alt="Mode Training Préflop Nexus : table 6 joueurs, sélection Fold ou Raise, affichage RNG et panneau historique des mains">
+              <h3>Mode Training Préflop</h3>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraîne-toi sur des spots préflop (positions, tailles d’ouverture, jeu vs open) avec retour visuel immédiat.</p>
             </article>
             <article class="carousel-item card nexus-card">
               <img src="assets/visuelVisualisationStratsFlop.png" loading="lazy" alt="Vue Nexus avec stratégies flop : tableau, range 13×13 et statistiques par catégories de mains">
@@ -1768,14 +1799,14 @@
         var k0 = sel.value;
         inp.type = k0 === 'email' ? 'email' : 'text';
         inp.className = 'contact-value-input';
-        inp.placeholder = k0 === 'email' ? 'ex. votre@email.com' : (k0 === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
+        inp.placeholder = k0 === 'email' ? 'ex. ton@email.com' : (k0 === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
         inp.autocomplete = k0 === 'email' ? 'email' : (k0 === 'tel' ? 'tel' : 'off');
         if (value) inp.value = value;
         sel.addEventListener('change', function () {
           var k = sel.value;
           inp.type = k === 'email' ? 'email' : 'text';
           inp.autocomplete = k === 'email' ? 'email' : (k === 'tel' ? 'tel' : 'off');
-          inp.placeholder = k === 'email' ? 'ex. votre@email.com' : (k === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
+          inp.placeholder = k === 'email' ? 'ex. ton@email.com' : (k === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
         });
         var btn = document.createElement('button');
         btn.type = 'button';
@@ -1866,7 +1897,7 @@
           var typeDemande = (document.getElementById('f-type-demande').value || '').trim();
           var message = (document.getElementById('f-message').value || '').trim();
           if (!nom || !message) {
-            window.alert('Merci de remplir au moins votre nom et le message.');
+            window.alert('Merci de remplir au moins ton nom et le message.');
             return;
           }
           if (!contactRowsEl) return;
@@ -1909,7 +1940,7 @@
 
           supabaseInsertDemande(row)
             .then(function () {
-              setFormStatus('Votre demande a bien été enregistrée. Je te recontacte dès que possible.', 'success');
+              setFormStatus('Ta demande a bien été enregistrée. Je te recontacte dès que possible.', 'success');
               form.reset();
               if (contactRowsEl) {
                 contactRowsEl.innerHTML = '';
