@@ -320,25 +320,38 @@
       padding-block: clamp(2.75rem, 6vw, 4.75rem) 3rem;
     }
 
+    .hero-layout {
+      display: grid;
+      gap: clamp(1.75rem, 4vw, 3rem);
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1.12fr) minmax(260px, min(42vw, 420px));
+        gap: clamp(2rem, 5vw, 3.75rem);
+      }
+    }
+
+    .hero-intro {
+      min-width: 0;
+    }
+
     .hero-intro h1 {
       font-size: clamp(1.55rem, 5.5vw, 2.5rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.12;
-      margin: 0 0 clamp(1rem, 4vw, 3rem);
-      max-width: 22ch;
+      margin: 0 0 clamp(1rem, 4vw, 1.75rem);
+      max-width: min(22ch, 100%);
       word-break: break-word;
       hyphens: auto;
     }
 
-    @media (min-width: 540px) {
+    @media (min-width: 900px) {
       .hero-intro h1 {
-        max-width: 24ch;
+        max-width: 18ch;
       }
-    }
-
-    .hero-intro.hero-intro--full h1 {
-      max-width: min(38ch, 100%);
     }
 
     .hero-sub {
@@ -346,6 +359,101 @@
       color: var(--text-muted);
       margin: 0 0 1.15rem;
       max-width: 40rem;
+    }
+
+    .hero-visual {
+      min-width: 0;
+      justify-self: center;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-visual {
+        justify-self: end;
+      }
+    }
+
+    .hero-curve-card {
+      margin: 0;
+      position: relative;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(120% 90% at 85% 8%, rgba(201, 162, 39, 0.09), transparent 52%),
+        linear-gradient(155deg, #0a0e0c 0%, #111816 42%, #141c18 100%);
+      border: 1px solid rgba(201, 162, 39, 0.22);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.35),
+        0 4px 24px rgba(0, 0, 0, 0.35),
+        0 22px 56px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.045);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-curve-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent 35%, rgba(255, 248, 220, 0.04) 48%, transparent 62%);
+      z-index: 1;
+    }
+
+    .hero-curve-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+      aspect-ratio: 440 / 248;
+    }
+
+    @keyframes hero-curve-shimmer {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.78;
+      }
+    }
+
+    @keyframes hero-curve-pulse {
+      0%,
+      100% {
+        opacity: 0.55;
+        filter: drop-shadow(0 0 10px rgba(253, 230, 138, 0.5)) drop-shadow(0 0 20px rgba(201, 162, 39, 0.32));
+      }
+
+      50% {
+        opacity: 0.88;
+        filter: drop-shadow(0 0 16px rgba(253, 230, 138, 0.78)) drop-shadow(0 0 34px rgba(201, 162, 39, 0.48));
+      }
+    }
+
+    .hero-curve-anim .hero-curve-glow-track {
+      animation: hero-curve-shimmer 5.5s ease-in-out infinite;
+    }
+
+    .hero-curve-anim .hero-curve-halo {
+      animation: hero-curve-pulse 3.8s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-curve-anim .hero-curve-glow-track {
+        animation: none;
+      }
+
+      .hero-curve-anim .hero-curve-halo {
+        animation: none;
+        opacity: 0.68;
+        filter: drop-shadow(0 0 12px rgba(253, 230, 138, 0.6)) drop-shadow(0 0 26px rgba(201, 162, 39, 0.38));
+      }
+    }
+
+    .hero-curve-dot {
+      filter: drop-shadow(0 0 3px rgba(255, 250, 235, 0.65));
     }
 
     .btn-row {
@@ -1089,13 +1197,68 @@
     <!-- 1 HERO -->
     <section id="section-hero" class="hero" aria-labelledby="hero-title">
       <div class="container">
-        <div class="hero-intro hero-intro--full">
-          <h1 id="hero-title">Passe un nouveau cap dans ta progression au poker</h1>
-          <p class="hero-sub">- Coaching No Limit Hold'em Cash Game &amp; MTT</p>
-          <p class="hero-sub">- Niveaux débutant à intermédiaire</p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="#offres">Voir les offres</a>
-            <a class="btn btn-secondary" href="#contact" data-demand-type="Contact général">Me contacter</a>
+        <div class="hero-layout">
+          <div class="hero-intro">
+            <h1 id="hero-title">Construis un jeu solide et gagnant en 2026</h1>
+            <p class="hero-sub">- Coaching No Limit Hold'em Cash Game &amp; MTT</p>
+            <p class="hero-sub">- Niveaux débutant à avancé</p>
+            <p class="hero-sub">- Travail technique, logique de ranges, et plans de jeu exploitants</p>
+            <p class="hero-sub">- Méthode d'apprentissage avec un logiciel unique d'entraînement</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="#offres">Voir les offres</a>
+              <a class="btn btn-secondary" href="#contact" data-demand-type="Contact général">Me contacter</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <figure class="hero-curve-card hero-curve-anim">
+              <svg class="hero-curve-svg" viewBox="0 0 440 248" role="img"
+                aria-label="Courbe de progression stylisée, montante, sur fond sombre">
+                <defs>
+                  <linearGradient id="heroCurveStroke" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#9a7b1f" />
+                    <stop offset="45%" stop-color="#e8cf5f" />
+                    <stop offset="100%" stop-color="#fff8e1" />
+                  </linearGradient>
+                  <linearGradient id="heroAreaFill" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(201, 162, 39, 0.22)" />
+                    <stop offset="55%" stop-color="rgba(201, 162, 39, 0.06)" />
+                    <stop offset="100%" stop-color="rgba(201, 162, 39, 0)" />
+                  </linearGradient>
+                  <radialGradient id="heroDotGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff8e1" />
+                    <stop offset="40%" stop-color="#fde68a" />
+                    <stop offset="100%" stop-color="#c9a227" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="heroStrokeBloom" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="b" />
+                    <feColorMatrix in="b" type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 0.85 0 0  0 0 0 0.85 0" result="b2" />
+                    <feMerge>
+                      <feMergeNode in="b2" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <pattern id="heroGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(232,234,233,0.07)" stroke-width="0.5" />
+                  </pattern>
+                </defs>
+                <rect width="440" height="248" fill="url(#heroGrid)" />
+                <path
+                d="M 48 210 C 92 192, 232 192, 394 34 L 394 210 L 48 210 Z"
+                  fill="url(#heroAreaFill)" />
+                <path class="hero-curve-glow-track" filter="url(#heroStrokeBloom)"
+                  d="M 48 210 C 92 192, 232 192, 394 34"
+                  fill="none" stroke="url(#heroCurveStroke)" stroke-width="5" stroke-linecap="round"
+                  stroke-linejoin="round" opacity="0.92" />
+                <path
+                  d="M 48 210 C 92 192, 232 192, 394 34"
+                  fill="none" stroke="url(#heroCurveStroke)" stroke-width="2.25" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <circle cx="394" cy="34" r="16" fill="url(#heroDotGlow)" class="hero-curve-halo" />
+                <circle cx="394" cy="34" r="5" fill="#fff8e1" class="hero-curve-dot" opacity="0.96" />
+              </svg>
+              <figcaption class="sr-only">Illustration décorative : graphique de progression ascendante</figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -1285,11 +1448,10 @@
           <img src="assets/logo-nexus-holdem.png" width="440" loading="lazy"
             alt="Logo Nexus Holdem : pique stylisée en dégradé néon cyan et violet">
         </div>
-        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère
-          ta progression</h2>
+        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — L'outil d'entraînement indispensable</h2>
         <p class="section-lede" style="margin-inline: auto; text-align: center;">
           Nexus Holdem est un outil pédagogique que j'ai développé pour visualiser et s'entraîner sur les stratégies
-          préflop et flop en No Limit Hold'em. Idéal en complément du coaching.
+          préflop et flop optimales en No Limit Hold'em, avec des ranges adaptées à vos structures. Idéal en complément du coaching.
         </p>
 
         <div class="carousel carousel-nexus" aria-label="Fonctionnalités Nexus Holdem">
@@ -1326,8 +1488,7 @@
         </div>
 
         <p class="section-lede" style="margin: 2.25rem auto 0; text-align: center; max-width: 40rem;">
-          Les formules <strong>sans coaching</strong> sont détaillées dans la section <a
-            href="#nexus-seul-tarifs">Tarifs — Nexus Holdem sans coaching</a>.
+          Les tarifs sont détaillés dans la section <a href="#nexus-seul-tarifs">Tarifs — Nexus Holdem</a>.
         </p>
         <div class="btn-row" style="margin-top: 1.25rem; justify-content: center;">
           <a class="btn btn-primary" href="#nexus-seul-tarifs">Voir les tarifs Nexus seul</a>
