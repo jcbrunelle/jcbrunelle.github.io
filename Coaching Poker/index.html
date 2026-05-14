@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Coaching poker JCBrunul — No Limit Hold'em Cash Game & MTT avec un professionnel à Tahiti. Séances et packs combinant coaching et Nexus Holdem.">
+  <meta name="description"
+    content="Coaching poker JCBrunul — No Limit Hold'em Cash Game & MTT avec un professionnel à Tahiti. Séances et packs combinant coaching et Nexus Holdem.">
   <title>Coaching poker JCBrunul — No Limit Hold'em</title>
   <style>
     *,
     *::before,
-    *::after { box-sizing: border-box; }
+    *::after {
+      box-sizing: border-box;
+    }
+
     html {
       scroll-behavior: smooth;
       scroll-padding-top: clamp(4.25rem, 11vw, 5.75rem);
     }
+
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
     }
+
     :root {
       --black: #0a0c0b;
       --anthracite: #141a17;
@@ -48,16 +61,32 @@
         radial-gradient(ellipse 50% 40% at 100% 50%, rgba(92, 31, 46, 0.12), transparent 50%);
     }
 
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    a:hover { color: #e6c547; }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: #e6c547;
+    }
 
     .sr-only {
       position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0,0,0,0);
-      white-space: nowrap; border: 0;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .container {
@@ -82,6 +111,7 @@
         0 1px 0 rgba(0, 0, 0, 0.35),
         0 8px 28px rgba(0, 0, 0, 0.22);
     }
+
     .site-header::before {
       content: "";
       display: block;
@@ -89,6 +119,7 @@
       background: linear-gradient(90deg, transparent 0%, rgba(201, 162, 39, 0.45) 20%, rgba(201, 162, 39, 0.85) 50%, rgba(201, 162, 39, 0.45) 80%, transparent 100%);
       opacity: 0.9;
     }
+
     .site-header-inner {
       position: relative;
       display: flex;
@@ -99,6 +130,7 @@
       flex-wrap: nowrap;
       min-height: 3rem;
     }
+
     .brand {
       font-weight: 700;
       letter-spacing: 0.045em;
@@ -111,10 +143,12 @@
       padding: 0.35rem 0;
       transition: color 0.15s ease, filter 0.15s ease;
     }
+
     .brand:hover {
       color: var(--text);
       filter: brightness(1.08);
     }
+
     .brand span {
       color: var(--gold);
       font-weight: 800;
@@ -136,14 +170,17 @@
       flex-shrink: 0;
       transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
     }
+
     .nav-toggle:hover {
       border-color: rgba(201, 162, 39, 0.45);
       background: rgba(201, 162, 39, 0.08);
     }
+
     .nav-toggle:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
+
     .nav-toggle-burger {
       display: flex;
       flex-direction: column;
@@ -151,6 +188,7 @@
       gap: 5px;
       width: 1.125rem;
     }
+
     .nav-toggle-burger span {
       display: block;
       height: 2px;
@@ -159,13 +197,16 @@
       background: linear-gradient(90deg, #e8cf5f, var(--gold));
       transition: transform 0.2s ease, opacity 0.2s ease;
     }
+
     .site-header.is-nav-open .nav-toggle-burger span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
+
     .site-header.is-nav-open .nav-toggle-burger span:nth-child(2) {
       opacity: 0;
       transform: scaleX(0);
     }
+
     .site-header.is-nav-open .nav-toggle-burger span:nth-child(3) {
       transform: translateY(-7px) rotate(-45deg);
     }
@@ -177,6 +218,7 @@
       justify-content: flex-end;
       align-items: center;
     }
+
     .nav-main a {
       font-size: 0.8175rem;
       font-weight: 600;
@@ -193,11 +235,13 @@
         box-shadow 0.18s ease;
       white-space: nowrap;
     }
+
     .nav-main a:hover {
       color: var(--text);
       background: rgba(201, 162, 39, 0.08);
       border-color: rgba(201, 162, 39, 0.2);
     }
+
     .nav-main a:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 3px;
@@ -207,6 +251,7 @@
       .nav-toggle {
         display: inline-flex;
       }
+
       .nav-main {
         position: absolute;
         top: calc(100% + 0.55rem);
@@ -233,19 +278,25 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
       }
+
       .site-header.is-nav-open .nav-main {
         visibility: visible;
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
       }
+
       .nav-main a {
         border-radius: var(--radius-sm);
         padding: 0.68rem 0.92rem;
         white-space: normal;
       }
     }
-    section { padding-block: clamp(3rem, 6vw, 5rem); }
+
+    section {
+      padding-block: clamp(3rem, 6vw, 5rem);
+    }
+
     section:nth-of-type(even) {
       background: linear-gradient(180deg, transparent, rgba(20, 26, 23, 0.55));
     }
@@ -257,6 +308,7 @@
       margin: 0 0 0.85rem;
       line-height: 1.15;
     }
+
     .section-lede {
       color: var(--text-muted);
       max-width: 62ch;
@@ -267,121 +319,7 @@
     .hero {
       padding-block: clamp(2.75rem, 6vw, 4.75rem) 3rem;
     }
-    .hero-grid {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(1.75rem, 4vw, 2.75rem);
-      align-items: stretch;
-    }
-    .hero-launch { order: -1; }
-    @media (min-width: 900px) {
-      .hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-        gap: clamp(2rem, 5vw, 3.25rem);
-        align-items: center;
-      }
-      .hero-launch { order: 0; }
-    }
-    .hero-launch {
-      position: relative;
-      padding: clamp(1.5rem, 4vw, 2.35rem);
-      border-radius: var(--radius);
-      background:
-        radial-gradient(120% 140% at 10% -20%, rgba(201, 162, 39, 0.22), transparent 45%),
-        linear-gradient(160deg, var(--burgundy) 0%, var(--anthracite-2) 35%, rgba(92, 31, 46, 0.55) 100%);
-      border: 2px solid rgba(201, 162, 39, 0.65);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.06),
-        0 8px 40px rgba(0, 0, 0, 0.55),
-        0 0 48px rgba(201, 162, 39, 0.12);
-    }
-    .hero-launch-eyebrow {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 250, 240, 0.95);
-      background: rgba(201, 162, 39, 0.25);
-      border: 1px solid rgba(201, 162, 39, 0.5);
-      padding: 0.35rem 0.65rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-    }
-    .hero-launch-head {
-      margin: 0 0 0.65rem;
-      font-size: clamp(1.25rem, 3.4vw, 1.75rem);
-      font-weight: 800;
-      line-height: 1.25;
-      color: #fffaf0;
-      letter-spacing: -0.025em;
-    }
-    .hero-launch-head .hero-launch-accent {
-      color: #fde68a;
-      text-shadow: 0 0 40px rgba(201, 162, 39, 0.35);
-    }
-    .hero-launch-intro {
-      margin: 0 0 1.15rem;
-      font-size: 0.895rem;
-      line-height: 1.55;
-      color: rgba(255, 248, 240, 0.88);
-    }
-    .hero-launch-intro strong {
-      color: #fde68a;
-      font-weight: 700;
-    }
-    .hero-launch-intro a {
-      font-weight: 650;
-      text-decoration-thickness: 1px;
-    }
-    .hero-launch-intro a:not(:hover):not(:focus-visible) {
-      text-decoration-style: dashed;
-      text-underline-offset: 3px;
-    }
 
-    .hero-launch-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.7rem;
-      margin: 0 0 0.95rem;
-      padding: 0;
-      list-style: none;
-    }
-    @media (min-width: 540px) {
-      .hero-launch-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.875rem 1.15rem;
-      }
-    }
-    .hero-launch-grid > li {
-      margin: 0;
-      padding: 0.78rem 0.92rem;
-      background: rgba(8, 10, 9, 0.38);
-      border: 1px solid rgba(201, 162, 39, 0.22);
-      border-radius: var(--radius-sm);
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .hero-launch-k {
-      margin: 0;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(253, 230, 138, 0.95);
-      line-height: 1.2;
-    }
-    .hero-launch-v {
-      margin: 0;
-      font-size: 0.88rem;
-      line-height: 1.42;
-      color: rgba(255, 251, 245, 0.92);
-    }
-
-    /* Intro hero (titres sous / à côté de l’offre) */
     .hero-intro h1 {
       font-size: clamp(1.55rem, 5.5vw, 2.5rem);
       font-weight: 800;
@@ -392,7 +330,17 @@
       word-break: break-word;
       hyphens: auto;
     }
-    @media (min-width: 540px) { .hero-intro h1 { max-width: 24ch; } }
+
+    @media (min-width: 540px) {
+      .hero-intro h1 {
+        max-width: 24ch;
+      }
+    }
+
+    .hero-intro.hero-intro--full h1 {
+      max-width: min(38ch, 100%);
+    }
+
     .hero-sub {
       font-size: clamp(0.95rem, 3.5vw, 1.075rem);
       color: var(--text-muted);
@@ -400,47 +348,13 @@
       max-width: 40rem;
     }
 
-    /* Pastilles réservées (intégrées au bloc offre) */
-    .places-row {
+    .btn-row {
       display: flex;
       flex-wrap: wrap;
+      gap: 0.75rem;
       align-items: center;
-      gap: 0.75rem 1.25rem;
-      padding-top: 1.1rem;
-      margin-top: 0.55rem;
-      border-top: 1px dashed rgba(201, 162, 39, 0.35);
-    }
-    .places-dots {
-      display: flex;
-      gap: 0.35rem;
-      align-items: center;
-    }
-    .places-dots .dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 2px rgba(10,12,11,0.6), 0 0 12px rgba(201, 162, 39, 0.45);
-    }
-    .places-dots .dot.dot-off {
-      background: rgba(201, 162, 39, 0.22);
-      box-shadow: 0 0 0 2px rgba(10,12,11,0.45), inset 0 0 0 1px rgba(255,250,240,0.08);
-    }
-    .hero-launch .places-dots .dot.dot-off {
-      background: rgba(255, 250, 240, 0.12);
-      box-shadow: 0 0 0 2px rgba(255, 250, 240, 0.22), inset 0 0 0 1px rgba(0, 0, 0, 0.35);
-    }
-    .places-row.hero-places-inline { margin-bottom: 0; }
-    .places-label {
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      font-size: 0.92rem;
-    }
-    .hero-launch .places-label {
-      color: rgba(255, 250, 240, 0.95);
-      font-weight: 700;
     }
 
-    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -456,23 +370,35 @@
       text-decoration: none;
       transition: transform 0.15s ease, border-color 0.15s, background 0.15s;
     }
-    .btn:active { transform: scale(0.98); }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
     .btn:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
+
     .btn-primary {
       background: linear-gradient(180deg, #d4ae32, var(--gold) 55%, var(--gold-dim));
       color: #1a1410;
-      border-color: rgba(255,255,255,0.15);
+      border-color: rgba(255, 255, 255, 0.15);
       box-shadow: 0 4px 22px rgba(201, 162, 39, 0.25);
     }
-    .btn-primary:hover { filter: brightness(1.06); color: #1a1410; text-decoration: none; }
+
+    .btn-primary:hover {
+      filter: brightness(1.06);
+      color: #1a1410;
+      text-decoration: none;
+    }
+
     .btn-secondary {
       background: transparent;
       color: var(--text);
       border-color: var(--border);
     }
+
     .btn-secondary:hover {
       border-color: var(--gold);
       color: var(--gold);
@@ -487,6 +413,7 @@
       padding: clamp(1.25rem, 4vw, 1.85rem);
       box-shadow: 0 4px 28px rgba(0, 0, 0, 0.25);
     }
+
     .card-gold-accent {
       border-color: rgba(201, 162, 39, 0.55);
       box-shadow:
@@ -499,16 +426,20 @@
       padding: 0;
       margin: 1rem 0;
     }
+
     .highlights-list li {
       padding: 0.35rem 0 0.35rem 1.35rem;
       position: relative;
       color: var(--text-muted);
     }
+
     .highlights-list li::before {
       content: "";
       position: absolute;
-      left: 0; top: 0.82em;
-      width: 6px; height: 6px;
+      left: 0;
+      top: 0.82em;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--green-mid);
       box-shadow: 0 0 0 2px var(--gold);
@@ -523,33 +454,43 @@
       margin-inline: -0.35rem;
       -webkit-overflow-scrolling: touch;
     }
-    .carousel::-webkit-scrollbar { height: 6px; }
+
+    .carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+
     .carousel::-webkit-scrollbar-thumb {
       background: rgba(201, 162, 39, 0.35);
       border-radius: 6px;
     }
+
     .carousel-track {
       display: flex;
       gap: clamp(1rem, 4vw, 1.35rem);
       padding: 0.35rem calc(1rem + 0.35rem) 0.35rem;
     }
+
     .carousel-item {
       flex: 0 0 min(340px, 88vw);
       scroll-snap-align: start;
     }
+
     /* Carrousel Nexus : vignettes plus larges sur écran moyen et + */
     .carousel.carousel-nexus .carousel-item {
       flex: 0 0 min(340px, 88vw);
     }
+
     @media (min-width: 600px) {
       .carousel.carousel-nexus .carousel-item {
         flex: 0 0 min(680px, 92vw);
       }
     }
+
     /* Carrousel « Mes résultats » : mêmes largeurs et mêmes hauteurs par carte */
     .carousel.results-carousel .carousel-track {
       align-items: stretch;
     }
+
     .carousel.results-carousel .carousel-item {
       display: flex;
       flex-direction: column;
@@ -557,6 +498,7 @@
       min-width: 0;
       scroll-snap-align: start;
     }
+
     .carousel.results-carousel .carousel-item figure.result-fig {
       flex: 1 1 auto;
       display: flex;
@@ -564,6 +506,7 @@
       min-height: clamp(240px, 42vw, 320px);
       margin: 0;
     }
+
     .carousel.results-carousel .result-fig img {
       flex: 1 1 auto;
       width: 100%;
@@ -571,17 +514,21 @@
       object-fit: contain;
       object-position: center center;
     }
+
     .carousel.results-carousel .result-fig figcaption {
       flex-shrink: 0;
     }
+
     @media (min-width: 900px) {
       .carousel.results-carousel .carousel-item {
         flex: 1 1 0;
         min-width: 0;
       }
+
       .carousel.results-carousel {
         overflow-x: visible;
       }
+
       .carousel.results-carousel .carousel-track {
         padding-inline: 0;
         margin-inline: 0;
@@ -596,7 +543,12 @@
       border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
-    figure.result-fig img { width: 100%; vertical-align: middle; }
+
+    figure.result-fig img {
+      width: 100%;
+      vertical-align: middle;
+    }
+
     figure.result-fig figcaption {
       font-size: 0.85rem;
       padding: 0.65rem 0.85rem;
@@ -608,25 +560,34 @@
 
     .nexus-card img {
       border-radius: calc(var(--radius-sm) - 2px);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       margin-bottom: 0.75rem;
       background: var(--anthracite-2);
     }
+
     .nexus-card h3 {
       font-size: 1.05rem;
       margin: 0 0 0.4rem;
     }
 
-    /* Offres : deux blocs empilés (pas d’onglets) */
+    /* Offres */
     .offers-stack {
       margin-top: 0.5rem;
       display: flex;
       flex-direction: column;
       gap: 0;
     }
+
     .offers-subsection {
       margin: 0;
     }
+
+    .offers-subsection+.offers-subsection {
+      margin-top: clamp(2rem, 5vw, 2.75rem);
+      padding-top: clamp(1.5rem, 4vw, 2rem);
+      border-top: 1px solid var(--border);
+    }
+
     .offers-block-title {
       font-size: clamp(1.1rem, 2.5vw, 1.35rem);
       font-weight: 750;
@@ -634,113 +595,11 @@
       margin: 0 0 0.65rem;
       line-height: 1.2;
       color: var(--text);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem 0.75rem;
     }
-    .offers-block-title .offers-badge {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--black);
-      background: linear-gradient(90deg, var(--gold), #e8cf5f);
-      padding: 0.25rem 0.55rem;
-      border-radius: 999px;
-    }
-    .offers-separator {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: clamp(1.75rem, 4vw, 2.35rem) 0;
-      color: var(--text-muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .offers-separator::before,
-    .offers-separator::after {
-      content: "";
-      flex: 1;
-      height: 2px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.45), transparent);
-    }
-    .offers-countdown-line {
-      margin: 0 0 1.25rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    .offers-countdown-line strong {
-      color: #fde68a;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-    }
+
     .offers-foot-cta-wrap {
       margin: 1.75rem 0 0;
       text-align: center;
-    }
-
-    /* Compte à rebours (hero) */
-    .hero-countdown {
-      margin-top: 1.15rem;
-      padding-top: 1.1rem;
-      border-top: 1px dashed rgba(201, 162, 39, 0.35);
-    }
-    .hero-countdown-label {
-      margin: 0 0 0.65rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255, 250, 240, 0.82);
-    }
-    .hero-countdown-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.65rem;
-    }
-    .hero-cd-cell {
-      flex: 1 1 0;
-      min-width: 4.25rem;
-      text-align: center;
-      padding: 0.55rem 0.4rem;
-      border-radius: var(--radius-sm);
-      background: rgba(0, 0, 0, 0.22);
-      border: 1px solid rgba(201, 162, 39, 0.35);
-    }
-    .hero-cd-cell strong {
-      display: block;
-      font-size: 1.35rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      line-height: 1.1;
-      color: #fde68a;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    }
-    .hero-cd-cell span {
-      display: block;
-      margin-top: 0.2rem;
-      font-size: 0.62rem;
-      font-weight: 650;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255, 250, 240, 0.75);
-    }
-    .hero-countdown.hero-countdown--ended .hero-countdown-grid {
-      display: none;
-    }
-    .hero-countdown.hero-countdown--ended .hero-countdown-ended {
-      display: block;
-    }
-    .hero-countdown .hero-countdown-ended {
-      display: none;
-      margin: 0;
-      font-size: 0.92rem;
-      font-weight: 650;
-      color: rgba(255, 220, 150, 0.95);
     }
 
     /* Bloc présentation + photo */
@@ -750,11 +609,13 @@
       align-items: start;
       margin-bottom: 2rem;
     }
+
     @media (min-width: 768px) {
       .about-layout {
         grid-template-columns: minmax(200px, 280px) 1fr;
       }
     }
+
     .about-photo-wrap {
       margin: 0 auto;
       border-radius: var(--radius);
@@ -764,22 +625,32 @@
       background: var(--anthracite-2);
       max-width: min(320px, 100%);
     }
+
     @media (min-width: 768px) {
-      .about-photo-wrap { margin: 0; max-width: none; }
+      .about-photo-wrap {
+        margin: 0;
+        max-width: none;
+      }
     }
+
     .about-photo-wrap img {
       width: 100%;
       aspect-ratio: 4 / 5;
       object-fit: cover;
       display: block;
     }
+
     .about-prose p {
       margin: 0 0 1rem;
       color: var(--text-muted);
       font-size: 1.02rem;
       line-height: 1.65;
     }
-    .about-prose p:last-of-type { margin-bottom: 1.25rem; }
+
+    .about-prose p:last-of-type {
+      margin-bottom: 1.25rem;
+    }
+
     .about-stat {
       margin: 1.25rem 0 1.5rem;
       padding: 1.1rem 1.25rem;
@@ -788,6 +659,7 @@
       border: 1px solid rgba(201, 162, 39, 0.42);
       text-align: center;
     }
+
     .about-stat-num {
       display: block;
       font-size: clamp(1.85rem, 4.5vw, 2.45rem);
@@ -797,6 +669,7 @@
       color: #fde68a;
       text-shadow: 0 2px 18px rgba(201, 162, 39, 0.35);
     }
+
     .about-stat-desc {
       display: block;
       margin-top: 0.35rem;
@@ -805,6 +678,7 @@
       color: var(--text-muted);
       line-height: 1.4;
     }
+
     .about-highlights-intro {
       margin: 0 0 0.5rem;
       font-size: 0.92rem;
@@ -819,15 +693,24 @@
       width: 1%;
       padding-inline: 0.65rem !important;
     }
+
     .btn-offer-cta {
       font-size: 0.76rem;
       font-weight: 700;
       padding: 0.42rem 0.62rem;
       white-space: nowrap;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .table-wrap {
@@ -838,24 +721,31 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
     }
+
     table.coach-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.875rem;
-      min-width: 680px;
+      min-width: 560px;
     }
-    table.coach-table.coach-table-bundles { min-width: 920px; }
-    table.coach-table caption { text-align: left; padding: 0.75rem 1rem 0; }
+
+    table.coach-table caption {
+      text-align: left;
+      padding: 0.75rem 1rem 0;
+    }
+
     table.coach-table th,
     table.coach-table td {
       padding: 0.75rem 0.95rem;
       text-align: left;
       border-bottom: 1px solid rgba(201, 162, 39, 0.12);
     }
+
     table.coach-table th:first-child,
     table.coach-table td:first-child {
       padding-inline-end: clamp(1.25rem, 3.8vw, 2.75rem);
     }
+
     table.coach-table thead th {
       background: var(--anthracite-2);
       color: var(--gold);
@@ -864,180 +754,34 @@
       letter-spacing: 0.04em;
       font-size: 0.74rem;
     }
+
     table.coach-table tbody tr:hover {
       background: rgba(26, 64, 40, 0.12);
     }
-    table.coach-table td.offer-name-cell {
+
+    table.coach-table :is(td, th).offer-name-cell {
       font-weight: 700;
       font-size: 1rem;
       color: var(--text);
       line-height: 1.45;
       vertical-align: top;
+      text-align: left;
     }
-    table.coach-table td.offer-name-cell .offer-tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.45rem 0.65rem;
-      margin-bottom: 0.42rem;
-    }
-    table.coach-table td.offer-name-cell span.offer-tag {
-      display: block;
-      width: fit-content;
-      max-width: 100%;
-      margin-bottom: 0.42rem;
-      font-size: 0.82rem;
-      font-weight: 850;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #fde68a;
-      line-height: 1.2;
-    }
-    table.coach-table td.offer-name-cell .offer-tag-row .offer-tag {
-      display: inline-block;
-      margin-bottom: 0;
-    }
-    table.coach-table td.offer-name-cell span.offer-desc {
-      display: block;
-      font-weight: 550;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      letter-spacing: 0.015em;
-    }
-    table.coach-table th.col-value,
-    table.coach-table td.col-value {
+
+    table.coach-table .cell-content {
       color: var(--text-muted);
       font-weight: 500;
-    }
-    table.coach-table thead th.th-launch-col {
-      color: #ffd85c;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-      background: rgba(92, 31, 46, 0.35);
-      text-transform: none;
-      letter-spacing: 0.03em;
-      font-size: 0.82rem;
-      vertical-align: bottom;
-      font-weight: 800;
-    }
-    table.coach-table thead th.th-launch-col .th-sub {
-      display: block;
-      font-weight: 600;
-      color: rgba(255, 220, 150, 0.85);
-      text-transform: none;
-      letter-spacing: 0.02em;
-      font-size: 0.65rem;
-      margin-top: 0.25rem;
-    }
-    table.coach-table td.cell-launch {
-      position: relative;
-      vertical-align: middle;
-      padding: 0 !important;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    table.coach-table td.cell-launch::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background: linear-gradient(90deg, rgba(201, 162, 39, 0.18), rgba(201, 162, 39, 0.06));
-      border-inline: 1px solid rgba(201, 162, 39, 0.35);
-      box-sizing: border-box;
-    }
-    table.coach-table tr.featured td.cell-launch::before {
-      background: linear-gradient(90deg, rgba(201, 162, 39, 0.28), rgba(201, 162, 39, 0.12));
-    }
-    table.coach-table .launch-fill {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 0.95rem;
-      box-sizing: border-box;
-    }
-    table.coach-table .launch-fill .launch-price {
-      display: inline;
-      font-variant-numeric: tabular-nums;
-      font-weight: 800;
-      font-size: 1.06rem;
-      color: #f5e7a8;
-      line-height: 1.25;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    table.coach-table .launch-fill .launch-savings {
-      display: inline;
-      margin: 0;
-      font-size: 0.7rem;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.02em;
-      color: rgba(142, 200, 160, 0.78);
-      line-height: 1.25;
-      white-space: nowrap;
-      vertical-align: baseline;
-    }
-    table.coach-table tr.featured .launch-fill .launch-savings {
-      color: rgba(168, 223, 184, 0.88);
-    }
-    table.coach-table thead th.head-stacked {
-      text-transform: none;
-      letter-spacing: 0.02em;
-      font-weight: 800;
-      font-size: 0.78rem;
-      vertical-align: bottom;
-      line-height: 1.25;
-    }
-    table.coach-table thead th.head-stacked .th-head-main {
-      display: block;
-    }
-    table.coach-table thead th.head-stacked.col-value .th-head-main {
-      color: var(--gold);
-    }
-    table.coach-table thead th.head-stacked .th-head-sub {
-      display: block;
-      font-weight: 600;
-      text-transform: none;
-      letter-spacing: 0.02em;
-      font-size: 0.62rem;
-      color: rgba(232, 234, 233, 0.72);
-      margin-top: 0.38rem;
-      line-height: 1.35;
-      white-space: normal;
-      max-width: 11rem;
-    }
-    table.coach-table td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
-    table.coach-table tr:last-child td { border-bottom: none; }
-
-    tr.featured td {
-      background: linear-gradient(90deg, rgba(201, 162, 39, 0.12), rgba(92, 31, 46, 0.15));
-      border-block: 1px solid rgba(201, 162, 39, 0.45);
-    }
-    .badge-choice {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--black);
-      background: linear-gradient(90deg, var(--gold), #e8cf5f);
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    .offer-footnote {
       font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-top: 1rem;
+      vertical-align: middle;
+    }
+
+    table.coach-table td.num {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    table.coach-table tr:last-child :is(td, th) {
+      border-bottom: none;
     }
 
     /* Nexus logo block */
@@ -1046,6 +790,7 @@
       justify-content: center;
       margin-bottom: 1.5rem;
     }
+
     .nexus-logo-wrap img {
       width: min(220px, 70vw);
       height: auto;
@@ -1057,9 +802,13 @@
       display: grid;
       gap: 1rem;
     }
+
     @media (min-width: 620px) {
-      .form-grid.two { grid-template-columns: 1fr 1fr; }
+      .form-grid.two {
+        grid-template-columns: 1fr 1fr;
+      }
     }
+
     label.field {
       display: flex;
       flex-direction: column;
@@ -1068,7 +817,10 @@
       font-weight: 600;
       color: var(--text-muted);
     }
-    input, textarea, select {
+
+    input,
+    textarea,
+    select {
       font: inherit;
       padding: 0.75rem 0.85rem;
       border-radius: var(--radius-sm);
@@ -1076,17 +828,29 @@
       background: var(--anthracite-2);
       color: var(--text);
     }
+
     select {
       cursor: pointer;
       min-width: 0;
     }
-    input:focus-visible, textarea:focus-visible, select:focus-visible {
+
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 2px;
       border-color: var(--gold);
     }
-    textarea { min-height: 140px; resize: vertical; }
-    .form-actions { margin-top: 1rem; }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      margin-top: 1rem;
+    }
+
     .form-status {
       margin: 0;
       padding: 0.75rem 1rem;
@@ -1094,17 +858,22 @@
       font-size: 0.9rem;
       line-height: 1.45;
     }
+
     .form-status.is-error {
       background: rgba(92, 31, 46, 0.45);
       border: 1px solid rgba(201, 162, 39, 0.35);
       color: #fde68a;
     }
+
     .form-status.is-success {
       background: rgba(26, 64, 40, 0.35);
       border: 1px solid rgba(142, 200, 160, 0.35);
       color: #c8f5d8;
     }
-    .form-status[hidden] { display: none !important; }
+
+    .form-status[hidden] {
+      display: none !important;
+    }
 
     .contact-fieldset {
       margin: 0;
@@ -1112,6 +881,7 @@
       border: none;
       min-width: 0;
     }
+
     .contact-fieldset legend {
       padding: 0;
       font-size: 0.875rem;
@@ -1119,6 +889,7 @@
       color: var(--text-muted);
       margin-bottom: 0.35rem;
     }
+
     .contact-fieldset .contact-fieldset-hint {
       margin: 0 0 0.75rem;
       font-size: 0.82rem;
@@ -1126,26 +897,31 @@
       color: var(--text-muted);
       line-height: 1.45;
     }
+
     .contact-rows {
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
     }
+
     .contact-row {
       display: grid;
       grid-template-columns: minmax(7.5rem, 9.5rem) 1fr auto;
       gap: 0.5rem;
       align-items: end;
     }
+
     @media (max-width: 540px) {
       .contact-row {
         grid-template-columns: 1fr 1fr;
       }
+
       .contact-row .btn-contact-remove {
         grid-column: 1 / -1;
         justify-self: stretch;
       }
     }
+
     .btn-contact-remove {
       font: inherit;
       cursor: pointer;
@@ -1158,14 +934,17 @@
       font-weight: 600;
       white-space: nowrap;
     }
+
     .btn-contact-remove:hover {
       border-color: rgba(201, 162, 39, 0.4);
       background: rgba(92, 31, 46, 0.4);
     }
+
     .btn-contact-remove:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
+
     .btn-add-contact-row {
       margin-top: 0.75rem;
       font: inherit;
@@ -1178,6 +957,7 @@
       font-size: 0.82rem;
       font-weight: 600;
     }
+
     .btn-add-contact-row:hover {
       background: rgba(201, 162, 39, 0.14);
     }
@@ -1189,6 +969,7 @@
       font-size: 0.92rem;
       color: var(--text-muted);
     }
+
     .contact-alt-links {
       display: flex;
       flex-wrap: wrap;
@@ -1197,15 +978,18 @@
       margin: 0;
       line-height: 1.5;
     }
+
     .contact-alt-links .contact-alt-sep {
       color: rgba(168, 176, 172, 0.55);
       user-select: none;
     }
+
     @media (max-width: 480px) {
       .contact-alt-links {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .contact-alt-links .contact-alt-sep {
         display: none;
       }
@@ -1216,43 +1000,43 @@
       html {
         scroll-padding-top: clamp(3.75rem, 14vw, 4.5rem);
       }
+
       .section-title {
         font-size: clamp(1.35rem, 6.5vw, 1.85rem);
       }
+
       .section-lede {
         margin-bottom: 1.15rem;
         max-width: none;
       }
+
       .btn-row {
         flex-direction: column;
         align-items: stretch;
       }
+
       .btn-row .btn {
         width: 100%;
         justify-content: center;
         text-align: center;
       }
+
       table.coach-table {
         font-size: 0.78rem;
       }
+
       table.coach-table th,
       table.coach-table td {
         padding: 0.55rem 0.5rem;
       }
+
       .btn-offer-cta {
         white-space: normal;
         line-height: 1.25;
         max-width: 10.5rem;
         padding: 0.45rem 0.45rem;
       }
-      .hero-countdown-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.45rem;
-      }
-      .hero-cd-cell {
-        min-width: 0;
-      }
+
       .offers-foot-cta-wrap .btn {
         width: 100%;
         max-width: 100%;
@@ -1262,10 +1046,11 @@
     footer.site-footer {
       padding: 2.75rem 0 2rem;
       border-top: 1px solid var(--border);
-      background: rgba(10,12,11,0.95);
+      background: rgba(10, 12, 11, 0.95);
       font-size: 0.88rem;
       color: var(--text-muted);
     }
+
     .footer-links {
       display: flex;
       flex-wrap: wrap;
@@ -1278,6 +1063,7 @@
     }
   </style>
 </head>
+
 <body>
   <a class="sr-only" href="#section-hero">Aller au contenu principal</a>
 
@@ -1303,53 +1089,13 @@
     <!-- 1 HERO -->
     <section id="section-hero" class="hero" aria-labelledby="hero-title">
       <div class="container">
-        <div class="hero-grid">
-          <div class="hero-intro">
-            <h1 id="hero-title">Passe un nouveau cap dans ta progression au poker</h1>
-            <p class="hero-sub">- Coaching No Limit Hold'em Cash Game &amp; MTT</p>
-            <p class="hero-sub">- Niveaux débutant à intermédiaire</p>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="#offres">Voir les offres</a>
-              <a class="btn btn-secondary" href="#contact" data-demand-type="Contact général">Me contacter</a>
-            </div>
-          </div>
-
-          <div class="hero-launch" role="region" aria-labelledby="hero-launch-title">
-            <span class="hero-launch-eyebrow">Offre de lancement limitée</span>
-            <p id="hero-launch-title" class="hero-launch-head">
-              <span class="hero-launch-accent">Réduction</span> sur les coachings
-            </p>
-            <ul class="hero-launch-grid">
-              <li>
-                <p class="hero-launch-k"># places limitées</p>
-                <p class="hero-launch-v"><strong>6 places</strong> max pour garantir des coachings efficaces</p>
-              </li>
-              <li>
-                <p class="hero-launch-k">Date limite</p>
-                <p class="hero-launch-v">Jusqu'au <strong>31&nbsp;mai&nbsp;2026</strong> <span style="font-weight:600;opacity:0.92"></span></p>
-              </li>
-            </ul>
-            <div class="hero-countdown" id="hero-countdown" role="timer" aria-live="off">
-              <p class="hero-countdown-label">Fin de l’offre de lancement dans</p>
-              <div class="hero-countdown-grid" id="countdown-hero-grid">
-                <div class="hero-cd-cell"><strong id="cd-d">--</strong><span>jours</span></div>
-                <div class="hero-cd-cell"><strong id="cd-h">--</strong><span>heures</span></div>
-                <div class="hero-cd-cell"><strong id="cd-m">--</strong><span>minutes</span></div>
-                <div class="hero-cd-cell"><strong id="cd-s">--</strong><span>secondes</span></div>
-              </div>
-              <p class="hero-countdown-ended" id="cd-ended-msg">L’offre de lancement est terminée — contacte-moi pour les tarifs en vigueur.</p>
-            </div>
-            <div class="places-row hero-places-inline" aria-label="Places restantes">
-              <div class="places-dots" title="4 places restantes sur 6 (2 prises)">
-                <span class="dot" aria-hidden="true"></span>
-                <span class="dot" aria-hidden="true"></span>
-                <span class="dot" aria-hidden="true"></span>
-                <span class="dot" aria-hidden="true"></span>
-                <span class="dot dot-off" aria-hidden="true"></span>
-                <span class="dot dot-off" aria-hidden="true"></span>
-              </div>
-              <span class="places-label">4 places restantes</span>
-            </div>
+        <div class="hero-intro hero-intro--full">
+          <h1 id="hero-title">Passe un nouveau cap dans ta progression au poker</h1>
+          <p class="hero-sub">- Coaching No Limit Hold'em Cash Game &amp; MTT</p>
+          <p class="hero-sub">- Niveaux débutant à intermédiaire</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#offres">Voir les offres</a>
+            <a class="btn btn-secondary" href="#contact" data-demand-type="Contact général">Me contacter</a>
           </div>
         </div>
       </div>
@@ -1362,49 +1108,61 @@
 
         <div class="about-layout">
           <figure class="about-photo-wrap">
-            <img src="assets/photo-coach.jpg" width="640" height="800" loading="lazy" alt="Portrait de Jean-Charles, coach poker JCBrunul, basé à Punaauia, Tahiti.">
+            <img src="assets/photo-coach.jpg" width="640" height="800" loading="lazy"
+              alt="Portrait de Jean-Charles, coach poker JCBrunul, basé à Punaauia, Tahiti.">
           </figure>
           <div class="about-prose">
             <p>
-              Je suis joueur de poker professionnel spécialisé en <strong style="color: var(--text)">No Limit Holdem</strong>, basé à Punaauia.
-              J'ai débuté le poker en ligne en 2018 en freerolls, et ai fait grimper ma bankroll sans jamais avoir déposé un euro.</p>
-              <p>J'aspire maintenant à partager ma passion pour le jeu et à aider les autres à progresser, avec une approche <strong style="color: var(--text)">pédagogique et structurée</strong>, où j'enseigne <strong style="color: var(--text)"> mes meilleurs conseils</strong> pour <strong style="color: var(--text)">exploiter ses adversaires.</strong></p>
+              Je suis joueur de poker professionnel spécialisé en <strong style="color: var(--text)">No Limit
+                Holdem</strong>, basé à Punaauia.
+              J'ai débuté le poker en ligne en 2018 en freerolls, et ai fait grimper ma bankroll sans jamais avoir
+              déposé un euro.</p>
+            <p>J'aspire maintenant à partager ma passion pour le jeu et à aider les autres à progresser, avec une
+              approche <strong style="color: var(--text)">pédagogique et structurée</strong>, où j'enseigne <strong
+                style="color: var(--text)"> mes meilleurs conseils</strong> pour <strong
+                style="color: var(--text)">exploiter ses adversaires.</strong></p>
 
             <div class="about-stat">
               <span class="about-stat-num">+150&nbsp;000&nbsp;€</span>
               <span class="about-stat-desc">de gains cumulés online</span>
               <!-- 2 titres Series gagnés-->
-               <span class="about-stat-num">2 titres majeurs online gagnés</span>
-               <span class="about-stat-desc">des Winamax Series et Pokus</span>
+              <span class="about-stat-num">2 titres majeurs online gagnés</span>
+              <span class="about-stat-desc">des Winamax Series et Pokus</span>
             </div>
             <p class="about-highlights-intro">En bref :</p>
             <ul class="highlights-list" style="margin-top: 0;">
               <li>Spécialité <strong style="color: var(--text)">Cash Game &amp; MTT</strong></li>
-              <li>Coaching du niveau débutant à avancé, avec <strong style="color: var(--text)">méthode structurée</strong></li>
-              <li>Méthode d'apprentissage avec un logiciel <strong style="color: var(--text)">unique</strong> d'entraînement</li>
+              <li>Coaching du niveau débutant à avancé, avec <strong style="color: var(--text)">méthode
+                  structurée</strong></li>
+              <li>Méthode d'apprentissage avec un logiciel <strong style="color: var(--text)">unique</strong>
+                d'entraînement</li>
               <li>Basé à <strong style="color: var(--text)">Punaauia, Tahiti</strong></li>
             </ul>
           </div>
         </div>
 
-        <h3 class="section-title" style="font-size: clamp(1.15rem, 3vw, 1.5rem); margin-top: 0.5rem;">Mes résultats (courbes)</h3>
+        <h3 class="section-title" style="font-size: clamp(1.15rem, 3vw, 1.5rem); margin-top: 0.5rem;">Mes résultats
+          (courbes)</h3>
         <div class="carousel results-carousel">
           <div class="carousel-track">
             <div class="carousel-item">
               <figure class="result-fig">
-                <img src="assets/CourbeMTT.png" loading="lazy" alt="Courbe cumulative de résultats en tournois multi-tables MTT sur un grand nombre de parties, tendance générale à la hausse.">
+                <img src="assets/CourbeMTT.png" loading="lazy"
+                  alt="Courbe cumulative de résultats en tournois multi-tables MTT sur un grand nombre de parties, tendance générale à la hausse.">
                 <figcaption>Résultats MTT</figcaption>
               </figure>
             </div>
             <div class="carousel-item">
               <figure class="result-fig">
-                <img src="assets/ResultatsCG1.png" loading="lazy" alt="Graphique de profit total en cash game montrant une progression positive sur plusieurs mois.">
+                <img src="assets/ResultatsCG1.png" loading="lazy"
+                  alt="Graphique de profit total en cash game montrant une progression positive sur plusieurs mois.">
                 <figcaption>Résultats Cash Game (1)</figcaption>
               </figure>
             </div>
             <div class="carousel-item">
               <figure class="result-fig">
-                <img src="assets/ResultatsCG2.png" loading="lazy" alt="Courbe des résultats globaux en euros sur une période récente, avec tendance ascendante régulière.">
+                <img src="assets/ResultatsCG2.png" loading="lazy"
+                  alt="Courbe des résultats globaux en euros sur une période récente, avec tendance ascendante régulière.">
                 <figcaption>Résultats Cash Game (2)</figcaption>
               </figure>
             </div>
@@ -1416,51 +1174,48 @@
     <!-- 3 OFFRES -->
     <section id="offres" aria-labelledby="offers-title">
       <div class="container">
-        <h2 id="offers-title" class="section-title">Offres de coaching</h2>
-        <div id="seance-decouverte" class="card card-gold-accent" role="region" aria-labelledby="discover-title" style="margin-bottom: 2rem;">
-          <h3 id="discover-title" class="section-title" style="margin-bottom: 0.5rem;">Séance Découverte</h3>
-          <p style="margin: 0 0 1rem; color: var(--text-muted);"><strong style="color: var(--gold)">6 000 XPF</strong> (Non renouvelable — 1 séance par personne)</p>
-          <ul class="highlights-list" style="margin-bottom: 1.25rem;">
-            <li>1&nbsp;h de coaching</li>
-            <li>14 jours d'accès à Nexus Holdem</li>
-            <li>Idéal pour découvrir ma méthode avant de t'engager</li>
-          </ul>
-          <a class="btn btn-primary" id="cta-decouverte" href="#contact" data-demand-type="Réservation — Séance Découverte (6 000 XPF)">Réserver une séance découverte</a>
-        </div>
-
+        <h2 id="offers-title" class="section-title">Tarifs</h2>
         <div class="offers-stack">
           <div class="offers-subsection">
-            <h3 class="offers-block-title">Coaching seul</h3>
+            <h3 class="offers-block-title">Coaching</h3>
+            <p style="margin: 0 0 1rem; color: var(--text-muted); font-size: 0.92rem;">Offres de coaching avec le logiciel Nexus Holdem.</p>
             <div class="table-wrap">
               <table class="coach-table">
-                <caption class="sr-only">Tarifs coaching à l&apos;heure et en packs, sans Nexus Holdem</caption>
+                <caption class="sr-only">Séances et packs de coaching avec Nexus offert</caption>
                 <thead>
                   <tr>
                     <th scope="col">Offre</th>
                     <th scope="col">Prix</th>
+                    <th scope="col">Contenu</th>
                     <th scope="col" class="th-cta"><span class="sr-only">Réserver</span></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Unitaire</span><span class="offer-desc">1h de coaching</span></td>
+                  <tr id="seance-decouverte">
+                    <th scope="row" class="offer-name-cell">Séance découverte</th>
                     <td class="num">10 000 XPF</td>
+                    <td class="cell-content">Coaching 1h + Nexus 2 semaines</td>
                     <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Coaching 1 h (unitaire), 10 000 XPF">Réservation (sans engagement)</a>
+                      <a class="btn btn-secondary btn-offer-cta" id="cta-decouverte" href="#contact"
+                        data-demand-type="Réservation — Séance découverte (10 000 XPF : 1 h + Nexus 2 semaines)">Réserver</a>
                     </td>
                   </tr>
                   <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Pack 3&nbsp;h</span><span class="offer-desc">3h de coaching</span></td>
-                    <td class="num">29 000 XPF</td>
+                    <th scope="row" class="offer-name-cell">Pack 3h</th>
+                    <td class="num">30 000 XPF</td>
+                    <td class="cell-content">Coaching 3h + Nexus 1 mois</td>
                     <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack coaching 3 h, 29 000 XPF">Réservation (sans engagement)</a>
+                      <a class="btn btn-secondary btn-offer-cta" href="#contact"
+                        data-demand-type="Réservation — Pack 3 h (30 000 XPF : 3 h + Nexus 1 mois)">Réserver</a>
                     </td>
                   </tr>
                   <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Pack 5&nbsp;h</span><span class="offer-desc">5h de coaching</span></td>
+                    <th scope="row" class="offer-name-cell">Pack 5h</th>
                     <td class="num">45 000 XPF</td>
+                    <td class="cell-content">Coaching 5h + Nexus 2 mois</td>
                     <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack coaching 5 h, 45 000 XPF">Réservation (sans engagement)</a>
+                      <a class="btn btn-secondary btn-offer-cta" href="#contact"
+                        data-demand-type="Réservation — Pack 5 h (45 000 XPF : 5 h + Nexus 2 mois)">Réserver</a>
                     </td>
                   </tr>
                 </tbody>
@@ -1468,103 +1223,57 @@
             </div>
           </div>
 
-          <div class="offers-separator" role="separator" aria-hidden="true">Coaching + Nexus Holdem</div>
-
           <div class="offers-subsection">
-            <h3 class="offers-block-title">Coaching + Nexus Holdem <span class="offers-badge">Lancement</span></h3>
+            <h3 id="nexus-seul-tarifs" class="offers-block-title">Nexus Holdem</h3>
+            <p style="margin: 0 0 1rem; color: var(--text-muted); font-size: 0.92rem;">Accès au logiciel uniquement.</p>
             <div class="table-wrap">
-              <table class="coach-table coach-table-bundles">
-                <caption class="sr-only">Packs coaching avec accès Nexus Holdem, prix normal et prix lancement</caption>
+              <table class="coach-table">
+                <caption class="sr-only">Abonnement Nexus Holdem sans pack coaching</caption>
                 <thead>
                   <tr>
                     <th scope="col">Offre</th>
-                    <th scope="col">Prix normal</th>
-                    <th scope="col" class="th-launch-col"><span aria-hidden="true">🚀</span>&nbsp;Prix lancement<span class="th-sub">avec réduction lancement (limitée)</span></th>
-                    <th scope="col" class="col-value head-stacked">
-                      <span class="th-head-main">Valeur du pack</span>
-                      <span class="th-head-sub">à titre indicatif (hors promo)</span>
-                    </th>
-                    <th scope="col" class="th-cta"><span class="sr-only">Réserver</span></th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Contenu</th>
+                    <th scope="col" class="th-cta"><span class="sr-only">Demander</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Starter</span><span class="offer-desc">1h de coaching + Nexus 1&nbsp;mois</span></td>
-                    <td class="num">13 000 XPF</td>
-                    <td class="cell-launch">
-                      <div class="launch-fill">
-                        <span class="launch-price">10 000 XPF</span>
-                        <span class="launch-savings" title="Valeur indicative pack 16 000 XPF − prix lancement">−6 000 XPF</span>
-                      </div>
-                    </td>
-                    <td class="num col-value">16 000 XPF</td>
+                    <th scope="row" class="offer-name-cell">Mensuel</th>
+                    <td class="num">6 000 XPF</td>
+                    <td class="cell-content" aria-label="Non applicable">—</td>
                     <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack Starter (1 h + Nexus 1 mois), prix lancement 10 000 XPF">Réservation (sans engagement)</a>
+                      <a class="btn btn-secondary btn-offer-cta" href="#contact"
+                        data-demand-type="Nexus Holdem seul — abonnement mensuel (6 000 XPF)">Demander</a>
                     </td>
                   </tr>
                   <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Progression</span><span class="offer-desc">3h de coaching + Nexus 3&nbsp;mois</span></td>
-                    <td class="num">39 000 XPF</td>
-                    <td class="cell-launch">
-                      <div class="launch-fill">
-                        <span class="launch-price">35 000 XPF</span>
-                        <span class="launch-savings" title="Valeur indicative pack 47 000 XPF − prix lancement">−12 000 XPF</span>
-                      </div>
-                    </td>
-                    <td class="num col-value">47 000 XPF</td>
+                    <th scope="row" class="offer-name-cell">À vie</th>
+                    <td class="num">45 000 XPF</td>
+                    <td class="cell-content" aria-label="Non applicable">—</td>
                     <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack Progression (3 h + Nexus 3 mois), prix lancement 35 000 XPF">Réservation (sans engagement)</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="offer-name-cell"><span class="offer-tag">Performance</span><span class="offer-desc">5h de coaching + Nexus 3&nbsp;mois</span></td>
-                    <td class="num">55 000 XPF</td>
-                    <td class="cell-launch">
-                      <div class="launch-fill">
-                        <span class="launch-price">49 000 XPF</span>
-                        <span class="launch-savings" title="Valeur indicative pack 63 000 XPF − prix lancement">−14 000 XPF</span>
-                      </div>
-                    </td>
-                    <td class="num col-value">63 000 XPF</td>
-                    <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack Performance (5 h + Nexus 3 mois), prix lancement 49 000 XPF">Réservation (sans engagement)</a>
-                    </td>
-                  </tr>
-                  <tr class="featured">
-                    <td class="offer-name-cell">
-                      <span class="offer-tag-row">
-                        <span class="offer-tag">Full Access</span>
-                        <span class="badge-choice" aria-label="Meilleur choix — coup de cœur" title="Meilleur choix — coup de cœur">Le + économique</span>
-                      </span>
-                      <span class="offer-desc">5h de coaching + Nexus à vie</span>
-                    </td>
-                    <td class="num">69 000 XPF</td>
-                    <td class="cell-launch">
-                      <div class="launch-fill">
-                        <span class="launch-price">59 000 XPF</span>
-                        <span class="launch-savings" title="Valeur indicative pack 90 000 XPF − prix lancement">−31 000 XPF</span>
-                      </div>
-                    </td>
-                    <td class="num col-value">90 000 XPF</td>
-                    <td class="td-cta">
-                      <a href="#contact" class="btn btn-secondary btn-offer-cta" data-demand-type="Réservation (sans engagement) — Pack Full Access (5 h + Nexus à vie), prix lancement 59 000 XPF">Réservation (sans engagement)</a>
+                      <a class="btn btn-secondary btn-offer-cta" href="#contact"
+                        data-demand-type="Nexus Holdem seul — licence à vie (45 000 XPF)">Demander</a>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p class="offer-footnote">⏳ Offre de lancement jusqu’au 31/05/2026 — places limitées — les prix «&nbsp;lancement&nbsp;» intègrent une <strong>réduction promotionnelle</strong> sur le pack.</p>
           </div>
 
           <p class="offers-foot-cta-wrap">
-            <a class="btn btn-primary" href="#contact" data-demand-type="Aide au choix d’une formule ou d’un pack">Besoin d’aide pour choisir ?&nbsp;Écris-moi</a>
+            <a class="btn btn-primary" href="#contact"
+              data-demand-type="Aide au choix d’une formule ou d’un pack">Besoin d’aide pour choisir
+              ?&nbsp;Écris-moi</a>
           </p>
         </div>
 
         <div class="card" style="margin-top: 2rem;">
           <h3 style="margin: 0 0 0.5rem; font-size: 1.15rem;">Tarif groupe</h3>
-          <p style="margin: 0 0 1rem; color: var(--text-muted);">Vous êtes un groupe de joueurs ? Un tarif spécial est disponible. Contactez-moi par mail pour en discuter.</p>
-          <a class="btn btn-secondary" href="#contact" data-demand-type="Demande de tarif groupe">Me contacter pour un tarif groupe</a>
+          <p style="margin: 0 0 1rem; color: var(--text-muted);">Vous êtes un groupe de joueurs ? Un tarif spécial est
+            disponible. Contactez-moi par mail pour en discuter.</p>
+          <a class="btn btn-secondary" href="#contact" data-demand-type="Demande de tarif groupe">Me contacter pour un
+            tarif groupe</a>
         </div>
       </div>
     </section>
@@ -1573,62 +1282,58 @@
     <section id="nexus-holdem" aria-labelledby="nexus-title">
       <div class="container">
         <div class="nexus-logo-wrap">
-          <img src="assets/logo-nexus-holdem.png" width="440" loading="lazy" alt="Logo Nexus Holdem : pique stylisée en dégradé néon cyan et violet">
+          <img src="assets/logo-nexus-holdem.png" width="440" loading="lazy"
+            alt="Logo Nexus Holdem : pique stylisée en dégradé néon cyan et violet">
         </div>
-        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère ta progression</h2>
+        <h2 id="nexus-title" class="section-title" style="text-align: center;">Nexus Holdem — Le logiciel qui accélère
+          ta progression</h2>
         <p class="section-lede" style="margin-inline: auto; text-align: center;">
-          Nexus Holdem est un outil pédagogique que j'ai développé pour visualiser et s'entraîner sur les stratégies préflop et flop en No Limit Hold'em. Idéal en complément du coaching.
+          Nexus Holdem est un outil pédagogique que j'ai développé pour visualiser et s'entraîner sur les stratégies
+          préflop et flop en No Limit Hold'em. Idéal en complément du coaching.
         </p>
 
         <div class="carousel carousel-nexus" aria-label="Fonctionnalités Nexus Holdem">
           <div class="carousel-track">
             <article class="carousel-item card nexus-card">
-              <img src="assets/visuelVisualisationRangesPreflop.png" loading="lazy" alt="Interface Nexus Holdem : visualisation d'une grille de ranges préflop en 6-max avec tableau de mise en pot et matrices colorées Fold, Call et Raise">
+              <img src="assets/visuelVisualisationRangesPreflop.png" loading="lazy"
+                alt="Interface Nexus Holdem : visualisation d'une grille de ranges préflop en 6-max avec tableau de mise en pot et matrices colorées Fold, Call et Raise">
               <h3>Visualisation des ranges préflop</h3>
-              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Analyse et mémorisation des mains de départ dans chaque ligne d'action.</p>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Analyse et mémorisation des mains de
+                départ dans chaque ligne d'action.</p>
             </article>
             <article class="carousel-item card nexus-card">
-              <img src="assets/VisuelTrainingPreflop.png" loading="lazy" alt="Mode Training Préflop Nexus : table 6 joueurs, sélection Fold ou Raise, affichage RNG et panneau historique des mains">
+              <img src="assets/VisuelTrainingPreflop.png" loading="lazy"
+                alt="Mode Training Préflop Nexus : table 6 joueurs, sélection Fold ou Raise, affichage RNG et panneau historique des mains">
               <h3>Mode Training Préflop</h3>
-              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraîne-toi sur des spots préflop (positions, tailles d’ouverture, jeu vs open) avec retour visuel immédiat.</p>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraîne-toi sur des spots préflop
+                (positions, tailles d’ouverture, jeu vs open) avec retour visuel immédiat.</p>
             </article>
             <article class="carousel-item card nexus-card">
-              <img src="assets/visuelVisualisationStratsFlop.png" loading="lazy" alt="Vue Nexus avec stratégies flop : tableau, range 13×13 et statistiques par catégories de mains">
+              <img src="assets/visuelVisualisationStratsFlop.png" loading="lazy"
+                alt="Vue Nexus avec stratégies flop : tableau, range 13×13 et statistiques par catégories de mains">
               <h3>Visualisation des stratégies flop</h3>
-              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Découpe les situations flop avec précision pour des décisions mieux fondées.</p>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Découpe les situations flop avec
+                précision pour des décisions mieux fondées.</p>
             </article>
             <article class="carousel-item card nexus-card">
-              <img src="assets/VisuelTrainingFlop.png" loading="lazy" alt="Mode Training Flop de Nexus avec table verte, RNG et boutons Bet ou Check selon la situation">
+              <img src="assets/VisuelTrainingFlop.png" loading="lazy"
+                alt="Mode Training Flop de Nexus avec table verte, RNG et boutons Bet ou Check selon la situation">
               <h3>Mode Training Flop</h3>
-              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraînement répété sur des flops types pour automatiser les bons réflexes.</p>
+              <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Entraînement répété sur des flops types
+                pour automatiser les bons réflexes.</p>
             </article>
           </div>
         </div>
 
-        <h3 style="margin: 2.25rem 0 0.75rem; font-size: 1.15rem;">Tarifs Nexus seul</h3>
-        <div class="table-wrap">
-          <table class="coach-table">
-            <caption class="sr-only">Abonnement Nexus Holdem seul hors coaching</caption>
-            <thead>
-              <tr>
-                <th scope="col">Formule</th>
-                <th scope="col">Prix</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1 mois</td>
-                <td class="num">6 000 XPF</td>
-              </tr>
-              <tr>
-                <td>À vie</td>
-                <td class="num">45 000 XPF</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="btn-row" style="margin-top: 1.25rem;">
-          <a class="btn btn-primary" href="#contact" data-demand-type="Nexus Holdem — louer ou acheter">Louer ou acheter Nexus Holdem</a>
+        <p class="section-lede" style="margin: 2.25rem auto 0; text-align: center; max-width: 40rem;">
+          Les formules <strong>sans coaching</strong> sont détaillées dans la section <a
+            href="#nexus-seul-tarifs">Tarifs — Nexus Holdem sans coaching</a>.
+        </p>
+        <div class="btn-row" style="margin-top: 1.25rem; justify-content: center;">
+          <a class="btn btn-primary" href="#nexus-seul-tarifs">Voir les tarifs Nexus seul</a>
+          <a class="btn btn-secondary" href="#contact"
+            data-demand-type="Nexus Holdem seul — abonnement mensuel (6 000 XPF) ou licence à vie (45 000 XPF)">Me
+            contacter pour Nexus seul</a>
         </div>
       </div>
     </section>
@@ -1647,12 +1352,15 @@
             <fieldset class="contact-fieldset" style="grid-column: 1 / -1;">
               <legend>Moyens pour te recontacter</legend>
               <div id="contact-rows" class="contact-rows"></div>
-              <button type="button" class="btn-add-contact-row" id="btn-add-contact">+ Ajouter un moyen de contact</button>
+              <button type="button" class="btn-add-contact-row" id="btn-add-contact">+ Ajouter un moyen de
+                contact</button>
             </fieldset>
 
             <label class="field" style="grid-column: 1 / -1;">
-              Type de demande
-              <input type="text" name="type_demande" id="f-type-demande" placeholder="Rempli automatiquement si tu arrives depuis un bouton du site — tu peux le modifier" autocomplete="off">
+              Titre de demande
+              <input type="text" name="type_demande" id="f-type-demande"
+                placeholder="Rempli automatiquement si tu arrives depuis un bouton du site — tu peux le modifier"
+                autocomplete="off">
             </label>
 
             <label class="field" style="grid-column: 1 / -1;">
@@ -1666,20 +1374,19 @@
           </form>
 
           <div class="contact-alt">
-            <p style="margin: 0 0 0.75rem;">Sinon, écris-moi directement, par <strong>Mail</strong>, sur <strong>Messenger</strong> ou sur <strong>WhatsApp</strong> :</p>
+            <p style="margin: 0 0 0.75rem;">Sinon, écris-moi directement, par <strong>Mail</strong>, sur
+              <strong>Messenger</strong> ou sur <strong>WhatsApp</strong> :</p>
             <p class="contact-alt-links">
               <a id="link-email-direct" href="#">[EMAIL DU COACH]</a>
               <span class="contact-alt-sep" aria-hidden="true">·</span>
-              <a id="link-messenger" href="https://m.me/jeancharles.brunelle" target="_blank" rel="noopener noreferrer">Messenger — Jean-Charles Brunelle</a>
+              <a id="link-messenger" href="https://m.me/jeancharles.brunelle" target="_blank"
+                rel="noopener noreferrer">Messenger — Jean-Charles Brunelle</a>
               <span class="contact-alt-sep" aria-hidden="true">·</span>
               <a id="link-whatsapp" href="#" rel="noopener noreferrer">WhatsApp [NUMERO WHATSAPP]</a>
             </p>
           </div>
         </div>
 
-        <p class="offer-footnote" style="margin-top: 1.75rem; text-align: center;">
-          <strong>🚀 Offre de lancement</strong> : <strong>réduction</strong> sur les packs coaching + Nexus — 6 places — avant le 31 mai 2026 — démarrage 1<sup>er</sup> juin 2026.
-        </p>
       </div>
     </section>
 
@@ -1694,371 +1401,330 @@
     </section>
   </main> -->
 
-  <footer class="site-footer">
-    <div class="container">
-      <p style="margin: 0;">Coaching poker professionnel — Tahiti, Polynésie française</p>
-    </div>
-  </footer>
+    <footer class="site-footer">
+      <div class="container">
+        <p style="margin: 0;">Coaching poker professionnel — Tahiti, Polynésie française</p>
+      </div>
+    </footer>
 
-  <script>
-    (function () {
-      'use strict';
+    <script>
+      (function () {
+        'use strict';
 
-      /* Remplacer par vos coordonnées réelles (sans crochets) */
-      var COACH_EMAIL = 'jeancharles.brunelle@gmail.com';
-      var WHATSAPP_NUMBER = '+33698225524';
+        /* Remplacer par vos coordonnées réelles (sans crochets) */
+        var COACH_EMAIL = 'jeancharles.brunelle@gmail.com';
+        var WHATSAPP_NUMBER = '+33698225524';
 
-      /* Supabase (clé « anon / publishable » — jamais la service_role côté navigateur) */
-      var SUPABASE_URL = 'https://gxsygqfxktchxouffxim.supabase.co';
-      var SUPABASE_ANON_KEY = 'sb_publishable_7hMsvPmNFmzNdqjUskIfOA_oakP0m-T';
+        /* Supabase (clé « anon / publishable » — jamais la service_role côté navigateur) */
+        var SUPABASE_URL = 'https://gxsygqfxktchxouffxim.supabase.co';
+        var SUPABASE_ANON_KEY = 'sb_publishable_7hMsvPmNFmzNdqjUskIfOA_oakP0m-T';
 
-      function isValidEmail(value) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      }
-
-      function buildMailto(opts) {
-        var to = (COACH_EMAIL || '').trim();
-        var subject = opts.subject || 'Contact coaching poker';
-        var body = opts.body || '';
-        if (!to || to.indexOf('[') !== -1) {
-          return null;
+        function isValidEmail(value) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
         }
-        return 'mailto:' + to +
-          '?subject=' + encodeURIComponent(subject) +
-          '&body=' + encodeURIComponent(body);
-      }
 
-      function openMailto(opts) {
-        var href = buildMailto(opts);
-        if (href) window.location.href = href;
-      }
+        function buildMailto(opts) {
+          var to = (COACH_EMAIL || '').trim();
+          var subject = opts.subject || 'Contact coaching poker';
+          var body = opts.body || '';
+          if (!to || to.indexOf('[') !== -1) {
+            return null;
+          }
+          return 'mailto:' + to +
+            '?subject=' + encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(body);
+        }
 
-      function supabaseInsertDemande(row) {
-        return fetch(SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/demandes', {
-          method: 'POST',
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
-            'Content-Type': 'application/json',
-            Prefer: 'return=minimal'
-          },
-          body: JSON.stringify(row)
-        }).then(function (res) {
-          if (res.ok) return;
-          return res.text().then(function (t) {
-            var err = new Error(t || res.statusText || String(res.status));
-            err.status = res.status;
-            throw err;
+        function openMailto(opts) {
+          var href = buildMailto(opts);
+          if (href) window.location.href = href;
+        }
+
+        function supabaseInsertDemande(row) {
+          return fetch(SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/demandes', {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+              'Content-Type': 'application/json',
+              Prefer: 'return=minimal'
+            },
+            body: JSON.stringify(row)
+          }).then(function (res) {
+            if (res.ok) return;
+            return res.text().then(function (t) {
+              var err = new Error(t || res.statusText || String(res.status));
+              err.status = res.status;
+              throw err;
+            });
           });
-        });
-      }
-
-      /* Formulaire : types de contact + clé fil d’attente demande */
-      var DEMAND_KEY = 'jcbrunul_demand_type';
-      var CONTACT_TYPES = [
-        ['email', 'E-mail'],
-        ['tel', 'Téléphone'],
-        ['messenger', 'Messenger'],
-        ['instagram', 'Instagram'],
-        ['autre', 'Autre']
-      ];
-
-      function contactTypeLabel(key) {
-        for (var i = 0; i < CONTACT_TYPES.length; i++) {
-          if (CONTACT_TYPES[i][0] === key) return CONTACT_TYPES[i][1];
         }
-        return key;
-      }
 
-      function syncRemoveButtons(container) {
-        var rows = container.querySelectorAll('[data-contact-row]');
-        var n = rows.length;
-        [].forEach.call(rows, function (r) {
-          var b = r.querySelector('.btn-contact-remove');
-          if (b) b.disabled = n <= 1;
-        });
-      }
+        /* Formulaire : types de contact + clé fil d’attente demande */
+        var DEMAND_KEY = 'jcbrunul_demand_type';
+        var CONTACT_TYPES = [
+          ['email', 'E-mail'],
+          ['tel', 'Téléphone'],
+          ['messenger', 'Messenger'],
+          ['instagram', 'Instagram'],
+          ['autre', 'Autre']
+        ];
 
-      function addContactRow(container, kind, value) {
-        var row = document.createElement('div');
-        row.className = 'contact-row';
-        row.setAttribute('data-contact-row', '1');
-        var sel = document.createElement('select');
-        sel.className = 'contact-type-select';
-        sel.setAttribute('aria-label', 'Type de contact');
-        for (var j = 0; j < CONTACT_TYPES.length; j++) {
-          var o = document.createElement('option');
-          o.value = CONTACT_TYPES[j][0];
-          o.textContent = CONTACT_TYPES[j][1];
-          sel.appendChild(o);
+        function contactTypeLabel(key) {
+          for (var i = 0; i < CONTACT_TYPES.length; i++) {
+            if (CONTACT_TYPES[i][0] === key) return CONTACT_TYPES[i][1];
+          }
+          return key;
         }
-        if (kind && Array.prototype.some.call(sel.options, function (opt) { return opt.value === kind; })) {
-          sel.value = kind;
-        }
-        var inp = document.createElement('input');
-        var k0 = sel.value;
-        inp.type = k0 === 'email' ? 'email' : 'text';
-        inp.className = 'contact-value-input';
-        inp.placeholder = k0 === 'email' ? 'ex. ton@email.com' : (k0 === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
-        inp.autocomplete = k0 === 'email' ? 'email' : (k0 === 'tel' ? 'tel' : 'off');
-        if (value) inp.value = value;
-        sel.addEventListener('change', function () {
-          var k = sel.value;
-          inp.type = k === 'email' ? 'email' : 'text';
-          inp.autocomplete = k === 'email' ? 'email' : (k === 'tel' ? 'tel' : 'off');
-          inp.placeholder = k === 'email' ? 'ex. ton@email.com' : (k === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
-        });
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'btn-contact-remove';
-        btn.textContent = 'Retirer';
-        btn.addEventListener('click', function () {
+
+        function syncRemoveButtons(container) {
           var rows = container.querySelectorAll('[data-contact-row]');
-          if (rows.length <= 1) return;
-          row.remove();
+          var n = rows.length;
+          [].forEach.call(rows, function (r) {
+            var b = r.querySelector('.btn-contact-remove');
+            if (b) b.disabled = n <= 1;
+          });
+        }
+
+        function addContactRow(container, kind, value) {
+          var row = document.createElement('div');
+          row.className = 'contact-row';
+          row.setAttribute('data-contact-row', '1');
+          var sel = document.createElement('select');
+          sel.className = 'contact-type-select';
+          sel.setAttribute('aria-label', 'Type de contact');
+          for (var j = 0; j < CONTACT_TYPES.length; j++) {
+            var o = document.createElement('option');
+            o.value = CONTACT_TYPES[j][0];
+            o.textContent = CONTACT_TYPES[j][1];
+            sel.appendChild(o);
+          }
+          if (kind && Array.prototype.some.call(sel.options, function (opt) { return opt.value === kind; })) {
+            sel.value = kind;
+          }
+          var inp = document.createElement('input');
+          var k0 = sel.value;
+          inp.type = k0 === 'email' ? 'email' : 'text';
+          inp.className = 'contact-value-input';
+          inp.placeholder = k0 === 'email' ? 'ex. ton@email.com' : (k0 === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
+          inp.autocomplete = k0 === 'email' ? 'email' : (k0 === 'tel' ? 'tel' : 'off');
+          if (value) inp.value = value;
+          sel.addEventListener('change', function () {
+            var k = sel.value;
+            inp.type = k === 'email' ? 'email' : 'text';
+            inp.autocomplete = k === 'email' ? 'email' : (k === 'tel' ? 'tel' : 'off');
+            inp.placeholder = k === 'email' ? 'ex. ton@email.com' : (k === 'tel' ? 'ex. 89 00 00 00' : 'Nom');
+          });
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-contact-remove';
+          btn.textContent = 'Retirer';
+          btn.addEventListener('click', function () {
+            var rows = container.querySelectorAll('[data-contact-row]');
+            if (rows.length <= 1) return;
+            row.remove();
+            syncRemoveButtons(container);
+          });
+          row.appendChild(sel);
+          row.appendChild(inp);
+          row.appendChild(btn);
+          container.appendChild(row);
           syncRemoveButtons(container);
-        });
-        row.appendChild(sel);
-        row.appendChild(inp);
-        row.appendChild(btn);
-        container.appendChild(row);
-        syncRemoveButtons(container);
-      }
-
-      function applyDemandTypeFromStorage() {
-        var el = document.getElementById('f-type-demande');
-        if (!el) return;
-        var v = sessionStorage.getItem(DEMAND_KEY);
-        if (v) {
-          el.value = v;
-          sessionStorage.removeItem(DEMAND_KEY);
         }
-      }
 
-      document.addEventListener('click', function (e) {
-        var a = e.target.closest('a[href="#contact"]');
-        if (!a) return;
-        var t = a.getAttribute('data-demand-type');
-        if (t) {
-          sessionStorage.setItem(DEMAND_KEY, t);
-          window.setTimeout(applyDemandTypeFromStorage, 0);
+        function applyDemandTypeFromStorage() {
+          var el = document.getElementById('f-type-demande');
+          if (!el) return;
+          var v = sessionStorage.getItem(DEMAND_KEY);
+          if (v) {
+            el.value = v;
+            sessionStorage.removeItem(DEMAND_KEY);
+          }
         }
-      });
-      window.addEventListener('hashchange', applyDemandTypeFromStorage);
 
-      var contactRowsEl = document.getElementById('contact-rows');
-      var btnAddContact = document.getElementById('btn-add-contact');
-      if (contactRowsEl) {
-        addContactRow(contactRowsEl, 'messenger', '');
-      }
-      if (btnAddContact && contactRowsEl) {
-        btnAddContact.addEventListener('click', function () {
-          addContactRow(contactRowsEl, 'tel', '');
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href="#contact"]');
+          if (!a) return;
+          var t = a.getAttribute('data-demand-type');
+          if (t) {
+            sessionStorage.setItem(DEMAND_KEY, t);
+            window.setTimeout(applyDemandTypeFromStorage, 0);
+          }
         });
-      }
+        window.addEventListener('hashchange', applyDemandTypeFromStorage);
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyDemandTypeFromStorage);
-      } else {
-        applyDemandTypeFromStorage();
-      }
+        var contactRowsEl = document.getElementById('contact-rows');
+        var btnAddContact = document.getElementById('btn-add-contact');
+        if (contactRowsEl) {
+          addContactRow(contactRowsEl, 'messenger', '');
+        }
+        if (btnAddContact && contactRowsEl) {
+          btnAddContact.addEventListener('click', function () {
+            addContactRow(contactRowsEl, 'tel', '');
+          });
+        }
 
-      /* Contact form → Supabase */
-      var form = document.getElementById('contact-form');
-      var formStatus = document.getElementById('form-status');
-      var btnSubmitContact = document.getElementById('btn-submit-contact');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applyDemandTypeFromStorage);
+        } else {
+          applyDemandTypeFromStorage();
+        }
 
-      function setFormStatus(msg, kind) {
-        if (!formStatus) return;
-        if (!msg) {
-          formStatus.setAttribute('hidden', '');
-          formStatus.textContent = '';
+        /* Contact form → Supabase */
+        var form = document.getElementById('contact-form');
+        var formStatus = document.getElementById('form-status');
+        var btnSubmitContact = document.getElementById('btn-submit-contact');
+
+        function setFormStatus(msg, kind) {
+          if (!formStatus) return;
+          if (!msg) {
+            formStatus.setAttribute('hidden', '');
+            formStatus.textContent = '';
+            formStatus.classList.remove('is-error', 'is-success');
+            return;
+          }
+          formStatus.removeAttribute('hidden');
+          formStatus.textContent = msg;
           formStatus.classList.remove('is-error', 'is-success');
-          return;
+          if (kind === 'error') formStatus.classList.add('is-error');
+          else if (kind === 'success') formStatus.classList.add('is-success');
         }
-        formStatus.removeAttribute('hidden');
-        formStatus.textContent = msg;
-        formStatus.classList.remove('is-error', 'is-success');
-        if (kind === 'error') formStatus.classList.add('is-error');
-        else if (kind === 'success') formStatus.classList.add('is-success');
-      }
 
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          setFormStatus('', null);
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            setFormStatus('', null);
 
-          if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-            setFormStatus('Configuration Supabase manquante (URL ou clé).', 'error');
-            return;
-          }
-
-          var nom = (document.getElementById('f-nom').value || '').trim();
-          var typeDemande = (document.getElementById('f-type-demande').value || '').trim();
-          var message = (document.getElementById('f-message').value || '').trim();
-          if (!nom || !message) {
-            window.alert('Merci de remplir au moins ton nom et le message.');
-            return;
-          }
-          if (!contactRowsEl) return;
-
-          var contactsPayload = [];
-          var rows = contactRowsEl.querySelectorAll('.contact-row');
-          for (var r = 0; r < rows.length; r++) {
-            var rowEl = rows[r];
-            var kindEl = rowEl.querySelector('.contact-type-select');
-            var valInp = rowEl.querySelector('.contact-value-input');
-            if (!kindEl || !valInp) continue;
-            var val = (valInp.value || '').trim();
-            if (!val) continue;
-            if (kindEl.value === 'email' && !isValidEmail(val)) {
-              window.alert('Merci d\'indiquer une adresse e-mail valide pour la ligne « E-mail », ou de la retirer.');
+            if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+              setFormStatus('Configuration Supabase manquante (URL ou clé).', 'error');
               return;
             }
-            contactsPayload.push({
-              canal: kindEl.value,
-              etiquette: contactTypeLabel(kindEl.value),
-              valeur: val
-            });
-          }
-          if (!contactsPayload.length) {
-            window.alert('Merci d\'indiquer au moins un moyen pour te recontacter.');
-            return;
-          }
 
-          var row = {
-            nom: nom,
-            contacts: contactsPayload,
-            type_demande: typeDemande || null,
-            commentaire: message
-          };
+            var nom = (document.getElementById('f-nom').value || '').trim();
+            var typeDemande = (document.getElementById('f-type-demande').value || '').trim();
+            var message = (document.getElementById('f-message').value || '').trim();
+            if (!nom || !message) {
+              window.alert('Merci de remplir au moins ton nom et le message.');
+              return;
+            }
+            if (!contactRowsEl) return;
 
-          if (btnSubmitContact) {
-            btnSubmitContact.disabled = true;
-            btnSubmitContact.textContent = 'Envoi en cours…';
-          }
-
-          supabaseInsertDemande(row)
-            .then(function () {
-              setFormStatus('Ta demande a bien été enregistrée. Je te recontacte dès que possible.', 'success');
-              form.reset();
-              if (contactRowsEl) {
-                contactRowsEl.innerHTML = '';
-                addContactRow(contactRowsEl, 'messenger', '');
+            var contactsPayload = [];
+            var rows = contactRowsEl.querySelectorAll('.contact-row');
+            for (var r = 0; r < rows.length; r++) {
+              var rowEl = rows[r];
+              var kindEl = rowEl.querySelector('.contact-type-select');
+              var valInp = rowEl.querySelector('.contact-value-input');
+              if (!kindEl || !valInp) continue;
+              var val = (valInp.value || '').trim();
+              if (!val) continue;
+              if (kindEl.value === 'email' && !isValidEmail(val)) {
+                window.alert('Merci d\'indiquer une adresse e-mail valide pour la ligne « E-mail », ou de la retirer.');
+                return;
               }
-            })
-            .catch(function (err) {
-              var detail = (err && err.message) ? err.message : String(err);
-              setFormStatus('L\'envoi a échoué. Vérifie la connexion. Détail : ' + detail, 'error');
-            })
-            .then(function () {
-              if (btnSubmitContact) {
-                btnSubmitContact.disabled = false;
-                btnSubmitContact.textContent = 'Envoyer';
-              }
-            });
-        });
-      }
+              contactsPayload.push({
+                canal: kindEl.value,
+                etiquette: contactTypeLabel(kindEl.value),
+                valeur: val
+              });
+            }
+            if (!contactsPayload.length) {
+              window.alert('Merci d\'indiquer au moins un moyen pour te recontacter.');
+              return;
+            }
 
-      /* Direct links */
-      var linkEmail = document.getElementById('link-email-direct');
-      if (linkEmail && COACH_EMAIL.indexOf('[') === -1) {
-        linkEmail.href = 'mailto:' + COACH_EMAIL;
-        linkEmail.textContent = COACH_EMAIL;
-      }
+            var row = {
+              nom: nom,
+              contacts: contactsPayload,
+              type_demande: typeDemande || null,
+              commentaire: message
+            };
 
-      var linkWa = document.getElementById('link-whatsapp');
-      if (linkWa) {
-        if (WHATSAPP_NUMBER.indexOf('[') === -1) {
-          var digits = String(WHATSAPP_NUMBER).replace(/\D/g, '');
-          linkWa.href = 'https://wa.me/' + digits;
-          linkWa.textContent = 'WhatsApp';
-        } else {
-          linkWa.addEventListener('click', function (e) {
-            e.preventDefault();
+            if (btnSubmitContact) {
+              btnSubmitContact.disabled = true;
+              btnSubmitContact.textContent = 'Envoi en cours…';
+            }
+
+            supabaseInsertDemande(row)
+              .then(function () {
+                setFormStatus('Ta demande a bien été enregistrée. Je te recontacte dès que possible.', 'success');
+                form.reset();
+                if (contactRowsEl) {
+                  contactRowsEl.innerHTML = '';
+                  addContactRow(contactRowsEl, 'messenger', '');
+                }
+              })
+              .catch(function (err) {
+                var detail = (err && err.message) ? err.message : String(err);
+                setFormStatus('L\'envoi a échoué. Vérifie la connexion. Détail : ' + detail, 'error');
+              })
+              .then(function () {
+                if (btnSubmitContact) {
+                  btnSubmitContact.disabled = false;
+                  btnSubmitContact.textContent = 'Envoyer';
+                }
+              });
           });
         }
-      }
 
-      /* Menu mobile navigation */
-      var hdr = document.querySelector('.site-header');
-      var navToggleBtn = document.getElementById('nav-toggle');
-      var navMainEl = document.getElementById('nav-main');
+        /* Direct links */
+        var linkEmail = document.getElementById('link-email-direct');
+        if (linkEmail && COACH_EMAIL.indexOf('[') === -1) {
+          linkEmail.href = 'mailto:' + COACH_EMAIL;
+          linkEmail.textContent = COACH_EMAIL;
+        }
 
-      function setNavOpen(open) {
-        if (!hdr || !navToggleBtn || !navMainEl) return;
-        hdr.classList.toggle('is-nav-open', open);
-        navToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        navToggleBtn.setAttribute('aria-label', open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
-      }
-
-      if (hdr && navToggleBtn && navMainEl) {
-        navToggleBtn.setAttribute('aria-label', 'Ouvrir le menu de navigation');
-        navToggleBtn.addEventListener('click', function () {
-          setNavOpen(!hdr.classList.contains('is-nav-open'));
-        });
-        navMainEl.querySelectorAll('a[href^="#"]').forEach(function (link) {
-          link.addEventListener('click', function () {
-            setNavOpen(false);
-          });
-        });
-        document.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Escape' && hdr.classList.contains('is-nav-open')) {
-            setNavOpen(false);
+        var linkWa = document.getElementById('link-whatsapp');
+        if (linkWa) {
+          if (WHATSAPP_NUMBER.indexOf('[') === -1) {
+            var digits = String(WHATSAPP_NUMBER).replace(/\D/g, '');
+            linkWa.href = 'https://wa.me/' + digits;
+            linkWa.textContent = 'WhatsApp';
+          } else {
+            linkWa.addEventListener('click', function (e) {
+              e.preventDefault();
+            });
           }
-        });
-        window.addEventListener('resize', function () {
-          try {
-            if (window.matchMedia('(min-width: 770px)').matches) {
+        }
+
+        /* Menu mobile navigation */
+        var hdr = document.querySelector('.site-header');
+        var navToggleBtn = document.getElementById('nav-toggle');
+        var navMainEl = document.getElementById('nav-main');
+
+        function setNavOpen(open) {
+          if (!hdr || !navToggleBtn || !navMainEl) return;
+          hdr.classList.toggle('is-nav-open', open);
+          navToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          navToggleBtn.setAttribute('aria-label', open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
+        }
+
+        if (hdr && navToggleBtn && navMainEl) {
+          navToggleBtn.setAttribute('aria-label', 'Ouvrir le menu de navigation');
+          navToggleBtn.addEventListener('click', function () {
+            setNavOpen(!hdr.classList.contains('is-nav-open'));
+          });
+          navMainEl.querySelectorAll('a[href^="#"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+              setNavOpen(false);
+            });
+          });
+          document.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Escape' && hdr.classList.contains('is-nav-open')) {
               setNavOpen(false);
             }
-          } catch (e) {}
-        });
-      }
-
-      /* Compte à rebours : fin le 31 mai 2026 à 23:59:59 (heure de Tahiti, UTC−10) */
-      var LAUNCH_END_MS = Date.parse('2026-06-01T09:59:59.000Z');
-
-      function pad2(n) {
-        return n < 10 ? '0' + n : String(n);
-      }
-
-      function tickCountdown() {
-        var wrap = document.getElementById('hero-countdown');
-        var dEl = document.getElementById('cd-d');
-        var hEl = document.getElementById('cd-h');
-        var mEl = document.getElementById('cd-m');
-        var sEl = document.getElementById('cd-s');
-        var offStrong = document.getElementById('countdown-offers-strong');
-
-        var ms = LAUNCH_END_MS - Date.now();
-
-        if (ms <= 0) {
-          if (wrap) wrap.classList.add('hero-countdown--ended');
-          if (offStrong) offStrong.textContent = 'offre terminée — écris-moi pour les tarifs actuels';
-          return;
+          });
+          window.addEventListener('resize', function () {
+            try {
+              if (window.matchMedia('(min-width: 770px)').matches) {
+                setNavOpen(false);
+              }
+            } catch (e) { }
+          });
         }
 
-        var sec = Math.floor(ms / 1000);
-        var d = Math.floor(sec / 86400);
-        sec -= d * 86400;
-        var h = Math.floor(sec / 3600);
-        sec -= h * 3600;
-        var m = Math.floor(sec / 60);
-        var s = sec - m * 60;
-
-        if (dEl) dEl.textContent = String(d);
-        if (hEl) hEl.textContent = pad2(h);
-        if (mEl) mEl.textContent = pad2(m);
-        if (sEl) sEl.textContent = pad2(s);
-        if (offStrong) {
-          offStrong.textContent = d + ' j ' + pad2(h) + ' h ' + pad2(m) + ' min ' + pad2(s) + ' s';
-        }
-      }
-
-      tickCountdown();
-      setInterval(tickCountdown, 1000);
-    })();
-  </script>
+      })();
+    </script>
 </body>
+
 </html>
